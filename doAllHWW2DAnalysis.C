@@ -45,7 +45,7 @@ void doAllHWW2DAnalysis(RunEra runEra = RUN2012)
     bool run250 = 0;
     bool run300 = 0;  
     bool run350 = 0;
-    bool run400 = 1;
+    bool run400 = 0;
     bool run450 = 0;
     bool run500 = 0;
     bool run550 = 0;
@@ -211,7 +211,8 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
     if ( skimdata ) {
 
         // examples of using the unskimed files 
-        char *dataDir = "/smurf/jaehyeok/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets_19p5ifb/WW/";
+        //char *dataDir = "/smurf/jaehyeok/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets_19p5ifb/WW/";
+        char *dataDir  = "/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/WW/";
 
         for ( int jetbin = 0; jetbin < 3 ; jetbin++) {
 
@@ -276,7 +277,8 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
 
     // Below is the setup for running the smurf ntuples at the ww-preselection skim
     if ( skimwithmva) {
-        char *dataDir = "/smurf/jaehyeok/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets_19p5ifb_new/WW/";
+        //char *dataDir = "/smurf/jaehyeok/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets_19p5ifb_new/WW/";
+        char *dataDir = "/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/WW/";
 
         if ( analysis > 0. ) {
             // higgs

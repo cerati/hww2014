@@ -823,7 +823,8 @@ void SmurfLooper::loadWeightHistograms()
     if ( analysis_ <= 500 && analysis_ > 400) ana = 500;
     if ( analysis_ <= 600 && analysis_ > 500) ana = 600;
 
-    const char *HiggsPtKFactorFileName = "/smurf/data/Winter11_4700ipb/auxiliar/ggHWW_KFactors_PowhegToHQT_WithAdditionalMassPoints.root";
+    //const char *HiggsPtKFactorFileName = "/smurf/data/Winter11_4700ipb/auxiliar/ggHWW_KFactors_PowhegToHQT_WithAdditionalMassPoints.root";
+    const char *HiggsPtKFactorFileName = "/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/aux/ggHWW_KFactors_PowhegToHQT_WithAdditionalMassPoints.root";
 
     TFile *fHiggsPtKFactorFile = TFile::Open(HiggsPtKFactorFileName, "READ");
     std::string kfactorHistName;
@@ -859,12 +860,13 @@ void SmurfLooper::loadWeightHistograms()
     // 
     // Lepton efficiencies
     //
-    leptonSF_ = new LeptonScaleLookup("/smurf/dlevans/Efficiencies/V00-02-09/summary_Moriond_V1.root");
-    //leptonSF_ = new LeptonScaleLookup("/smurf/dlevans/Efficiencies/V00-02-09/summary_PostHCP_V0.root");  // postHCP
+    leptonSF_ = new LeptonScaleLookup("/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/aux/summary_Moriond_V1.root");
+    //leptonSF_ = new LeptonScaleLookup("/smurf/dlevans/Efficiencies/V00-02-09/summary_Moriond_V1.root");
     
     // lepton efficiency uncertainties
     TFile *fLeptonEffError = 0;
-    fLeptonEffError = TFile::Open("/smurf/dlevans/Efficiencies/V00-02-09/systematics_Moriond_V1.root");
+    fLeptonEffError = TFile::Open("/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/aux/systematics_Moriond_V1.root");
+    //fLeptonEffError = TFile::Open("/smurf/dlevans/Efficiencies/V00-02-09/systematics_Moriond_V1.root");
     
     fhDMuonEffError_ = (TH2D*)(fLeptonEffError->Get("h2_nm1_syst_muon_selection")); 
     assert(fhDMuonEffError_);
@@ -885,8 +887,8 @@ void SmurfLooper::loadWeightHistograms()
     TFile *fLeptonFRFileE = 0;
 
     // load electron fake rate histograms
-    fLeptonFRFileE = TFile::Open("/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/summary_fakes_Moriond2012.root");
-    //fLeptonFRFileE = TFile::Open("/smurf/dlevans/FakeRates/V00-02-09/FakeRate_Summary_ElectronFakeRate_V4_met20mt15mll_PostHCP.root"); // postHCP
+    fLeptonFRFileE = TFile::Open("/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/aux/summary_fakes_Moriond2012.root");
+    //fLeptonFRFileE = TFile::Open("/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/summary_fakes_Moriond2012.root");
     fhDFREl_ = (TH2D*)(fLeptonFRFileE->Get("ElectronFakeRate_V4_ptThreshold35_PtEta")); 
     assert(fhDFREl_);
     fhDFREl_->SetDirectory(0);
@@ -899,8 +901,8 @@ void SmurfLooper::loadWeightHistograms()
     delete fLeptonFRFileE;
 
     // load muon fake rate histograms
-    fLeptonFRFileM = TFile::Open("/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/summary_fakes_Moriond2012.root");
-    //fLeptonFRFileM = TFile::Open("/smurf/dlevans/FakeRates/V00-02-09/FakeRate_Summary_MuonFakeRate_M2_met20mt15mll_PostHCP.root"); // postHCP 
+    fLeptonFRFileM = TFile::Open("/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/aux/summary_fakes_Moriond2012.root");
+    //fLeptonFRFileM = TFile::Open("/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/summary_fakes_Moriond2012.root");
     fhDFRMu_ = (TH2D*)(fLeptonFRFileM->Get("MuonFakeRate_M2_ptThreshold30_PtEta"));  
     assert(fhDFRMu_);
     fhDFRMu_->SetDirectory(0);
@@ -913,7 +915,8 @@ void SmurfLooper::loadWeightHistograms()
     delete fLeptonFRFileM; 
 
     // photon -> electron conversion ratio 
-    TFile *fRatioPhotonElectron = TFile::Open("/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/ratio_photon_electron.root");
+    TFile *fRatioPhotonElectron = TFile::Open("/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/aux/ratio_photon_electron.root");
+    //TFile *fRatioPhotonElectron = TFile::Open("/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/ratio_photon_electron.root");
     fhDRatioPhotonElectron_ = (TH1D*)(fRatioPhotonElectron->Get("hDRatioPhotonElectron"));
     assert(fhDRatioPhotonElectron_);
     fhDRatioPhotonElectron_->SetDirectory(0);
@@ -922,11 +925,11 @@ void SmurfLooper::loadWeightHistograms()
 
     // pileup 
     //TFile *fPUFile = TFile::Open("/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_True_12p1ifb.root"); // HCP
-    TFile *fPUFile = TFile::Open("/smurf/jaehyeok/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets_19p5ifb/auxillar/puWeights_Summer12_53x_True_postHCP.root"); // postHCP 
-    fhDPU_ = (TH1D*)(fPUFile->Get("puWeights"));
-    assert(fhDPU_);              
-    fhDPU_->SetDirectory(0);    
-    delete fPUFile;
+    //TFile *fPUFile = TFile::Open("/smurf/jaehyeok/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets_19p5ifb/auxillar/puWeights_Summer12_53x_True_postHCP.root"); // postHCP 
+    //fhDPU_ = (TH1D*)(fPUFile->Get("puWeights"));
+    //assert(fhDPU_);              
+    //fhDPU_->SetDirectory(0);    
+    //delete fPUFile;
 
     // 
     // scale factors for the hww analysis

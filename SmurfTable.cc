@@ -55,6 +55,8 @@ void print2DShapeHistograms(std::vector<SmurfSample*> samples, Option option,
     TFile *weightPDFShapeFILE=0;   
     if(analysis < 300.) weightPDFShapeFILE = TFile::Open("/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/aux/PDFUncertainty_LowMass.root"); 
     else weightPDFShapeFILE = TFile::Open("/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/aux/PDFUncertainty_HighMass.root"); 
+    //if(analysis < 300.) weightPDFShapeFILE = TFile::Open("/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/aux/PDFUncertainty_LowMass.root"); 
+    //else weightPDFShapeFILE = TFile::Open("/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/aux/PDFUncertainty_HighMass.root"); 
     TH2D *weightPDFShapeUp; 
     TH2D *weightPDFShapeDown; 
     // ---------------------------------------------------  
@@ -1866,7 +1868,7 @@ void printCard(std::vector<SmurfSample*> samples, Option option, unsigned int je
             // fprintf(fcard, "CMS_hww%s_%ij_MVAWjetsMStatBounding%s shapeStat -   -   -   -     -     -     -     -     -   -    -     -    -   1.0\n",
                 flavor.c_str(), jetbin, runera.c_str());
         else
-            fprintf(fcard, "CMS_hww%s_stat_%ij_WjetsM%s lnN   -     -     -     -     -     -     -     -     -   -   -     -    -    -  %4.3f\n",
+            fprintf(fcard, "CMS_hww%s_stat_%ij_WjetsM%s lnN   -     -     -     -     -     -     -     -     -   -   -     -    -    %4.3f\n",
                 flavor.c_str(), jetbin, runera.c_str(), (1.0+(err[i_WjetsM]/yield[i_WjetsM])));
     }
 

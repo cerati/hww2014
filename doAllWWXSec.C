@@ -44,7 +44,7 @@ void doAllWWXSec(RunEra runEra = RUN2012)
     //
 
     runEra = RUN2012HCP;
-    if (runWWXSec)      doAnalysis(WW_OPT_SMURFXSECSEL, runEra, true, 0.0);
+    if (runWWXSec)      doAnalysis(WW_OPT_SMURFXSECSEL, runEra, false, 0.0);
     if (runHWWPresel)   doAnalysis(HWW_OPT_SMURFPRESEL, runEra, false, 0.0);
     if (runHWWSSCTL)    doAnalysis(HWW_OPT_SSCTL, runEra, false, 0.0);
 
@@ -93,7 +93,7 @@ void doAnalysis(const Option option, const RunEra runEra, bool doPlots, float an
     SmurfSample *sample_wjetsEle    = new SmurfSample(option, WJETSELEDATA, kCyan, "WjetsE",    analysis);
     SmurfSample *sample_wjetsMu     = new SmurfSample(option, WJETSMUDATA,  kCyan, "WjetsM",    analysis);
     SmurfSample *sample_wjets     = new SmurfSample(option, WJETSDATA,  kCyan, "Wjets",    analysis);
-    SmurfSample *sample_wgamma = new SmurfSample(option, WGAMMANORM, kCyan, "Wgamma"); // use WGAMMANORM flag
+    SmurfSample *sample_wgamma = new SmurfSample(option, WGAMMANORM, kCyan, "Wgamma"); // Changed to Wgammanorm
     SmurfSample *sample_ztt = new SmurfSample(option, ZTT, kBlue+2, "Ztt");
     sample_dpsww->add("/smurf/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets/ww_dps.root");
 
@@ -104,7 +104,8 @@ void doAnalysis(const Option option, const RunEra runEra, bool doPlots, float an
     // add the data files
     for ( int jetbin = 0; jetbin <= 2 ; jetbin++) {
 
-        std::string dataPrefix  = Form("/smurf/jaehyeok/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets_19p5ifb_new/WW/%ij/", jetbin);
+        //std::string dataPrefix  = Form("/smurf/jaehyeok/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets_19p5ifb_new/WW/%ij/", jetbin);
+        std::string dataPrefix  = Form("/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/WW/%ij/", jetbin);
         std::string dataSuffix  = ".root";
         if (skimss) {
             dataSuffix  = "_SS.root";
@@ -127,6 +128,8 @@ void doAnalysis(const Option option, const RunEra runEra, bool doPlots, float an
         sample_dyll->add(Form("%s/dyll%s", dataPrefix.c_str(), dataSuffix.c_str()));
         sample_dyll_loosemet->add(Form("%s/dyll%s", dataPrefix.c_str(), dataSuffix.c_str()));
         sample_zjets->add(Form("%s/dyll%s", dataPrefix.c_str(), dataSuffix.c_str()));
+//        sample_zjets->add(Form("%s/wz%s", dataPrefix.c_str(), dataSuffix.c_str())); // FIXME  
+//        sample_zjets->add(Form("%s/zz%s", dataPrefix.c_str(), dataSuffix.c_str())); // FIXME 
         sample_top->add(Form("%s/ttbar_powheg%s", dataPrefix.c_str(), dataSuffix.c_str()));
         sample_top->add(Form("%s/tw%s", dataPrefix.c_str(), dataSuffix.c_str()));
         sample_wz->add(Form("%s/wz%s", dataPrefix.c_str(), dataSuffix.c_str()));
@@ -230,8 +233,6 @@ void doAnalysis(const Option option, const RunEra runEra, bool doPlots, float an
     gSystem->mkdir("../wwresults", true);
 
     Tabulate(option, samplesToTabulate, Form("ww_analysis%i_%i", option, int(analysis)));
-
-
 
     //
     // save histograms  
