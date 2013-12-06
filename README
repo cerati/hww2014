@@ -1,0 +1,72 @@
+
+
+1) checking out the code
+
+scramv1  p -n CMSSW_4_2_3_Test CMSSW CMSSW_4_2_3
+cd CMSSW_4_2_3_Test/src/
+cmsenv
+
+cvs co -d Smurf/Core UserCode/Smurf/Core
+cvs co -d Smurf/Analysis UserCode/Smurf/Analysis
+cvs co -d CMS2/NtupleMacros/Tools/ UserCode/JRibnik/CMS2/NtupleMacros/Tools/
+cvs co -d CMS2/NtupleMacros/HZZ/ UserCode/DLEvans/HZZ/
+
+The options you can choose from:
+
+2) do DY background estimation
+
+cd CMS2/NtupleMacros/HZZ/hww2012/dyBackground
+make dy
+
+
+3) do Top Estimation 
+
+cd CMS2/NtupleMacros/HZZ/hww2012/topBackground
+make top
+
+
+4) do WW Estimation
+
+cd CMS2/NtupleMacros/HZZ/hww2012/wwBackground
+make ww
+
+
+5) print out the input cards to the final analysis or the WW level yield
+
+cd cd CMS2/NtupleMacros/HZZ/hww2012
+make ww
+
+*************
+* You need to edit the doAllWW.C  * 
+*************
+Especially take care of the input data directories.
+There are 3 types of data that can be used switched by 3 booleans
+1) rawdata: raw smurf data typically from /smurf/data/ area
+2) skimdata: skim data typically from user area 
+3) skimdatawithmva: close to final shape analysis level data with bdt added to the smurf ntuples 
+
+Note that the structure is set in such a way that 
+you need to change by hand these *exclusive* bools
+
+Final Note:
+
+It looks deceively simple, but there are many many traps, the very 
+first one is the setting up all the samples and auxilliary files
+In each area of the code there is typically a looper and an analyzer. 
+For instance for the main code that produces the final data cards, the 
+looper is called SmurfLooper.cc, you need to make sure all the related 
+histogram files are valid and reasonable. The relateve task is done by 
+one script such as the doAllWW.C for the main analysis, or doDYEstimation.C
+for the Drell-Yan estimation.
+
+
+*****************
+**** Tag log **** 
+*****************
+
+HCP2012_v1 : For approval for HCP2012
+	- AN : http://cms.cern.ch/iCMS/jsp/openfile.jsp?tp=draft&files=AN2012_386_v3.pdf
+	- PAS : http://cms.cern.ch/iCMS/analysisadmin/versions?analysis=HIG-12-042
+
+AN2012_386_v1 : For the first verstion of AN for HCP2012 
+	- AN : http://cms.cern.ch/iCMS/jsp/openfile.jsp?tp=draft&files=AN2012_386_v1.pdf

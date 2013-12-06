@@ -1,0 +1,27 @@
+README
+
+To make the code:
+> make
+
+To run the looper to produce histograms 
+of the observable (MT-Mll plane) for each PDF subset:
+> root -b -q doPDF.C
+
+To take the envelope of the variations in
+the appropriate (PDF4LHC) way
+> mkdir results2
+> root -b
+> [] process2D.C+
+> [] process2D("pdfUncertainties_hww_analysis21_125.root", "qqWW_DF_0j")
+> [] process2D("pdfUncertainties_hww_analysis21_125.root", "qqWW_DF_1j")
+> [] process2D("pdfUncertainties_hww_analysis21_125.root", "qqWW_DF_VBF")
+
+The final results histogram is in
+
+    results2/PDFUncertainty_qqWW_DF_0j.root
+
+References:
+The PDF4LHC recommendation is described fairly simply in
+section 5 of the following analysis note:
+http://cms.cern.ch/iCMS/jsp/openfile.jsp?tp=draft&files=AN2011_055_v1.pdf
+

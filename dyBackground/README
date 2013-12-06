@@ -1,0 +1,20 @@
+
+This directory provides the DY estimation based on exisiting smurf ntuples. 
+
+1. To run the estimation, do 
+make dy
+
+2. The output of this code is the data/MC scale factors to be used in the full analysis
+
+DYBkgScaleFactors.h
+
+3. To use this new scale factors, you need to replace the file in this directory
+
+Smurf/Analysis/HWWlvlv/
+
+4. Some auxilliary code to print out the summary of the DY background and draw the Routin
+./print0jet.sh
+./print1jet.sh
+./print2jet.sh
+./drawRoutin.sh 
+

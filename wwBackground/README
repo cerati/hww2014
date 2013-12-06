@@ -1,0 +1,14 @@
+
+This directory provides the WW estimation based on exisiting smurf ntuples. 
+
+1. To run the estimation, do 
+make ww
+
+2. The output of this code is the data/MC scale factors to be used in the full analysis
+
+WWBkgScaleFactors.h
+
+3. To use this new scale factors, you need to replace the file in this directory
+
+Smurf/Analysis/HWWlvlv/
+
