@@ -16,7 +16,9 @@
 #include "../../../../Smurf/Analysis/HWWlvlv/HiggsQCDScaleSystematics_8TeV.h"
 #include "../../../../Smurf/Analysis/HWWlvlv/PDFgHHSystematics_8TeV.h"
 
+//
 // This function unrolls an n by m 2D histogram to an 1D (n x m bins) histogram
+//
 TH1F* UnrollHisto2DTo1D(TH2F* h2, const char* hname) {
 
     unsigned int nbinsX = h2->GetXaxis()->GetNbins();   
@@ -41,6 +43,9 @@ TH1F* UnrollHisto2DTo1D(TH2F* h2, const char* hname) {
     return histo;
 }
 
+//
+// print 2D templates : both central and alternate shapes  
+//
 void print2DShapeHistograms(std::vector<SmurfSample*> samples, Option option,
         unsigned int jetbin, float analysis, std::string cdir, unsigned int fcode, unsigned int runEra)
 {
@@ -54,9 +59,9 @@ void print2DShapeHistograms(std::vector<SmurfSample*> samples, Option option,
     // -- WW PDF shape variation -------------------------
     TFile *weightPDFShapeFILE=0;   
     if(analysis < 300.) weightPDFShapeFILE = TFile::Open("/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/aux/PDFUncertainty_LowMass.root"); 
-    else weightPDFShapeFILE = TFile::Open("/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/aux/PDFUncertainty_HighMass.root"); 
+    else weightPDFShapeFILE = TFile::Open("/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/aux/PDFUncertainty_HighMass.root");  // TAS
     //if(analysis < 300.) weightPDFShapeFILE = TFile::Open("/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/aux/PDFUncertainty_LowMass.root"); 
-    //else weightPDFShapeFILE = TFile::Open("/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/aux/PDFUncertainty_HighMass.root"); 
+    //else weightPDFShapeFILE = TFile::Open("/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/aux/PDFUncertainty_HighMass.root"); // UAF 
     TH2D *weightPDFShapeUp; 
     TH2D *weightPDFShapeDown; 
     // ---------------------------------------------------  
@@ -134,9 +139,9 @@ void print2DShapeHistograms(std::vector<SmurfSample*> samples, Option option,
     // - wjets
     TH1F *temp_wjetsE = 0;
     TH1F *temp_wjetsM = 0;
-    TH1F *temp_wjets_mc = 0;
-    TH1F *temp_wjets_mc_up = 0;
-    TH1F *temp_wjets_mc_down = 0;
+    //TH1F *temp_wjets_mc = 0;
+    //TH1F *temp_wjets_mc_up = 0;
+    //TH1F *temp_wjets_mc_down = 0;
 
     // - wgamma
     TH1F *temp_wgammanorm   = 0;
@@ -160,7 +165,7 @@ void print2DShapeHistograms(std::vector<SmurfSample*> samples, Option option,
             temp2d      = (TH2F*)samples[s]->get2DMVAShape(jetbin, fcode)->Clone(Form("histo_%s_tmp", samples[s]->getName().c_str()));
             temp_dyll   = UnrollHisto2DTo1D(temp2d,temp2d->GetName()); 
         }
-
+/*
         if (samples[s]->getDataType() == ZLLLOOSEMET) {
             //const char *tmp_title     = ((TH2F*)samples[s]->get2DMVAShape(jetbin, (1<<0)|(1<<3)))->GetName();
             temp2d              = (TH2F*)samples[s]->get2DMVAShape(jetbin, (1<<0)|(1<<3))->Clone(Form("histo_%s_tmp", samples[s]->getName().c_str()));
@@ -183,7 +188,7 @@ void print2DShapeHistograms(std::vector<SmurfSample*> samples, Option option,
             temp_dyll_data_of   = UnrollHisto2DTo1D(temp2d,temp2d->GetName());
             temp_zjets_up->Add(temp_zjets_up, temp_dyll_data_of, -1.);
         }
-
+*/
 
         if (samples[s]->getDataType() == TOPALTER) {
             temp2d      = (TH2F*)samples[s]->get2DMVAShape(jetbin, fcode)->Clone("histo_Top_CMS_hww_MVATopBoundingUp_tmp");
@@ -209,16 +214,16 @@ void print2DShapeHistograms(std::vector<SmurfSample*> samples, Option option,
             temp2d              = (TH2F*)samples[s]->get2DMVAShape(jetbin, fcode)->Clone("histo_qqWW_CMS_hww_MVAWWNLOBoundingDown_tmp");
             temp_ww_mcnlo_down  =  UnrollHisto2DTo1D(temp2d,temp2d->GetName());
         }
-        if (samples[s]->getDataType() == WJETSMCLOOSE) {
-            temp2d              = (TH2F*)samples[s]->get2DMVAShape(jetbin, fcode)->Clone("histo_Wjets_CMS_hww_MVAWMCBoundingUp_tmp");
-            temp_wjets_mc_up    = UnrollHisto2DTo1D(temp2d,temp2d->GetName());
-            temp2d              = (TH2F*)samples[s]->get2DMVAShape(jetbin, fcode)->Clone("histo_Wjets_CMS_hww_MVAWMCBoundingDown_tmp");
-            temp_wjets_mc_down  = UnrollHisto2DTo1D(temp2d,temp2d->GetName());
-        }
-        if (samples[s]->getDataType() == WJETS) {
-            temp2d          = (TH2F*)samples[s]->get2DMVAShape(jetbin, fcode)->Clone("histo_WjetsMC_tmp"); 
-            temp_wjets_mc   = UnrollHisto2DTo1D(temp2d,temp2d->GetName());
-        }
+//        if (samples[s]->getDataType() == WJETSMCLOOSE) {
+//            temp2d              = (TH2F*)samples[s]->get2DMVAShape(jetbin, fcode)->Clone("histo_Wjets_CMS_hww_MVAWMCBoundingUp_tmp");
+//            temp_wjets_mc_up    = UnrollHisto2DTo1D(temp2d,temp2d->GetName());
+//            temp2d              = (TH2F*)samples[s]->get2DMVAShape(jetbin, fcode)->Clone("histo_Wjets_CMS_hww_MVAWMCBoundingDown_tmp");
+//            temp_wjets_mc_down  = UnrollHisto2DTo1D(temp2d,temp2d->GetName());
+//        }
+//        if (samples[s]->getDataType() == WJETS) {
+//            temp2d          = (TH2F*)samples[s]->get2DMVAShape(jetbin, fcode)->Clone("histo_WjetsMC_tmp"); 
+//            temp_wjets_mc   = UnrollHisto2DTo1D(temp2d,temp2d->GetName());
+//        }
         if (samples[s]->getDataType() == WJETSELEDATA ) {
             temp2d          = (TH2F*)samples[s]->get2DMVAShape(jetbin, fcode)->Clone("histo_WjetsE_temp_tmp");
             temp_wjetsE     = UnrollHisto2DTo1D(temp2d,temp2d->GetName());
@@ -275,8 +280,8 @@ void print2DShapeHistograms(std::vector<SmurfSample*> samples, Option option,
     {
 
         if (samples[s]->getDataType() == ZLL) continue;
-        if (samples[s]->getDataType() == ZLLLOOSEMET) continue;
-        if (samples[s]->getDataType() == ZLLDATA) continue;
+//        if (samples[s]->getDataType() == ZLLLOOSEMET) continue;
+//        if (samples[s]->getDataType() == ZLLDATA) continue;
         if (samples[s]->getDataType() == TOPDATA) continue;
         if (samples[s]->getDataType() == WWMCNLO) continue;
         if (samples[s]->getDataType() == WWMCNLOUP) continue;
@@ -291,6 +296,7 @@ void print2DShapeHistograms(std::vector<SmurfSample*> samples, Option option,
 
         // get the shape histogram
         // if it is the OF data get the keys versions
+        /*
         if (samples[s]->getDataType() == OFDATA) {
             temp_roll = (TH2F*)samples[s]->getKeysMVAShape(jetbin, fcode);
             TH2F *temp_nokeys = (TH2F*)samples[s]->get2DMVAShape(jetbin, fcode);
@@ -299,13 +305,14 @@ void print2DShapeHistograms(std::vector<SmurfSample*> samples, Option option,
             temp_nokeys->SetDirectory(0);
             temp_nokeys->Write();
         }
+       */ 
         // otherwise get the usual version
-        else {
-            temp_roll = (TH2F*)samples[s]->get2DMVAShape(jetbin, fcode);   
-            int tmpEntries = temp_roll->GetEntries(); 
-            temp = UnrollHisto2DTo1D(temp_roll, Form("histo_%s_tmp", samples[s]->getName().c_str())); 
-            temp->SetEntries(tmpEntries); 
-        }
+        //else {
+        temp_roll = (TH2F*)samples[s]->get2DMVAShape(jetbin, fcode);   
+        int tmpEntries = temp_roll->GetEntries(); 
+        temp = UnrollHisto2DTo1D(temp_roll, Form("histo_%s_tmp", samples[s]->getName().c_str())); 
+        temp->SetEntries(tmpEntries); 
+        //}
 
         // Wgamma 
         // renormalize WgammaFO to Wgamma
@@ -313,7 +320,7 @@ void print2DShapeHistograms(std::vector<SmurfSample*> samples, Option option,
         if (samples[s]->getDataType() == WGAMMA ) {  
             if( temp->Integral() != 0 ) temp->Scale( temp_wgammanorm->Integral()/temp->Integral() );                    
         }
-
+/*
         // Z+Jets for HWW analysis
         // combine ZJETS and ZLL
         if (samples[s]->getDataType() == ZJETS && fcode == ((1<<0)|(1<<3))) {
@@ -358,7 +365,7 @@ void print2DShapeHistograms(std::vector<SmurfSample*> samples, Option option,
             temp_dyll_data_of->SetDirectory(0);
             temp_dyll_data_of->Write();
         }
-
+*/
         // 
         // Top
         // 
@@ -460,7 +467,7 @@ void print2DShapeHistograms(std::vector<SmurfSample*> samples, Option option,
                 }
             }
             temp->Scale(temp->Integral(0, 1000) ? yield_wjets / temp->Integral(0, 1000) : 1);
-
+/*
             // Wjets MC closure test from shape analysis note
             temp_wjets_mc->Scale( yield_wjets / temp_wjets_mc->Integral(0,1000));
             temp_wjets_mc_up->Scale( yield_wjets / temp_wjets_mc_up->Integral(0,1000));
@@ -475,6 +482,7 @@ void print2DShapeHistograms(std::vector<SmurfSample*> samples, Option option,
 
             temp_wjets_mc_down->SetDirectory(0);
             temp_wjets_mc_down->Write();
+*/
         }
         
         if ( samples[s]->getDataType() == WJETSMUDATA ) {
@@ -557,7 +565,7 @@ void print2DShapeHistograms(std::vector<SmurfSample*> samples, Option option,
         TH1F *temp_stat_down = 0;
 
         // -- Bin-by-bin stat.
-        if ( ! ((1ll<<samples[s]->getDataType()) & ((1ll<<DATA) | (1ll<<ZLL) | (1ll<<ZLLLOOSEMET) | (1ll<<TOPDATA)
+        if ( ! ((1ll<<samples[s]->getDataType()) & ((1ll<<DATA) /*| (1ll<<ZLL) | (1ll<<ZLLLOOSEMET)*/ | (1ll<<TOPDATA)
                         | (1ll<<WWMCNLO) | (1ll<<WWMCNLOUP) | (1ll<<WWMCNLODOWN) 
                         | (1ll<<WZALTER) | (1ll<<ZZALTER) | (1ll<<WWTOPMC)
                         | (1ll<<WJETSMCLOOSE) | (1ll<<WJETS) | (1ll<<TOPALTER)) ) ) {
@@ -606,8 +614,8 @@ void print2DShapeHistograms(std::vector<SmurfSample*> samples, Option option,
         // this sample
         //
 
-        std::set<MVAShapeSyst> shapeSystematics = samples[s]->getAvailableShapeSystematics();
-        std::set<MVAShapeSyst>::const_iterator var;
+        std::set<ShapeSyst> shapeSystematics = samples[s]->getAvailableShapeSystematics();
+        std::set<ShapeSyst>::const_iterator var;
 
         for (var = shapeSystematics.begin(); var != shapeSystematics.end(); ++var) {
 
@@ -666,448 +674,25 @@ void print2DShapeHistograms(std::vector<SmurfSample*> samples, Option option,
 
 }
 
-
-void printShapeHistograms(std::vector<SmurfSample*> samples, Option option, 
-        unsigned int jetbin, float analysis, std::string cdir, unsigned int fcode, unsigned int runEra)
-{
-
-    // valid options
-    if (option != HWW_OPT_SMURFMVASEL && option != HWW_OPT_SMURFMESEL ) return;
-
-    // hww for jet bins 0, 1, 2
-    if (jetbin > 1) return;
-    // temporary do only ME selection upto 300 GeV in the 0-Jet bin
-    if ( option == HWW_OPT_SMURFMESEL ) {
-        if ( analysis > 300. || jetbin > 0 ) return;
-    }
-
-    // get the flavor
-    std::string flavor;
-    if (fcode == ((1<<0)|(1<<3))) {
-        flavor = Form("sf");
-    } else if (fcode == ((1<<1)|(1<<2))) {
-        flavor = Form("of");
-    } else if (fcode == ((1<<0)|(1<<1)|(1<<2)|(1<<3))) {
-        flavor = Form("ll");
-    } else if (fcode == (1<<0)) {
-        flavor = Form("mm");
-    } else if (fcode == (1<<3)) {
-        flavor = Form("ee");
-    } else {
-        std::cout << "[SmurfTable::printShapeHistograms] Error! Must specify flavor of analysis" << std::endl;
-        return;
-    }
-
-    std::string runera = "_8TeV"; 
-    if ( runEra == RUN2012) 
-        runera = "_8TeV";
-
-    // create a file to save the shapes
-    std::string filename = "";
-    if (option == HWW_OPT_SMURFMVASEL) {
-        filename = Form("%s/%i/hww%s_%ij.input%s.root", cdir.c_str(), int(analysis), flavor.c_str(), jetbin, runera.c_str());
-    }
-    else if (option == HWW_OPT_SMURFMESEL) { 
-        filename = Form("%s/%i/hww%s_%ij_me.input%s.root", cdir.c_str(), int(analysis), flavor.c_str(), jetbin, runera.c_str());
-    } else {
-        std::cout << "[SmurfTable::printShapeHistograms] Error! Couldn't set output filename" << std::endl;
-        return;
-    }
-
-    std::cout << "[SmurfTable::printShapeHistograms] " << filename << std::endl;
-    TFile *f = new TFile(filename.c_str(), "RECREATE");
-    f->cd();
-
-    // save the shapes
-    TH1F *temp = 0;
-    TH1F *temp_dyll = 0;
-    TH1F *temp_dyll_loosemet = 0;
-
-    TH1F *temp_zjets_up = 0;
-    TH1F *temp_zjets_down = 0;
-    TH1F *temp_dyll_data_of = 0;
-    TH1F *temp_zjets = 0;
-
-    // - Top
-    TH1F *temp_top_up = 0;
-    TH1F *temp_top_down = 0;
-
-    // - WW
-    TH1F *temp_ww_up = 0;
-    TH1F *temp_ww_down = 0;
-    TH1F *temp_ww_mcnlo = 0;
-    TH1F *temp_ww_mcnlo_up = 0;
-    TH1F *temp_ww_mcnlo_down = 0;
-
-    // - wjets
-    TH1F *temp_wjetsE = 0;
-    TH1F *temp_wjetsM = 0;
-    TH1F *temp_wjets_mc = 0;
-    TH1F *temp_wjets_mc_up = 0;
-    TH1F *temp_wjets_mc_down = 0;
-
-
-    for (unsigned int s = 0; s < samples.size(); ++s) 
-    {
-        // dy shapes
-        if (samples[s]->getDataType() == ZLL) {
-            temp_dyll = (TH1F*)samples[s]->getMVAShape(jetbin, fcode);
-        }
-        if (samples[s]->getDataType() == ZLLLOOSEMET) {
-            temp_dyll_loosemet = (TH1F*)samples[s]->getMVAShape(jetbin,(1<<0)|(1<<3));
-        }
-
-        if (samples[s]->getDataType() == ZJETS) {
-            // temp_zjets_up = (TH1F*)samples[s]->getMVAShape(jetbin, fcode)->Clone(Form("histo_Zjets_CMS_hww%s_%ij_MVAZBoundingUp", flavor.c_str(), jetbin));
-            // temp_zjets_down = (TH1F*)samples[s]->getMVAShape(jetbin, fcode)->Clone(Form("histo_Zjets_CMS_hww%s_%ij_MVAZBoundingDown",flavor.c_str(), jetbin));
-            temp_zjets = (TH1F*)samples[s]->getMVAShape(jetbin, fcode)->Clone(Form("temp_Zjets_%ij", jetbin));
-        }
-
-        if (samples[s]->getDataType() == ZLLDATA) {
-            temp_zjets_up = (TH1F*)samples[s]->getMVAShape(jetbin, (1<<0)|(1<<3))->Clone(Form("histo_Zjets_CMS_hwwsf_%ij_MVAZBoundingUp", jetbin));
-            temp_zjets_down = (TH1F*)samples[s]->getMVAShape(jetbin, (1<<0)|(1<<3))->Clone(Form("histo_Zjets_CMS_hwwsf_%ij_MVAZBoundingDown", jetbin));
-            temp_dyll_data_of = (TH1F*)samples[s]->getMVAShape(jetbin, (1<<1)|(1<<2))->Clone(Form("histo_Zjets_data_of_%ij", jetbin)); 
-            temp_zjets_up->Add(temp_zjets_up, temp_dyll_data_of, -1.);
-        }
-        if (samples[s]->getDataType() == TOPALTER) {
-            temp_top_up = (TH1F*)samples[s]->getMVAShape(jetbin, fcode)->Clone("histo_Top_CMS_hww_MVATopBoundingUp");
-            temp_top_down = (TH1F*)samples[s]->getMVAShape(jetbin, fcode)->Clone("histo_Top_CMS_hww_MVATopBoundingDown");
-        }
-        // ww alternative shapes
-        if (samples[s]->getDataType() == WWMCNLO) {
-            temp_ww_mcnlo = (TH1F*)samples[s]->getMVAShape(jetbin, fcode)->Clone("histo_WW_CMS_MVAWWNLO");
-            temp_ww_up = (TH1F*)samples[s]->getMVAShape(jetbin, fcode)->Clone("histo_qqWW_CMS_hww_MVAWWBoundingUp");
-            temp_ww_down = (TH1F*)samples[s]->getMVAShape(jetbin, fcode)->Clone("histo_qqWW_CMS_hww_MVAWWBoundingDown");
-        }
-        if (samples[s]->getDataType() == WWMCNLOUP) {
-            temp_ww_mcnlo_up = (TH1F*)samples[s]->getMVAShape(jetbin, fcode)->Clone("histo_qqWW_CMS_hww_MVAWWNLOBoundingUp");
-        }
-        if (samples[s]->getDataType() == WWMCNLODOWN) {
-            temp_ww_mcnlo_down = (TH1F*)samples[s]->getMVAShape(jetbin, fcode)->Clone("histo_qqWW_CMS_hww_MVAWWNLOBoundingDown");
-        }
-        if (samples[s]->getDataType() == WJETSMCLOOSE) {
-            temp_wjets_mc_up = (TH1F*)samples[s]->getMVAShape(jetbin, fcode)->Clone("histo_Wjets_CMS_hww_MVAWMCBoundingUp");
-            temp_wjets_mc_down = (TH1F*)samples[s]->getMVAShape(jetbin, fcode)->Clone("histo_Wjets_CMS_hww_MVAWMCBoundingDown");
-        }
-        if (samples[s]->getDataType() == WJETS) {
-            temp_wjets_mc = (TH1F*)samples[s]->getMVAShape(jetbin, fcode)->Clone("histo_WjetsMC");
-        }
-        if (samples[s]->getDataType() == WJETSELEDATA ) {
-            temp_wjetsE = (TH1F*)samples[s]->getMVAShape(jetbin, fcode)->Clone("histo_WjetsE_temp");
-        }
-        if (samples[s]->getDataType() == WJETSMUDATA ) {
-            temp_wjetsM = (TH1F*)samples[s]->getMVAShape(jetbin, fcode)->Clone("histo_WjetsM_temp");
-        }
-    }
-
-    for (unsigned int s = 0; s < samples.size(); ++s) 
-    {
-
-        if (samples[s]->getDataType() == ZLL) continue;
-        if (samples[s]->getDataType() == ZLLLOOSEMET) continue;
-        if (samples[s]->getDataType() == ZLLDATA) continue;
-        if (samples[s]->getDataType() == TOPDATA) continue;
-        if (samples[s]->getDataType() == WWMCNLO) continue;
-        if (samples[s]->getDataType() == WWMCNLOUP) continue;
-        if (samples[s]->getDataType() == WWMCNLODOWN) continue;
-        if (samples[s]->getDataType() == WZALTER) continue;
-        if (samples[s]->getDataType() == ZZALTER) continue;
-        if (samples[s]->getDataType() == TOPALTER) continue;
-
-        // get the shape histogram
-        // if it is the OF data get the keys versions
-        if (samples[s]->getDataType() == OFDATA) {
-            temp = (TH1F*)samples[s]->getKeysMVAShape(jetbin, fcode);
-            TH1F *temp_nokeys = (TH1F*)samples[s]->getMVAShape(jetbin, fcode);
-            temp->SetName("histo_WWTop");
-            temp_nokeys->SetName("hist_WWTopNoKeys");
-            temp_nokeys->SetDirectory(0);
-            temp_nokeys->Write();
-        }
-        // otherwise get the usual version
-        else {
-            temp = (TH1F*)samples[s]->getMVAShape(jetbin, fcode);
-        }
-
-        // Z+Jets for HWW analysis
-        // combine ZJETS and ZLL
-        if (samples[s]->getDataType() == ZJETS && fcode == ((1<<0)|(1<<3))) {
-            // get the z yield from the data-driven estimate
-            double zSF[3] = {0.0, 0.0, 0.0};
-            double zSFErr[3] = {0.0, 0.0, 0.0};
-            getZScaleFactor(zSF, zSFErr, option, analysis, flavor.c_str());
-            double yield_DYll;
-            if  ( analysis <= 300. ) 
-                yield_DYll = zSF[jetbin]; 
-            else 
-                yield_DYll = temp_dyll->Integral(0,1000);
-            temp_dyll_loosemet->Scale( yield_DYll /temp_dyll_loosemet->Integral(0,1000));
-            temp->Add(temp, temp_dyll_loosemet);
-
-            // variation up is the DYdata + VZ (MC)
-            // add a protection against the empty bins
-            double yield_Zjets = temp_zjets->Integral(0, 1000);
-            temp_zjets_up->Scale( yield_DYll / temp_zjets_up->Integral(0, 1000));
-            temp_zjets_up->Add(temp_zjets_up, temp_zjets);
-            for (int binx = 1; binx < temp_zjets_up->GetNbinsX()+1; binx++) {
-                if ( temp_zjets_up->GetBinContent(binx) < 0. ) {
-                    temp_zjets_up->SetBinContent(binx, 0.);
-                }
-            }
-            temp_zjets_up->Scale( (yield_DYll+yield_Zjets) / temp_zjets_up->Integral(0, 1000));
-
-            // write the down histogram mirroring the up-central change
-            for (int binx = 1; binx < temp_zjets_down->GetNbinsX()+1; binx++) {
-                double downcontent = temp->GetBinContent(binx) - ( temp_zjets_up->GetBinContent(binx) - temp->GetBinContent(binx));
-                if (downcontent < 0.) 
-                    downcontent = 0.0;
-                temp_zjets_down->SetBinContent(binx, downcontent);
-            }
-            temp_zjets_down->Scale(temp->Integral(0,1000)/temp_zjets_down->Integral(0,1000));
-
-            temp_zjets_up->SetDirectory(0);
-            temp_zjets_up->Write();
-            temp_zjets_down->SetDirectory(0);
-            temp_zjets_down->Write();
-            temp_dyll_data_of->SetDirectory(0);
-            temp_dyll_data_of->Write();
-        }
-
-        // 
-        // Top
-        // 
-        if (samples[s]->getDataType() == TOP && temp_top_up != 0 ) {
-            float top_yield = temp->Integral(0, temp->GetNbinsX()+1);
-            float top_yield_up = temp_top_up->Integral(0, temp_top_up->GetNbinsX()+1);
-            temp_top_up->Scale( top_yield / top_yield_up);
-
-            for (int binx = 1; binx < temp_top_down->GetNbinsX() + 1; binx++) {
-                double downcontent = 2*temp->GetBinContent(binx) - temp_top_up->GetBinContent(binx);
-                if (downcontent < 0.) 
-                    downcontent = 0.0;
-                temp_top_down->SetBinContent(binx, downcontent);
-            }
-
-            temp_top_up->SetDirectory(0);
-            temp_top_up->Write();
-            temp_top_down->SetDirectory(0);
-            temp_top_down->Write();
-        }
-
-        //
-        // WW
-        // 
-        if ( samples[s]->getDataType() == QQWW && temp_ww_up != 0) {
-
-            float ww_yield = temp->Integral(0,100);
-            float ww_yield_mcnlo = temp_ww_up->Integral(0, 1000);
-
-            // deal with the central shape and MC@NLO difference
-            temp_ww_up->Scale( ww_yield / ww_yield_mcnlo);
-
-            for ( int binx = 1; binx < temp_ww_up->GetNbinsX()+1; binx++) {
-                double downcontent = 2*temp->GetBinContent(binx) - temp_ww_up->GetBinContent(binx);
-                if ( downcontent <= 0.) downcontent = 0.0;
-                temp_ww_down->SetBinContent(binx, downcontent);
-            }
-
-            // if the down histogram flucturates to 0, set the down = central shape
-            if (temp_ww_down->Integral(0,1000) <= 0.0) {
-                for ( int binx = 1; binx < temp_ww_up->GetNbinsX()+1; binx++) {
-                    temp_ww_down->SetBinContent(binx, temp->GetBinContent(binx));
-                    temp_ww_down->SetBinError(binx, temp->GetBinError(binx));
-                }
-            }
-
-            temp_ww_up->SetDirectory(0);
-            temp_ww_up->Write();
-
-            temp_ww_down->SetDirectory(0);
-            temp_ww_down->Write();
-
-            // deal with the QCD scale variations
-            temp_ww_mcnlo->Scale(temp->Integral(0,1000) / temp_ww_mcnlo->Integral(0,1000));
-            temp_ww_mcnlo_up->Scale(temp->Integral(0,1000) / temp_ww_mcnlo_up->Integral(0,1000));
-            temp_ww_mcnlo_down->Scale(temp->Integral(0,1000) / temp_ww_mcnlo_down->Integral(0,1000));
-
-            for ( int binx = 1; binx < temp_ww_up->GetNbinsX()+1; binx++) {
-                double upratio (1.0), downratio (1.0);
-                if ( temp_ww_mcnlo->GetBinContent(binx) > 0 &&  temp_ww_mcnlo->GetBinError(binx) / temp_ww_mcnlo->GetBinContent(binx) < 0.5 ) {
-                    upratio = temp_ww_mcnlo_up->GetBinContent(binx) / temp_ww_mcnlo->GetBinContent(binx);
-                    downratio = temp_ww_mcnlo_down->GetBinContent(binx) / temp_ww_mcnlo->GetBinContent(binx);
-                }
-                temp_ww_mcnlo_up->SetBinContent(binx, upratio * temp->GetBinContent(binx));
-                temp_ww_mcnlo_down->SetBinContent(binx, downratio * temp->GetBinContent(binx));
-            }
-
-            temp_ww_mcnlo_up->SetDirectory(0);
-            temp_ww_mcnlo_up->Write();
-
-            temp_ww_mcnlo_down->SetDirectory(0);
-            temp_ww_mcnlo_down->Write();
-        }
-
-
-        // 
-        // Wjets
-        //
-
-        if ( samples[s]->getDataType() == WJETS) continue;
-        if ( samples[s]->getDataType() == WJETSMCLOOSE) continue;
-        if ( samples[s]->getDataType() == WJETSELEDATA) {
-
-            // first do something special of the central histogram to avoid negative bin content
-            float yield_wjets = temp_wjetsE->Integral(0, 1000);
-            for ( int binx = 1; binx < temp->GetNbinsX()+1; binx++) {
-                float bincontent = temp->GetBinContent(binx);
-                if ( bincontent < 0.) {
-                    temp->SetBinContent(binx, 0.);
-                }
-            }
-            temp->Scale(yield_wjets / temp->Integral(0, 1000));
-
-            // Wjets MC closure test from shape analysis note
-            temp_wjets_mc->Scale( yield_wjets / temp_wjets_mc->Integral(0,1000));
-            temp_wjets_mc_up->Scale( yield_wjets / temp_wjets_mc_up->Integral(0,1000));
-            for ( int binx = 1; binx < temp_wjets_mc_down->GetNbinsX()+1; binx++) { 
-                double downcontent = 2*temp->GetBinContent(binx) - temp_wjets_mc_up->GetBinContent(binx);
-                if ( downcontent <= 0.) downcontent = 0.0;
-                temp_wjets_mc_down->SetBinContent(binx, downcontent);
-            }
-
-            temp_wjets_mc_up->SetDirectory(0);
-            temp_wjets_mc_up->Write();
-
-            temp_wjets_mc_down->SetDirectory(0);
-            temp_wjets_mc_down->Write();
-        }
-
-        if ( samples[s]->getDataType() == WJETSMUDATA) {
-
-            // first do something special of the central histogram to avoid negative bin content
-            float yield_wjets = temp_wjetsM->Integral(0, 1000);
-            for ( int binx = 1; binx < temp->GetNbinsX()+1; binx++) {
-                float bincontent = temp->GetBinContent(binx);
-                if ( bincontent < 0.) {
-                    temp->SetBinContent(binx, 0.);
-                }
-            }
-            temp->Scale(yield_wjets / temp->Integral(0, 1000));
-        }
-
-
-        // rebin the histograms by 2
-        if (samples[s]->getDataType() == WGAMMA || (samples[s]->getDataType() == ZJETS && fcode == ((1<<1)|(1<<2)) ) )    {
-            temp = SmurfRebin(temp, 4);
-        }
-
-        // add the bin-by-bin stat.
-        TH1F *temp_stat_up = 0;
-        TH1F *temp_stat_down = 0;
-
-        // -- Bin-by-bin stat.
-        if ( ! ((1ll<<samples[s]->getDataType()) & ((1ll<<DATA) | (1ll<<ZLL) | (1ll<<ZLLLOOSEMET) | (1ll<<TOPDATA)
-                        | (1ll<<WWMCNLO) | (1ll<<WWMCNLOUP) | (1ll<<WWMCNLODOWN) 
-                        | (1ll<<WZALTER) | (1ll<<ZZALTER) | (1ll<<WWTOPMC)
-                        | (1ll<<WJETSMCLOOSE) | (1ll<<WJETS) | (1ll<<TOPALTER)) ) ) {
-
-            temp_stat_up = (TH1F*)temp->Clone(Form("histo_%s_CMS_hww%s_%ij_MVA%sStatBounding%sUp", samples[s]->getName().c_str(),flavor.c_str(), jetbin, samples[s]->getName().c_str(),runera.c_str()));
-            temp_stat_down = (TH1F*)temp->Clone(Form("histo_%s_CMS_hww%s_%ij_MVA%sStatBounding%sDown", samples[s]->getName().c_str(),flavor.c_str(), jetbin, samples[s]->getName().c_str(), runera.c_str()));
-
-            for ( int binx = 1; binx < temp_stat_up->GetNbinsX()+1; binx++) {
-                double upcontent = temp->GetBinContent(binx) + temp->GetBinError(binx);
-                // flucturate up one event weight if the histogram is empty
-                if ( upcontent == 0 && temp->GetEntries() > 0) 
-                    upcontent = temp->Integral(0,1000) / temp->GetEntries();
-                double downcontent = temp->GetBinContent(binx) - temp->GetBinError(binx);
-                if ( downcontent <= 0.0000001) downcontent = 0.0;
-                temp_stat_up->SetBinContent(binx, upcontent);
-                temp_stat_down->SetBinContent(binx, downcontent);
-            }
-
-            // if the down histogram flucturates to 0, set the down = central shape
-            if (temp_stat_down->Integral(0,1000) <= 0.0) {
-                for ( int binx = 1; binx < temp_stat_up->GetNbinsX()+1; binx++) {
-                    temp_stat_down->SetBinContent(binx, temp->GetBinContent(binx));
-                    temp_stat_down->SetBinError(binx, temp->GetBinError(binx));
-                }
-            }     
-
-            temp_stat_up->SetDirectory(0);
-            temp_stat_up->Write();
-
-            temp_stat_down->SetDirectory(0);
-            temp_stat_down->Write();
-        }
-
-        temp->SetDirectory(0);
-        temp->Write();
-
-        //
-        // write out any alternate shapes associated with 
-        // this sample
-        //
-
-        std::set<MVAShapeSyst> shapeSystematics = samples[s]->getAvailableShapeSystematics();
-        std::set<MVAShapeSyst>::const_iterator var;
-
-        for (var = shapeSystematics.begin(); var != shapeSystematics.end(); ++var) {
-
-            TH1F *temp_up = (TH1F*)samples[s]->getShapeVariation1D(*var, true, jetbin, fcode);
-            std::string histname = Form("%s%s", temp_up->GetTitle(), flavor.c_str());
-
-            // the scale variations that are 100% correlated between flavors
-            // so do not include flavor in name
-
-            if ( (1ll<<(*var)) & (( (1ll<<QCDSCALEVAR) | (1ll<<LEPEFFVAR) | (1ll<<WJETSELESHAPEVAR) | (1ll<<METVAR)) | (1ll<<LEPRESVAR) | (1ll<<JETRESVAR))) {
-                histname = Form("%s", temp_up->GetTitle());
-            }
-            temp_up->SetName(Form("%sUp", histname.c_str()));
-            TH1F *temp_down = (TH1F*)samples[s]->getShapeVariation1D(*var, false, jetbin, fcode);
-            temp_down->SetName(Form("%sDown", histname.c_str()));
-
-            // do a gymnastic on the WBouding histograms
-            // (the same thing is applied to the met smearing)
-            // The histo_Wjets_CMS_MVAWBoundingUp and histo_Wjets_CMS_MVAWBoundingDown are filled the same way in SmurfLooper
-            // the histo_Wjets_CMS_MVAWBoundingDown should be the mirrored changed of central and histo_Wjets_CMS_MVAWBoundingUp
-
-            if ( (*var) == WJETSELESHAPEVAR || (*var) == WJETSMUSHAPEVAR || (*var) == METVAR ) {
-                for ( int binx = 1; binx < temp_down->GetNbinsX()+1; binx++) {
-                    double downcontent = 2*temp->GetBinContent(binx) - temp_up->GetBinContent(binx);
-                    if (downcontent < 0.) 
-                        downcontent = 0.0;
-                    temp_down->SetBinContent(binx, downcontent);
-                }
-            }
-
-            temp_up->SetDirectory(0);
-            temp_down->SetDirectory(0);
-            temp_up->Write(); 
-            temp_down->Write();
-
-        }
-
-    }
-
-    f->Close();
-    delete f;
-
-}
-
+//
+// Print Table of yields
+//
 void printResultsTable(std::vector<SmurfSample*> samples, Option option, bool doJetBins)
 {
 
     printf("\n\n******************\n");
     if ( option == HWW_OPT_SMURFCUTSEL ) 
         printf("Table for Higgs Cut-Based selection\n");
-    if ( option == HWW_OPT_SMURFMVASEL || option == HWW_OPT_SMURFMESEL)
-        printf("Table for Higgs MVA-Based selection\n");
+    if ( option == HWW_OPT_MT2DMLL || option == HWW_OPT_MT2DMLL_JCP || option == XWW_OPT_MT2DMLL_JCP)
+        printf("Table for Higgs 2D selection\n");
+    if ( option == HWW_OPT_SSCTL || option == HWW_OPT_SSCTL2D)
+        printf("Table for Higgs SS control region selection\n");
+    if ( option == HWW_OPT_TOPTAG)
+        printf("Table for Higgs Top-tagged control region selection\n");
     printf("******************\n");
 
     for (unsigned int jetbin = 0; jetbin < 3; ++jetbin)
     { 
-        if (option == HWW_OPT_SMURFMVASEL && jetbin > 1) continue;
-        if (option == HWW_OPT_SMURFMESEL && jetbin > 1) continue;
 
         unsigned int binMinIdx = jetbin+1;
         unsigned int binMaxIdx = jetbin+1;
@@ -1208,18 +793,13 @@ void printResultsTable(std::vector<SmurfSample*> samples, Option option, bool do
 
 }
 
+//
+// Print cards 
+//
 void printCard(std::vector<SmurfSample*> samples, Option option, unsigned int jetbin, float analysis, 
         std::string cdir, unsigned int fcode, unsigned int mva_option, unsigned int runEra) 
 {
 
-
-    if (option == HWW_OPT_SMURFMVASEL && jetbin > 1) return;
-    if (option == HWW_OPT_SMURFMESEL && jetbin > 1) return;
-
-    // temporary do only ME selection upto 300 GeV in the 0-Jet bin
-    if ( option == HWW_OPT_SMURFMESEL ) {
-        if ( analysis > 300. || jetbin > 0 ) return;
-    }
 
     //
     // get the yields
@@ -1390,11 +970,6 @@ void printCard(std::vector<SmurfSample*> samples, Option option, unsigned int je
     if (jetbin <= 2 && option == HWW_OPT_SMURFCUTSEL)
         fcardname = Form("%s/%i/hww%s_%ij_cut%s.txt", cdir.c_str(), int(analysis), flavor.c_str(), jetbin, runera.c_str());
 
-    // shape based
-    if (option == HWW_OPT_SMURFMVASEL)
-        fcardname = Form("%s/%i/hww%s_%ij_shape%s.txt", cdir.c_str(), int(analysis), flavor.c_str(), jetbin, runera.c_str());
-    if (option == HWW_OPT_SMURFMESEL)
-        fcardname = Form("%s/%i/hww%s_%ij_shape_me%s.txt", cdir.c_str(), int(analysis), flavor.c_str(), jetbin, runera.c_str());
     // 2D shape based
     if (option == HWW_OPT_MT2DMLL || option == HWW_OPT_MT2DMLL_JCP || option == HWW_OPT_SSCTL2D  )
         fcardname = Form("%s/%i/hww%s_%ij_shape%s.txt", cdir.c_str(), int(analysis), flavor.c_str(), jetbin, runera.c_str());
@@ -1474,24 +1049,8 @@ void printCard(std::vector<SmurfSample*> samples, Option option, unsigned int je
     
     fprintf(fcard, "Observation %i\n", int(yield[i_data]));
 
-    if ( (1ll<<option) & (1ll<<HWW_OPT_SMURFMVASEL)) {
-        if  (mva_option & mva_var)
-            fprintf(fcard, "shapes *   *   hww%s_%ij.input%s.root  histo_$PROCESS histo_$PROCESS_$SYSTEMATIC\n", flavor.c_str(), jetbin, runera.c_str());
-        else
-            fprintf(fcard, "shapes *          * hww%s_%ij.input%s.root  histo_$PROCESS\n", flavor.c_str(), jetbin, runera.c_str());
-        fprintf(fcard, "shapes data_obs * hww%s_%ij.input%s.root  histo_Data \n", flavor.c_str(), jetbin, runera.c_str());
-    }
-
-    if (((1ll<<option) & (1ll<<HWW_OPT_SMURFMESEL)) ){
-        if  (mva_option & mva_var)
-            fprintf(fcard, "shapes *   *   hww%s_%ij_me.input%s.root  histo_$PROCESS histo_$PROCESS_$SYSTEMATIC\n", flavor.c_str(), jetbin, runera.c_str());
-        else
-            fprintf(fcard, "shapes *          * hww%s_%ij_me.input%s.root  histo_$PROCESS\n", flavor.c_str(), jetbin, runera.c_str());
-        fprintf(fcard, "shapes data_obs * hww%s_%ij_me.input%s.root  histo_Data \n", flavor.c_str(), jetbin, runera.c_str());
-    }
-
     if ( (1ll<<option) & ( (1ll<<HWW_OPT_MT2DMLL) | (1ll<<HWW_OPT_MT2DMLL_JCP) | (1ll<<HWW_OPT_SSCTL2D) ) ) {
-        if  (mva_option & mva_var)
+        if  (mva_option & shape_var)
             fprintf(fcard, "shapes *   *   hww%s_%ij.input%s.root  histo_$PROCESS histo_$PROCESS_$SYSTEMATIC\n", flavor.c_str(), jetbin, runera.c_str());
         else
         fprintf(fcard, "shapes *          * hww%s_%ij.input%s.root  histo_$PROCESS\n", flavor.c_str(), jetbin, runera.c_str());
@@ -1500,7 +1059,7 @@ void printCard(std::vector<SmurfSample*> samples, Option option, unsigned int je
     }
 
     if ( option == XWW_OPT_MT2DMLL_JCP ) {
-        if  (mva_option & mva_var)
+        if  (mva_option & shape_var)
             fprintf(fcard, "shapes *   *   xww%s_%ij.input%s.root  histo_$PROCESS histo_$PROCESS_$SYSTEMATIC\n", flavor.c_str(), jetbin, runera.c_str());
         else
         fprintf(fcard, "shapes *          * xww%s_%ij.input%s.root  histo_$PROCESS\n", flavor.c_str(), jetbin, runera.c_str());
@@ -1572,7 +1131,7 @@ void printCard(std::vector<SmurfSample*> samples, Option option, unsigned int je
         }
     }
     
-    if  ( (mva_option & (1ll<<METVAR)) && ( (1ll<<option) & ( (1ll<<HWW_OPT_SMURFMVASEL) | HWW_MT2DMLL ) ) )  {
+    if  ( (mva_option & (1ll<<METVAR)) && ( (1ll<<option) & HWW_SHAPE ) )  {
       if ( yield[i_WH] > 0 && yield[i_ZH] > 0 && yield[i_qqH] > 0 ) 
         fprintf(fcard, "CMS_hww_MVAMETResBounding  shape 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000   -     -     -     -    -    -\n");
       else
@@ -1882,6 +1441,9 @@ void printCard(std::vector<SmurfSample*> samples, Option option, unsigned int je
 
 }
 
+//
+// print out stacked plots 
+//
 TCanvas * makeHWWAnalysisStack(Option option, float analysis, std::vector<SmurfSample *> samples, DataType dyType,
         TFile *file, const unsigned int flav, const unsigned int njet, const char *dir, const char *name, const char *title, float lumi, float dyScale)
 {
@@ -2101,7 +1663,6 @@ TCanvas * makeHWWAnalysisStack(Option option, float analysis, std::vector<SmurfS
     if(drawData) st->SetMaximum(TMath::Max(h1_data->GetMaximum() * 2.0, h1_data->GetMaximum() + 3*sqrt(h1_data->GetMaximum())));
     if(!drawData) st->SetMaximum(TMath::Max(h1_bkg->GetMaximum() * 1.7, h1_bkg->GetMaximum() +5*sqrt(h1_bkg->GetMaximum())));
     c1->RedrawAxis();
-    if(name=="ww_bdt") c1->SetLogy(1);
 
 /*  
     //

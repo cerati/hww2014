@@ -5,18 +5,28 @@
 #include <iostream> 
 using namespace std; 
 
+//
+// Top veto 
+//
 bool hww_topveto(SmurfTree *tree) 
 {
     if ( (tree->cuts_ & SmurfTree::TopVeto) != SmurfTree::TopVeto ) return false; 
     return true;
 }
 
+//
+// Selection for SF events 
+//
 bool hww_dy_selection(SmurfTree *tree) 
 {
     if ( tree->njets_ < 2 && tree->jet1_.Pt() > 15.0 && tree->dPhiDiLepJet1_ > (165./180.)*TMath::Pi())  return false;
     if ( tree->njets_ >= 2 && ( fabs(ROOT::Math::VectorUtil::DeltaPhi((tree->jet1_+tree->jet2_),tree->dilep_))*180.0/TMath::Pi() > 165.)) return false; 
     return true;
 }
+
+//
+// MET selection for SF events : used for 2jet
+//
 bool hww_sfmet_selection(SmurfTree *tree) 
 {
     if ( tree->njets_ < 2 ) {
@@ -27,6 +37,9 @@ bool hww_sfmet_selection(SmurfTree *tree)
     return true;
 }
 
+//
+// DY MVA selection for SF events
+//
 bool hww_sfdymva_selection(SmurfTree *tree, const float& dymva)
 {
 
@@ -66,7 +79,7 @@ bool hww_pass_wwBaseline(SmurfTree *tree, const Option option)
         if ( tree->dilep_.Pt() <=  45)  return false;   
     }
     if ( option != XWW_OPT_MT2DMLL_JCP && option != HWW_OPT_MT2DMLL_JCP && option != HWW_OPT_MT2DMLL && option !=HWW_OPT_SSCTL2D && option != HWW_OPT_SMURFPRESEL)  
-        if ( tree->dilep_.Pt() <=  45)  return false; 
+        if ( tree->dilep_.Pt() <=  45)  return false;  
     if (tree->dilep_.mass() <= 12.0) return false; 
     if (std::min(tree->pmet_, tree->pTrackMet_) < 20.) return false;
 
@@ -127,6 +140,7 @@ bool hww_pass_wwSSSelection(SmurfTree *tree, const Option option)
     if ( ! hww_topveto(tree) ) return false;
     return true;
 }
+
 // Wgamma FO + the preliminary cuts for opposite sign events 
 bool hww_pass_wgammaSelection(SmurfTree *tree, const Option option)  
 {   
@@ -189,16 +203,16 @@ bool hww_pass_wwPassFailSelection(SmurfTree *tree, const Option option)
     if ( ( (tree->cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection)  &&  
             ( (tree->cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) ) return false;
 
-    // skip events with both leptons hat pass the final selection
+    // skip events with both leptons passing the final selection
     if ( ((tree->cuts_ & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection)
             && ((tree->cuts_ & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection))  return false;
 
-    // if lep1 pass full selection, but none of the lep2 pass the FO definition, skip the event
+    // if lep1 passes the full selection, but lep2 does not pass none of the FO definitions, skip the event
     if ( tree->cuts_ & SmurfTree::Lep1FullSelection ) {
         if ( ! ( (tree->cuts_ & SmurfTree::Lep2LooseEleV4) || (tree->cuts_ & SmurfTree::Lep2LooseMuV2) ) ) return false;
     }
 
-    // if lep2 pass full selection, but none of the lep1 pass the FO definition, skip the event
+    // if lep2 passes the full selection, but lep1 does not pass none of the FO definitions, skip the event
     if ( tree->cuts_ & SmurfTree::Lep2FullSelection ) {
         if ( ! ( (tree->cuts_ & SmurfTree::Lep1LooseEleV4) || (tree->cuts_ & SmurfTree::Lep1LooseMuV2) ) ) return false;
     }
@@ -504,7 +518,7 @@ bool hww_pass_cutSelection(SmurfTree *tree, const float &analysis, const unsigne
 {  
     float lep1ptCut(20.), lep2ptCut(10.), mllCut(9999.), dPhiCut(9999.), mtLowCut(0.), mtHighCut(9999.),  mllLooseCut(9999.);
     evaluate_hww_cuts(analysis, lep1ptCut, lep2ptCut, mllCut, dPhiCut, mtLowCut, mtHighCut, mllLooseCut);
-
+ 
     // cuts applied for 0/1 Jets
     if (jetbin < 2) {
         if ( tree->lep1_.Pt() < lep1ptCut) return false;

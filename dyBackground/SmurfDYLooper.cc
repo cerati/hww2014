@@ -218,13 +218,13 @@ void SmurfDYLooper::loop(SmurfSample *sample)
 		  if (dijet.M() <= 500.0) passVBF = false;
 		  if (fabs( tree->jet1_.Eta() - tree->jet2_.Eta() ) <= 3.5) passVBF = false;
 	  }
-	  
+/*	  
 	  if ( (option_ == HWW_OPT_SMURFMVASEL) && analysis_ > 0. ) {
 	    mtLowCut = 80.;
 	    mtHighCut = analysis_;
 	    mllCut = mllLooseCut; 
 	  }
-	  
+*/	  
 	  if ( option_ == HWW_OPT_SMURFCUTSEL && analysis_ > 0. && njets == 2 ) {
 	    mtLowCut = 30.;
 	    mtHighCut = analysis_;
@@ -284,13 +284,14 @@ void SmurfDYLooper::loop(SmurfSample *sample)
 	    if ( njets < 2) {
 
 	      // MVA selections, using DY MVA
+          /*
 	      if ( option_ == HWW_OPT_SMURFMVASEL ) {
 		if ( hww_pass_mvaSelection(tree, analysis_, njets) && hww_pass_wwSelection(tree, option_) && passDY && passMET ) {
 		  FillHist(h1_met_out_sig[njets], type, metValue, weight);
 		  sample->fillResults(njets, tree->type_, weight, weight_err);
 		}
 	      } 
-	      
+	     */ 
 	      // Cut-based selections
 	      if ( option_ == HWW_OPT_SMURFCUTSEL) {
 		if ( hww_pass_cutSelection(tree, analysis_, njets) && hww_pass_wwSelection(tree, option_) && passDY && passMET ) {

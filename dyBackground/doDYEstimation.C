@@ -55,7 +55,7 @@ void doDYEstimation(RunEra runEra = RUN2012)
     //
     // configuration  
     //
-    bool runWWXSec = 0; 
+    bool runWWXSec = 1; 
     bool runWWPresel = 1;
     bool run115 = 1;
     bool run120 = 1;
@@ -408,12 +408,13 @@ void doMassPoint(float analysis, Option option, RunEra runEra, int mHiggs[20],
     //
     int ana = (int)analysis;
 
-    SmurfSample *sample_data = new SmurfSample(option, DATA, kBlack, "Data");
-    SmurfSample *sample_dyll = new SmurfSample(option, ZLL, kBlue, "DYLL");
-    SmurfSample *sample_vv = new SmurfSample(option, VV, kGreen, "VV");
+    SmurfSample *sample_data = new SmurfSample(option, DATA, kBlack, "Data", analysis);
+    SmurfSample *sample_dyll = new SmurfSample(option, ZLL, kBlue, "DYLL", analysis);
+    SmurfSample *sample_vv = new SmurfSample(option, VV, kGreen, "VV", analysis);
 
     // examples of using the unskimed files 
-    char *dataDir = "/smurf/jaehyeok/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets_19p5ifb_new/dyskim/";
+    char *dataDir = "/smurf/jaehyeok/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets_19p5ifb_new/dyskim/"; // TAS
+    //char *dataDir = "/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/dyskim/"; // UAF
     sample_data->add(Form("%s/data.root", dataDir));    
     sample_dyll->add(Form("%s/dyll.root", dataDir));
     sample_vv->add(Form("%s/wz.root", dataDir));
@@ -437,10 +438,12 @@ void doMassPoint(float analysis, Option option, RunEra runEra, int mHiggs[20],
     if ( option == HWW_OPT_SMURFCUTSEL ) {
       outFile = Form("dyhistos_ww_%i_cut.root", int(analysis));
     }
+    /*
     if ( option ==  HWW_OPT_SMURFMVASEL ) {
       outFile = Form("dyhistos_ww_%i_mva.root", int(analysis));
       std::cout << "outputFile Name = " << outFile.c_str() << "\n";
     }
+    */
     saveHist(outFile.c_str());  
     deleteHistos();
 
@@ -450,9 +453,10 @@ void doMassPoint(float analysis, Option option, RunEra runEra, int mHiggs[20],
       debugFileName = Form("dyest_mH%i_%.0fpb_wwxsec.txt", int(analysis), lumi);
     if ( option == HWW_OPT_SMURFCUTSEL) 
       debugFileName = Form("dyest_mH%i_%.0fpb_cut.txt", int(analysis), lumi);
+    /*
     if ( option == HWW_OPT_SMURFMVASEL) 
       debugFileName = Form("dyest_mH%i_%.0fpb_mva.txt", int(analysis), lumi);
-    
+    */ 
     FILE *debugtext = fopen(debugFileName.c_str(), "w"); 
     
     // 
@@ -465,10 +469,11 @@ void doMassPoint(float analysis, Option option, RunEra runEra, int mHiggs[20],
     if ( option == HWW_OPT_SMURFCUTSEL) {
       ratioFileName = Form("Routin_mH%i_%.0fpb_cut.root", int(analysis), lumi);
     }
+    /*
     if ( option == HWW_OPT_SMURFMVASEL) {
       ratioFileName = Form("Routin_mH%i_%.0fpb_mva.root", int(analysis), lumi);
     }
-
+    */
     fillRoutin(outFile.c_str(), ratioFileName.c_str(), debugtext);
     dyest(analysis, option, outFile.c_str(), ratioFileName.c_str(), debugtext, mHiggs, 
 	  DYBkgScaleFactorWWPreselection, DYBkgScaleFactorWWPreselectionKappa, 

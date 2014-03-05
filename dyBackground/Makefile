@@ -46,6 +46,7 @@ clean:
 	rm -f *.o \
 	rm -f *.so \
 	rm -f *.cxx \
+	rm -f LinkDef_out.h \
 	rm -f ../core/*.d \
     rm -f ../core/*.o 
 

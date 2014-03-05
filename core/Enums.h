@@ -13,43 +13,14 @@ typedef unsigned long int ShapeVar_t;
 enum Selections {
 
     //
-    // HZZ
-    //
-
-    HZZ_PASS_2011A,
-
-    // try and migrate to these
-    HZZ_PASS_BASELINE,
-    HZZ_PASS_ISZ,
-    HZZ_PASS_ISNOTZ,
-    HZZ_PASS_SOFTMUVETO,
-    HZZ_PASS_BVETO,
-    HZZ_PASS_BTAG,
-    HZZ_PASS_SF,
-    HZZ_PASS_OF,
-    HZZ_PASS_2011ADPHI,
-    HZZ_PASS_2011AMT,
-    HZZ_PASS_2011AMET,
-    HZZ_PASS_2011APT,
-
-    // preselection for mva selections
-    // and shape based analysis
-    HZZ_PASS_MVAPRESEL,
-
-    // mva cut based selections
-    HZZ_PASS_MVASEL,
-    HZZ_PASS_MESEL,
-
-    //
     // HWW
     //
 
     HWW_PASS_PRESEL,
     HWW_PASS_CUTSEL,
-    HWW_PASS_MVASEL,
-    HWW_PASS_JCPSEL, 
     HWW_PASS_SSCTL,
     HWW_PASS_SSCTL2D,
+    HWW_PASS_JCPSEL, 
 
 };
 
@@ -60,49 +31,27 @@ enum Selections {
 //
 
 enum Option {
-
-    //
-    // HZZ
-    //
-
-    HZZ_OPT_SMURF=1,
-    HZZ_OPT_SMURFPRESEL=2,
-    HZZ_OPT_EPS=3,
-    HZZ_OPT_SMURF42X=4,
-    HZZ_OPT_SMURF42XPRESEL=5,
-    HZZ_OPT_EPS42X=6,
-    HZZ_OPT_EPS_LP=7,
-    HZZ_OPT_EPS_POSTEPS=8,
-    HZZ_OPT_2011A = 9,
-
-    // run MVA or ME analyses
-    HZZ_OPT_EPS_MVASEL=10,
-    HZZ_OPT_EPS_MESEL=11,
-    HZZ_OPT_EPS_MTSEL=12,
-    HZZ_OPT_2011A_MTSEL = 13,
-    HZZ_OPT_2011A_MESEL = 14,
-
-
-    //
-    // HWW
-    //
-
-    HWW_OPT_SMURFPRESEL=16,
-    HWW_OPT_SMURFCUTSEL=17,
-    HWW_OPT_SMURFMVASEL=18,
-    HWW_OPT_SMURFMESEL=19,
-    WW_OPT_SMURFXSECSEL=20,
-    HWW_OPT_MT2DMLL=21,
-    HWW_OPT_MT2DMLL_JCP=22,
-    XWW_OPT_MT2DMLL_JCP=23,
-    HWW_OPT_SSCTL=24,
-    HWW_OPT_SSCTL2D=25,
     
-    HWW_OPT_TOPTAG=26,
+    // HWW
+    WW_OPT_SMURFXSECSEL = 0,
 
+    // HWW analysis
+    HWW_OPT_SMURFPRESEL = 1,
+    HWW_OPT_SMURFCUTSEL = 2,
+    HWW_OPT_MT2DMLL     = 3,
+    
+    // HWW control region 
+    HWW_OPT_SSCTL       = 4,
+    HWW_OPT_SSCTL2D     = 5,
+    HWW_OPT_TOPTAG      = 6,
+    
+    // XWW  
+    HWW_OPT_MT2DMLL_JCP = 7,
+    XWW_OPT_MT2DMLL_JCP = 8,
+    
 };
 
-const Opt_t HWW_SHAPE   =  (1ll<<HWW_OPT_SMURFMVASEL) | (1ll<<HWW_OPT_SMURFMESEL) | (1ll<<HWW_OPT_MT2DMLL) | (1ll<<HWW_OPT_MT2DMLL_JCP) | (1ll<<XWW_OPT_MT2DMLL_JCP) | (1ll<<HWW_OPT_SSCTL2D); 
+const Opt_t HWW_SHAPE   =  (1ll<<HWW_OPT_MT2DMLL) | (1ll<<HWW_OPT_MT2DMLL_JCP) | (1ll<<XWW_OPT_MT2DMLL_JCP) | (1ll<<HWW_OPT_SSCTL2D); 
 const Opt_t HWW_MT2DMLL =  (1ll<<HWW_OPT_MT2DMLL) | (1ll<<HWW_OPT_MT2DMLL_JCP) | (1ll<<XWW_OPT_MT2DMLL_JCP) | (1ll<<HWW_OPT_SSCTL2D); 
 
 
@@ -114,8 +63,6 @@ const Opt_t HWW_MT2DMLL =  (1ll<<HWW_OPT_MT2DMLL) | (1ll<<HWW_OPT_MT2DMLL_JCP) |
 enum DataType {
     GGHWW=1,
     QQHWW=2,
-    GGHZZ=3,
-    QQHZZ=4,
     WJETS=5,
     ZZ=6,
     WZ=7,
@@ -191,16 +138,22 @@ enum RunEra {
     RUN2012Moriond=5,
 };  
 
+//
 // DATA
+//
 const Samples_t data_data =    (1ll<<DATA) | (1ll<<GAMMA) | (1ll<<WJETSDATA) | (1ll<<TOPDATA) | (1ll<<OFDATA) | (1ll<<WJETSELEDATA)  | (1ll<<WJETSMUDATA) ;
 
+//
 // HIGGS SIGNALS
+//
 const Samples_t data_higgsww = (1ll<<GGHWW) | (1ll<<QQHWW) | (1ll<<ZHWW) | (1ll<<WHWW) | (1ll<<GGHWWREF) | (1ll<<GGHWWJHU);
 const Samples_t data_gghiggs = (1ll<<GGHWW) | (1ll<<GGHWWREF) | (1ll<<GGHWWJHU);
 const Samples_t data_qqhiggs = (1ll<<QQHWW);
 const Samples_t data_higgs = data_higgsww;
 
+//
 // MC
+//
 
 // processes to apply the OF scaling to
 // if it is applied for the analysis being done
@@ -220,7 +173,7 @@ const Samples_t data_allmc = data_allmcbg | data_higgs;
 const Samples_t data_allbg = data_allmcbg | (1ll<<GAMMA) | (1ll<<WJETSDATA) | (1ll<<TOPDATA) | (1ll<<WJETSELEDATA) | (1ll<<WJETSMUDATA);
 
 
-enum MVAShapeSyst {
+enum ShapeSyst {
   NOVAR=1,
   STATVAR=2,
   DYSHAPEVAR=3,
@@ -240,7 +193,7 @@ enum MVAShapeSyst {
   PDFSHAPEVAR=17,
 };
 
-const ShapeVar_t mva_var = (1ll<<STATVAR) | (1ll<<DYSHAPEVAR) | (1ll<<QCDSCALEVAR) | (1ll<<LEPEFFVAR) | (1ll<<LEPRESVAR) | (1ll<<METVAR) | (1ll<<TOPSHAPEVAR)| (1ll<<WWSHAPEVAR) | (1ll<<WZSHAPEVAR) | (1ll<<ZZSHAPEVAR) | (1ll<<WJETSSHAPEVAR) | (1ll<<WWTOPSHAPEVAR) | (1ll<<JETRESVAR) | (1ll<<WJETSELESHAPEVAR) | (1ll<<WJETSMUSHAPEVAR) | (1ll<<PDFSHAPEVAR); 
+const ShapeVar_t shape_var = (1ll<<STATVAR) | (1ll<<DYSHAPEVAR) | (1ll<<QCDSCALEVAR) | (1ll<<LEPEFFVAR) | (1ll<<LEPRESVAR) | (1ll<<METVAR) | (1ll<<TOPSHAPEVAR)| (1ll<<WWSHAPEVAR) | (1ll<<WZSHAPEVAR) | (1ll<<ZZSHAPEVAR) | (1ll<<WJETSSHAPEVAR) | (1ll<<WWTOPSHAPEVAR) | (1ll<<JETRESVAR) | (1ll<<WJETSELESHAPEVAR) | (1ll<<WJETSMUSHAPEVAR) | (1ll<<PDFSHAPEVAR); 
 
 #endif
 

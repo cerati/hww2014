@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LUMI=12100 #in pb
+LUMI=19467 # in pb
 LATEXTABLE=false
 
 for ANA in cutbased; do 

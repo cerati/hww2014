@@ -405,10 +405,13 @@ void dyest(const float analysis, Option option, const char* inputFileName, const
 	    if ( option == HWW_OPT_SMURFCUTSEL ) {
 	      DYBkgScaleFactorHiggsSelection[njet][i] = pred;
 	      DYBkgScaleFactorHiggsSelectionKappa[njet][i] = sqrt(predE*predE+predE_syst*predE_syst) / pred + 1.;
-	    } else if ( option == HWW_OPT_SMURFMVASEL ) {
+	    } 
+/*
+          else if ( option == HWW_OPT_SMURFMVASEL ) {
 	      DYBkgScaleFactorHiggsSelectionMVA[njet][i] = pred;
 	      DYBkgScaleFactorHiggsSelectionKappaMVA[njet][i] = sqrt(predE*predE+predE_syst*predE_syst) / pred + 1.;
 	    }
+*/
 	  }
 	}
     } 

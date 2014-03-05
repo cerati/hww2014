@@ -55,13 +55,12 @@ SmurfLooper::~SmurfLooper()
 void SmurfLooper::loop(SmurfSample *sample)
 {
 
-    //
-    // set up histograms
-    //
+    // ----------------------------------------------------------------------------------------
+    //      Set up histograms
+    // ----------------------------------------------------------------------------------------
 
     gROOT->cd();
 
-    // common to all
     TH1F *h1_ww_mll[kJetBins][kLeptonTypes];
     TH1F *h1_ww_pt1[kJetBins][kLeptonTypes];
     TH1F *h1_ww_pt2[kJetBins][kLeptonTypes];
@@ -69,64 +68,35 @@ void SmurfLooper::loop(SmurfSample *sample)
     TH1F *h1_ww_eta2[kJetBins][kLeptonTypes];
     TH1F *h1_ww_met[kJetBins][kLeptonTypes];
     TH1F *h1_ww_ptll[kJetBins][kLeptonTypes];
+    TH1F *h1_ww_ptWW[kJetBins][kLeptonTypes];
     TH1F *h1_ww_mt[kJetBins][kLeptonTypes];
     TH1F *h1_ww_dphi[kJetBins][kLeptonTypes];   
     TH1F *h1_ww_nvtx[kJetBins][kLeptonTypes];   
 
-    // bdt input variables at low bdt score
-    //TH1F *h1_hww_bdtlo_mll[kJetBins][kLeptonTypes];
-    //TH1F *h1_hww_bdtlo_mt[kJetBins][kLeptonTypes];
-    //TH1F *h1_hww_bdtlo_pt1[kJetBins][kLeptonTypes];
-    //TH1F *h1_hww_bdtlo_pt2[kJetBins][kLeptonTypes];
-    //TH1F *h1_hww_bdtlo_dphi[kJetBins][kLeptonTypes];
-    //TH1F *h1_hww_bdtlo_met[kJetBins][kLeptonTypes];
-
-    // bdt input variables at high bdt score
-    //TH1F *h1_hww_bdthi_mll[kJetBins][kLeptonTypes];
-    //TH1F *h1_hww_bdthi_mt[kJetBins][kLeptonTypes];
-    //TH1F *h1_hww_bdthi_pt1[kJetBins][kLeptonTypes];
-    //TH1F *h1_hww_bdthi_pt2[kJetBins][kLeptonTypes];
-    //TH1F *h1_hww_bdthi_dphi[kJetBins][kLeptonTypes];
-
     for (unsigned int i = 0; i < kJetBins; ++i) {
 
-        // common to all
-        FormatHist(h1_ww_mll[i],    sample, Form("ww_mll_%s", jetbin_names[i]),   "mll",  20, 0.0, 300.0);
-        FormatHist(h1_ww_pt1[i],    sample, Form("ww_pt1_%s", jetbin_names[i]),   "pt1",  20, 0.0, 200.0);
-        FormatHist(h1_ww_pt2[i],    sample, Form("ww_pt2_%s", jetbin_names[i]),   "pt2",  20, 0.0, 160.0);
-        FormatHist(h1_ww_eta1[i],    sample, Form("ww_eta1_%s", jetbin_names[i]),   "eta1",  5, 0.0, 2.5);
-        FormatHist(h1_ww_eta2[i],    sample, Form("ww_eta2_%s", jetbin_names[i]),   "eta2",  5, 0.0, 2.5);
-        FormatHist(h1_ww_met[i],    sample, Form("ww_met_%s", jetbin_names[i]),   "met",  20, 0.0, 200.0);
-        FormatHist(h1_ww_ptll[i],   sample, Form("ww_ptll_%s", jetbin_names[i]),  "ptll", 20, 0.0, 200.0);
-        FormatHist(h1_ww_mt[i],     sample, Form("ww_mt_%s", jetbin_names[i]),    "mt",  20, 60.0, 280.0);
-        FormatHist(h1_ww_dphi[i],   sample, Form("ww_dphi_%s", jetbin_names[i]),    "dphi",  20, 0.0, 3.2);
-        FormatHist(h1_ww_nvtx[i],   sample, Form("ww_nvtx_%s", jetbin_names[i]),    "nvtx",  40, 0.5, 40.5); 
-
-        // bdt input variables at low bdt score
-        //FormatHist(h1_hww_bdtlo_mll[i],    sample, Form("hww_bdtlo_mll_%s", jetbin_names[i]),   "mll",  30, 0.0, 150.0);
-        //FormatHist(h1_hww_bdtlo_pt1[i],    sample, Form("hww_bdtlo_pt1_%s", jetbin_names[i]),   "pt1",  20, 0.0, 200.0);
-        //FormatHist(h1_hww_bdtlo_pt2[i],    sample, Form("hww_bdtlo_pt2_%s", jetbin_names[i]),   "pt2",  20, 0.0, 200.0);
-        //FormatHist(h1_hww_bdtlo_mt[i],     sample, Form("hww_bdtlo_mt_%s", jetbin_names[i]),    "mt",   20, 80., 280.0);
-        //FormatHist(h1_hww_bdtlo_dphi[i],   sample, Form("hww_bdtlo_dphi_%s", jetbin_names[i]),  "dphi", 20, 0.0, 3.2);
-        //FormatHist(h1_hww_bdtlo_met[i],    sample, Form("hww_bdtlo_met_%s", jetbin_names[i]),   "met",  20, 0.0, 200.0);
-
-        // bdt input variables at high bdt score
-        //FormatHist(h1_hww_bdthi_mll[i],    sample, Form("hww_bdthi_mll_%s", jetbin_names[i]),   "mll",  30, 0.0, 150.0);
-        //FormatHist(h1_hww_bdthi_pt1[i],    sample, Form("hww_bdthi_pt1_%s", jetbin_names[i]),   "pt1",  20, 0.0, 100.0);
-        //FormatHist(h1_hww_bdthi_pt2[i],    sample, Form("hww_bdthi_pt2_%s", jetbin_names[i]),   "pt2",  20, 0.0, 100.0);
-        //FormatHist(h1_hww_bdthi_mt[i],     sample, Form("hww_bdthi_mt_%s", jetbin_names[i]),    "mt",  20, 80.0, 280.0);
-        //FormatHist(h1_hww_bdthi_dphi[i],   sample, Form("hww_bdthi_dphi_%s", jetbin_names[i]),    "dphi",  20, 0.0, 3.2);
+        FormatHist(h1_ww_mll[i],    sample, Form("ww_mll_%s",   jetbin_names[i]),   "mll",  20,  0.0,   300.0);
+        FormatHist(h1_ww_pt1[i],    sample, Form("ww_pt1_%s",   jetbin_names[i]),   "pt1",  20,  0.0,   200.0);
+        FormatHist(h1_ww_pt2[i],    sample, Form("ww_pt2_%s",   jetbin_names[i]),   "pt2",  20,  0.0,   160.0);
+        FormatHist(h1_ww_eta1[i],   sample, Form("ww_eta1_%s",  jetbin_names[i]),   "eta1",  5,  0.0,   2.5);
+        FormatHist(h1_ww_eta2[i],   sample, Form("ww_eta2_%s",  jetbin_names[i]),   "eta2",  5,  0.0,   2.5);
+        FormatHist(h1_ww_met[i],    sample, Form("ww_met_%s",   jetbin_names[i]),   "met",  20,  0.0,   200.0);
+        FormatHist(h1_ww_ptll[i],   sample, Form("ww_ptll_%s",  jetbin_names[i]),   "ptll", 20,  0.0,   200.0);
+        FormatHist(h1_ww_ptWW[i],   sample, Form("ww_ptWW_%s",  jetbin_names[i]),   "ptWW", 20,  0.0,   200.0);
+        FormatHist(h1_ww_mt[i],     sample, Form("ww_mt_%s",    jetbin_names[i]),   "mt",   20,  60.0,  280.0);
+        FormatHist(h1_ww_dphi[i],   sample, Form("ww_dphi_%s",  jetbin_names[i]),   "dphi", 20,  0.0,   3.2);
+        FormatHist(h1_ww_nvtx[i],   sample, Form("ww_nvtx_%s",  jetbin_names[i]),   "nvtx", 40,  0.5,   40.5); 
 
     } 
 
     TH1F *h1_ww_detajj[kLeptonTypes];
     TH1F *h1_ww_mjj[kLeptonTypes];
-    FormatHist(h1_ww_detajj, sample, "ww_detajj_2j",    "detajj", 20, 0.0, 8);
-    FormatHist(h1_ww_mjj,    sample, "ww_mjj_2j",       "mjj", 20, 0.0, 1000.0);
+    FormatHist(h1_ww_detajj, sample, "ww_detajj_2j",    "detajj",   20, 0.0, 8);
+    FormatHist(h1_ww_mjj,    sample, "ww_mjj_2j",       "mjj",      20, 0.0, 1000.0);
 
-    //
-    // file loop
-    //
+    // ----------------------------------------------------------------------------------------
+    //      File loop
+    // ----------------------------------------------------------------------------------------
 
     TObjArray *listOfFiles = sample->getChain()->GetListOfFiles();
     TIter fileIter(listOfFiles);
@@ -148,91 +118,12 @@ void SmurfLooper::loop(SmurfSample *sample)
         SmurfTree *tree = new SmurfTree();
         tree->LoadTree(currentFile->GetTitle());
         tree->InitTree(0);
+        
+        // ----------------------------------------------------------------------------------------
+        //      Load extra variables 
+        // ----------------------------------------------------------------------------------------
 
-        // load the extra variables..
-
-        // bdt related
-        // this is for the 42X post-LP
-        float bdt_0j_ = 0.0;
-        float bdt_1j_ = 0.0;
-        float bdt_2j_ = 0.0;
-        // this is for produce the LP results
-        float bdt_ = 0;
-
-        int bdtTraining = int(analysis_);
-        if (option_ == HWW_OPT_SMURFPRESEL) bdtTraining = 130;
-
-        if (tree->tree_->GetBranchStatus(Form("bdtg_hww%i_0jet_ww", bdtTraining))) 
-            tree->tree_->SetBranchAddress(Form("bdtg_hww%i_0jet_ww", bdtTraining),    &bdt_0j_);
-        if (tree->tree_->GetBranchStatus(Form("bdtg_hww%i_1jet_ww", bdtTraining)))
-            tree->tree_->SetBranchAddress(Form("bdtg_hww%i_1jet_ww", bdtTraining),    &bdt_1j_);
-        if (tree->tree_->GetBranchStatus(Form("bdtg_hww%i_2jet_ww", bdtTraining)))
-            tree->tree_->SetBranchAddress(Form("bdtg_hww%i_2jet_ww", bdtTraining),    &bdt_2j_);
-        if (tree->tree_->GetBranchStatus(Form("bdtg_hww%i_ww", bdtTraining)))
-            tree->tree_->SetBranchAddress(Form("bdtg_hww%i_ww", bdtTraining),    &bdt_);
-        // this is for the lepres and met variations
-        float bdt_0j_lepres_up_ = 0.0;
-        float bdt_0j_lepres_down_ = 0.0;
-        float bdt_0j_metres_smeared_ = 0.0;
-        if (tree->tree_->GetBranchStatus(Form("bdtg_hww%i_0jet_ww_aux0", bdtTraining)))
-            tree->tree_->SetBranchAddress(Form("bdtg_hww%i_0jet_ww_aux0", bdtTraining),    &bdt_0j_lepres_up_);
-        if (tree->tree_->GetBranchStatus(Form("bdtg_hww%i_0jet_ww_aux1", bdtTraining)))
-            tree->tree_->SetBranchAddress(Form("bdtg_hww%i_0jet_ww_aux1", bdtTraining),    &bdt_0j_lepres_down_);
-        if (tree->tree_->GetBranchStatus(Form("bdtg_hww%i_0jet_ww_aux2", bdtTraining)))
-            tree->tree_->SetBranchAddress(Form("bdtg_hww%i_0jet_ww_aux2", bdtTraining),    &bdt_0j_metres_smeared_);
-        float bdt_1j_lepres_up_ = 0.0;
-        float bdt_1j_lepres_down_ = 0.0;
-        float bdt_1j_metres_smeared_ = 0.0;
-        if (tree->tree_->GetBranchStatus(Form("bdtg_hww%i_1jet_ww_aux0", bdtTraining)))
-            tree->tree_->SetBranchAddress(Form("bdtg_hww%i_1jet_ww_aux0", bdtTraining),    &bdt_1j_lepres_up_);
-        if (tree->tree_->GetBranchStatus(Form("bdtg_hww%i_1jet_ww_aux1", bdtTraining)))
-            tree->tree_->SetBranchAddress(Form("bdtg_hww%i_1jet_ww_aux1", bdtTraining),    &bdt_1j_lepres_down_);
-        if (tree->tree_->GetBranchStatus(Form("bdtg_hww%i_1jet_ww_aux2", bdtTraining)))
-            tree->tree_->SetBranchAddress(Form("bdtg_hww%i_1jet_ww_aux2", bdtTraining),    &bdt_1j_metres_smeared_);
-        float bdt_2j_lepres_up_ = 0.0;
-        float bdt_2j_lepres_down_ = 0.0;
-        float bdt_2j_metres_smeared_ = 0.0;
-        float bdt_2j_jetres_up_ = 0.0;
-        float bdt_2j_jetres_down_ = 0.0;
-        if (tree->tree_->GetBranchStatus(Form("bdtg_hww%i_2jet_ww_aux0", bdtTraining)))
-            tree->tree_->SetBranchAddress(Form("bdtg_hww%i_2jet_ww_aux0", bdtTraining),    &bdt_2j_lepres_up_);
-        if (tree->tree_->GetBranchStatus(Form("bdtg_hww%i_2jet_ww_aux1", bdtTraining)))
-            tree->tree_->SetBranchAddress(Form("bdtg_hww%i_2jet_ww_aux1", bdtTraining),    &bdt_2j_lepres_down_);
-        if (tree->tree_->GetBranchStatus(Form("bdtg_hww%i_2jet_ww_aux2", bdtTraining)))
-            tree->tree_->SetBranchAddress(Form("bdtg_hww%i_2jet_ww_aux2", bdtTraining),    &bdt_2j_metres_smeared_);
-        if (tree->tree_->GetBranchStatus(Form("bdtg_hww%i_2jet_ww_aux3", bdtTraining)))
-            tree->tree_->SetBranchAddress(Form("bdtg_hww%i_2jet_ww_aux3", bdtTraining),    &bdt_2j_jetres_up_);
-        if (tree->tree_->GetBranchStatus(Form("bdtg_hww%i_2jet_ww_aux4", bdtTraining)))
-            tree->tree_->SetBranchAddress(Form("bdtg_hww%i_2jet_ww_aux4", bdtTraining),    &bdt_2j_jetres_down_);
-
-        // 2D BDT : train against Wgamma(Wjets) 
-        float bdt2d_0j_ = 0.0;
-        float bdt2d_1j_ = 0.0;
-        if (tree->tree_->GetBranchStatus("bdtgV0")) tree->tree_->SetBranchAddress("bdtgV0",    &bdt2d_0j_);
-        if (tree->tree_->GetBranchStatus("bdtgV1")) tree->tree_->SetBranchAddress("bdtgV1",    &bdt2d_1j_);
-        float bdt2d_0j_lepres_up_ = 0.0;
-        float bdt2d_0j_lepres_down_ = 0.0;
-        float bdt2d_0j_metres_smeared_ = 0.0;
-        if (tree->tree_->GetBranchStatus("bdtgV0_aux0")) tree->tree_->SetBranchAddress("bdtgV0_aux0",   &bdt2d_0j_lepres_up_);
-        if (tree->tree_->GetBranchStatus("bdtgV0_aux1")) tree->tree_->SetBranchAddress("bdtgV0_aux1",   &bdt2d_0j_lepres_down_);
-        if (tree->tree_->GetBranchStatus("bdtgV0_aux2")) tree->tree_->SetBranchAddress("bdtgV0_aux2",   &bdt2d_0j_metres_smeared_);
-        float bdt2d_1j_lepres_up_ = 0.0;
-        float bdt2d_1j_lepres_down_ = 0.0;
-        float bdt2d_1j_metres_smeared_ = 0.0;
-        if (tree->tree_->GetBranchStatus("bdtgV1_aux0")) tree->tree_->SetBranchAddress("bdtgV1_aux0",    &bdt2d_1j_lepres_up_);
-        if (tree->tree_->GetBranchStatus("bdtgV1_aux1")) tree->tree_->SetBranchAddress("bdtgV1_aux1",    &bdt2d_1j_lepres_down_);
-        if (tree->tree_->GetBranchStatus("bdtgV1_aux2")) tree->tree_->SetBranchAddress("bdtgV1_aux2",    &bdt2d_1j_metres_smeared_);
-
-        // me related
-        double scaleME_ = 1.0;
-        double LR_[60]; 
-        for ( int i = 0; i < 60; i++) LR_[i] = 0.0;
-        if (tree->tree_->GetBranchStatus("scaleME"))  
-            tree->tree_->SetBranchAddress("scaleME",    &scaleME_);
-        if (tree->tree_->GetBranchStatus("LR"))       
-            tree->tree_->SetBranchAddress("LR",    &LR_);
-
-        // extra variables for the various correction factors
+        //  extra variables for the various correction factors
         float sfWeightPU_ = 1.0;
         float sfWeightTrig_ = 1.0;
         float sfWeightEff_ = 1.0;
@@ -270,23 +161,22 @@ void SmurfLooper::loop(SmurfSample *sample)
         if (tree->tree_->GetBranchStatus("mll_metup"))
             tree->tree_->SetBranchAddress("mll_metup", &mll_metup_);
 
-        // DY MVA
-        // the default value is set to pass the dymva if this branch does not exist
+        // DY MVA : the default value is set to pass the dymva if this branch does not exist
         float dymva_ = 1.; 
         if (tree->tree_->GetBranchStatus("dymva"))
             tree->tree_->SetBranchAddress("dymva", &dymva_);
 
-        //
-        // event loop
-        //
+        // ----------------------------------------------------------------------------------------
+        //      Event loop
+        // ----------------------------------------------------------------------------------------
 
         ULong64_t nEvents = tree->tree_->GetEntries();
         for(ULong64_t event = 0; event < nEvents; ++event) {
             tree->tree_->GetEntry(event);
 
-            //
-            // incrimenet counters
-            //
+            // ----------------------------------------------------------------------------------------
+            //      Incrimenet counters
+            // ----------------------------------------------------------------------------------------
 
             ++nEventsTotal;
             int i_permille = (int)floor(1000 * nEventsTotal / float(nEventsChain));
@@ -300,23 +190,27 @@ void SmurfLooper::loop(SmurfSample *sample)
                 i_permille_old = i_permille;
             }
             
-            // for the WW preselection use (20, 20)
+            // ----------------------------------------------------------------------------------------
+            //      Preliminary selections 
+            // ----------------------------------------------------------------------------------------
+            
+            // For WW xsec, use (20, 20)
             if (option_ == WW_OPT_SMURFXSECSEL ) {
                 if ( tree->lep2_.Pt() < 20) continue;
-                //if ( tree->njets_ > 0 ) continue;
             }
-            // do MVA analysis for only njets < 2
-            if (option_ == HWW_OPT_SMURFMVASEL && tree->njets_ > 3) continue;
+
+            // For 2D analysis
             if (option_ == HWW_OPT_MT2DMLL && tree->njets_ > 3) continue;
             if (option_ == HWW_OPT_SSCTL2D && tree->njets_ > 3) continue;
             if (option_ == HWW_OPT_TOPTAG && tree->njets_ > 3) continue;
+            // For Spin-parity analysis, use only 0/1 jet events  
             if (option_ == HWW_OPT_MT2DMLL_JCP || option_ == XWW_OPT_MT2DMLL_JCP ) {
               if ( tree->njets_ > 1 ) continue;
             }
-            //
-            // separate out different signal sources
-            // this sample should only represent one signal
-            //
+
+            // ----------------------------------------------------------------------------------------
+            //      Separate out different signal sources
+            // ----------------------------------------------------------------------------------------
 
             if ((1ll<<sample->getDataType()) & data_gghiggs) {
                 if (tree->processId_ != 10010) continue;
@@ -331,29 +225,28 @@ void SmurfLooper::loop(SmurfSample *sample)
                 if (tree->processId_ != 24) continue;
             }
 
-            //
-            // make sure events get assigned appropriately 
-            //
-
+           
+            // ----------------------------------------------------------------------------------------
+            //  Make sure events get assigned appropriately :  
+            //  This function is defined in core/Selections.cc 
+            // ----------------------------------------------------------------------------------------
             if(!hww_assign_this_event(tree, sample->getDataType())) continue;
 
-            //
-            // set up weights and binning
-            //
+            // ----------------------------------------------------------------------------------------
+            //      Set up weights and binning
+            // ----------------------------------------------------------------------------------------
 
             double weight = 1.0;
             double weight_err = 0.0;
             unsigned int type = tree->type_;
             unsigned int njets = tree->njets_;
 
-            // do special two-jet bin assignment for the hww analysis
-            // add a special case of the 3 jet events to the 2-jet 
-
+            // 3-events are categorized as 2-jet events 
             if (tree->njets_ == 3) njets = 2;
 
-            //
-            // apply good run list
-            //
+            // ----------------------------------------------------------------------------------------
+            //      Apply good run list
+            // ----------------------------------------------------------------------------------------
 
             //if (((1ll<<sample->getDataType()) & data_data) && tree->run_ > 203002) continue; // HCP dataset
             //if (((1ll<<sample->getDataType()) & data_data) && tree->run_ <= 203002) continue; // post-HCP dataset
@@ -362,30 +255,22 @@ void SmurfLooper::loop(SmurfSample *sample)
                 if (runlistIsSet_) {
                     if (!goodrun_json(tree->run_, tree->lumi_)) continue;
                 }
-                // weight = weight * 20. / 4.7; // increase to 20/fb
             } else {
                 if (tree->type_ == 0) weight = tree->scale1fb_*(mmLumi_/1000.0);
                 if (tree->type_ == 3) weight = tree->scale1fb_*(eeLumi_/1000.0);
                 if (tree->type_ == 1 || tree->type_ == 2) weight = tree->scale1fb_*((eeLumi_+mmLumi_)/(2*1000.0));
             }
 
-            //
-            // adjust for higgs pt k-factor
-            //
-
-            if ((1ll<<sample->getDataType()) & data_gghiggs) {
-                // weight = weight * sfWeightHPt_;
-            }
-
-            //
-            // adjust for lepton scale factor and PU re-weighting
-            //
+            // ----------------------------------------------------------------------------------------
+            //      Apply lepton scale factor and PU re-weighting
+            // ----------------------------------------------------------------------------------------
 
             if ( ((1ll<<sample->getDataType()) & (data_allmc | (1ll<<WJETSELEDATA) | (1ll<<WJETSMUDATA) | (1ll<<WJETSDATA) | (1ll<<WJETSMCLOOSE) | (1ll<<ZLLDATA))) 
                     && (sample->getDataType() != ZLLGAMMA && sample->getDataType() != ZVVGAMMA 
                         && sample->getDataType() != WJETSGAMMA)) {
-/*
-                // recalculate efficiency sf
+                
+                /*
+                // recalculate efficiency scale factors : use numbers from the efficiency file 
                 double offlineSF1 = leptonSF_->GetExpectedLeptonSF(tree->lep1_.Eta(), tree->lep1_.Pt(), tree->lid1_);
                 double offlineSF2 = leptonSF_->GetExpectedLeptonSF(tree->lep2_.Eta(), tree->lep2_.Pt(), tree->lid2_);
                 double sfWeightEff = offlineSF1 * offlineSF2;
@@ -393,40 +278,50 @@ void SmurfLooper::loop(SmurfSample *sample)
                         fabs(tree->lep2_.eta()), tree->lep2_.pt(),
                         TMath::Abs( tree->lid1_), TMath::Abs(tree->lid2_));
                 double sfWeightPU =  nPUScaleFactor2012(fhDPU_,tree->npu_);
-*/
+                */
+
+                // apply weights except data
                 if ( tree->dstype_ != SmurfTree::data ) {
                     weight = weight * sfWeightTrig_ * sfWeightEff_ * sfWeightPU_;
-                    // weight = weight * sfWeightPU_;
                 }
             }
             
 
-            // 
-            // Apply data-driven background scale factors
-            // 
+            // ----------------------------------------------------------------------------------------
+            //      Apply data-driven background scale factors
+            // ----------------------------------------------------------------------------------------
+            
+            // Top ------------------------------------------------------------------------------------
             if (((1ll<<sample->getDataType()) & (1ll<<TOP))) {
                 weight = weight * TopScaleFactor_[njets];
             }
 
-            // apply the Z scale factors only to the ee/mm final states of the DY samples
+            // DY ------------------------------------------------------------------------------------
+            // note that when make cards, yields are taken from  
+            // ../../../../Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h
+            // where Data-driven estimation is contained 
+            // (It's not scale factors, but the final yield)
+            // So, these following lines are not important => FIXME double check  
             if (((1ll<<sample->getDataType()) & (1ll<<ZLL))) {
                 if ( (tree->type_ == 0 || tree->type_ == 3) && tree->dstype_ != SmurfTree::dytt ){
                     weight = weight * ZScaleFactor_[njets];
                 }
             }
 
-            // apply WW scale factors
+            // WW ------------------------------------------------------------------------------------
             if ( ((1ll<<sample->getDataType()) & ( (1ll<<QQWW) | (1ll<<GGWW)))) {
                 if (option_ != WW_OPT_SMURFXSECSEL && option_ != HWW_OPT_SMURFPRESEL ) 
                     weight = weight * WWScaleFactor_[njets];
             }
-            
-            // flag for mc id of leptons : need this for Wjets
+           
+            // W+jets --------------------------------------------------------------------------------
+
+            // flag for mc id of leptons 
             bool isRealLepton = false;
             if((TMath::Abs(tree->lep1McId_) == 11 || TMath::Abs(tree->lep1McId_) == 13) &&
                (TMath::Abs(tree->lep2McId_) == 11 || TMath::Abs(tree->lep2McId_) == 13)) isRealLepton = true;
           
-           // apply fakerates for the Wjets in data
+            // apply fakerates for the Wjets in data
             if ( ((1ll<<sample->getDataType()) & ( (1ll<<WJETSELEDATA) | (1ll<<WJETSMUDATA) | (1ll<<WJETSDATA) | (1ll<<WJETSMCLOOSE) ) )) {
 
                 // for the MC events, invert the weight to be subtracted
@@ -454,14 +349,17 @@ void SmurfLooper::loop(SmurfSample *sample)
                 } else continue;
             } 
 
-            //Wgamma
+            // Wgamma ----------------------------------------------------------------------------------
+            // This is for 2D template 
+            // Yield comes from WGAMMANORM 
+            // Template is re-normalizaed to WGAMMANORM later on
             if ( ( (1ll<<sample->getDataType()) & (1ll<<WGAMMA) ) ) { 
                 if(!(TMath::Abs(tree->lep1McId_) == 11 || TMath::Abs(tree->lep1McId_) == 13)) 
                         weight *= ratioPhotonElectron(fhDRatioPhotonElectron_,tree->lep1_.Eta());
                 if(!(TMath::Abs(tree->lep2McId_) == 11 || TMath::Abs(tree->lep2McId_) == 13)) 
                         weight *= ratioPhotonElectron(fhDRatioPhotonElectron_,tree->lep2_.Eta()); 
             }
-
+/*
             // get the data driven estimate of the dyll by doing OF subtraction and VZ subtraction
             if ( (1ll<<sample->getDataType()) & (1ll<<ZLLDATA)) {
                 if ( tree->dstype_ != SmurfTree::data) 
@@ -473,26 +371,31 @@ void SmurfLooper::loop(SmurfSample *sample)
                     }
                 }
             }
+*/
 
-            // hard coded wgamma* scale factor 
-            // k-factor = 1.5(Wmm)  and 1.0(Wee)
+            // Wgamma* --------------------------------------------------------------------------------
+            // hard coded scale factors : k-factor = 1.5(Wmm)  and 1.0(Wee)
             // The difference is already applied in the scale1fb i.e. scale1fb(Wmm)/scale1fb(Wee) = 1.5   
             // Applying global scale factor 1.5 accounts for the difference
             if ( tree->dstype_ == SmurfTree::wgstar) weight = weight * 1.5;
-            if ( tree->dstype_ == SmurfTree::wgstar && tree->type_==3 && tree->met_>130) continue; // remove unphysical events in ee final states at high M(gamma*)
-            
+            if ( tree->dstype_ == SmurfTree::wgstar && tree->type_==3 && tree->met_>130) continue; 
+            // ---> remove unphysical events(bug in MC) in ee final states at high M(gamma*)
+           
+            // Ztt ------------------------------------------------------------------------------------
+            // To Ztt embedded sample, lepton trigger and selection efficieny need to be applied.
+            // At this stage, sfWeightTrig_ and sfWeightEff_ are already applied to weights.
+            // ----> weight = weight * sfWeightTrig_ * sfWeightEff_ * sfWeightPU_ * scale1fb * lumi; 
+            // So, only need to remove sfWeightPU_ and put 1 for sfWeightEff_ and sfWeightTrig_.
+            // use lumi = 1 in ZttScaleFactor because scale1fb is already applied to weight
             if ( sample->getDataType() == ZTT) {
-                // To Ztt embedded sample, lepton trigger and selection efficieny need to be applied.
-                // At this stage, sfWeightTrig_ and sfWeightEff_ are already applied to weights.
-                // ----> weight = weight * sfWeightTrig_ * sfWeightEff_ * sfWeightPU_ * scale1fb * lumi; 
-                // So, only need to remove sfWeightPU_ and put 1 for sfWeightEff_ and sfWeightTrig_.
-                // use lumi = 1 in ZttScaleFactor because scale1fb is already applied to weight
                 weight = weight * ZttScaleFactor(2, 1, 1, 1) / sfWeightPU_;  
             }  
-            
-            //
-            // jet binning systematics
-            //
+
+
+
+            // ----------------------------------------------------------------------------------------
+            //      Jet binning systematics
+            // ----------------------------------------------------------------------------------------
 
             // define two alternative jet bins for the jet energy differences
             unsigned int jetbin_up = 999;
@@ -505,7 +408,6 @@ void SmurfLooper::loop(SmurfSample *sample)
             if ( njets == 1 && tree->jet2_.Pt() * 1.05 > 30 && TMath::Abs(tree->jet2_.Eta()) < 5.0 ) jetbin_up = 2;
             if ( njets >= 2 ) jetbin_up = 2;
 
-
             // scale down jets by 5%,  considering only 1->0 jet migration
             if ( njets == 0 ) jetbin_down = 0;
             if ( njets == 1 && tree->jet1_.Pt() * 0.95 < 30) jetbin_down = 0;
@@ -514,43 +416,39 @@ void SmurfLooper::loop(SmurfSample *sample)
             if ( njets == 2 && tree->jet2_.Pt() * 0.95 > 30 && TMath::Abs(tree->jet2_.Eta()) < 5.0 ) jetbin_down = 2;
             if ( njets >= 3 ) jetbin_down = 2;
 
-            //  
-            // check what cuts passed
-            //
+
+            // ----------------------------------------------------------------------------------------
+            //      Check what cuts passed
+            // ----------------------------------------------------------------------------------------
 
             Cuts_t cuts_passed = testCuts(tree, sample->getDataType(), njets, dymva_);  
 
-            //
-            // record HWW results
-            //
 
-            // preselection
+            // ----------------------------------------------------------------------------------------
+            //      Record results
+            // ----------------------------------------------------------------------------------------
+            
+            // do not care about 0 weight events 
+            if(weight == 0.) continue; 
+
+            // preselection --------------------------------------------------------------------------
             const Cuts_t hww_pass_preselection = (1ll<<HWW_PASS_PRESEL);
             if ( (cuts_passed & hww_pass_preselection) == hww_pass_preselection && 
                  (option_ == HWW_OPT_SMURFPRESEL || option_ == WW_OPT_SMURFXSECSEL || option_ == HWW_OPT_SSCTL || option_ == HWW_OPT_TOPTAG) ) {
                 sample->fillResults(njets, tree->type_, weight, weight_err);
             }
 
-            /*
-               if ( tree->dstype_ == SmurfTree::qqww  && tree->event_ == 4054482) {
-               std::cout << tree->event_ << "\t " << fabs(ROOT::Math::VectorUtil::DeltaPhi((tree->jet1_+tree->jet2_),tree->dilep_)) << "\n";
-               }*/
-            
-            // full cut-based higgs selection
+            // Cut-based analysis  -------------------------------------------------------------------
             const Cuts_t hww_pass_all_cut = (1ll<<HWW_PASS_PRESEL) | (1ll<<HWW_PASS_CUTSEL);
             if ((cuts_passed & hww_pass_all_cut) == hww_pass_all_cut  && option_ == HWW_OPT_SMURFCUTSEL) {
                 sample->fillResults(njets, tree->type_, weight, weight_err);
             }
 
-            // do not care about 0 weight events 
-            if(weight == 0.) continue; 
-
-            // 2d Mll-Mt analysis
+            // 2D analysis ---------------------------------------------------------------------------
             if ( ( option_ == HWW_OPT_MT2DMLL || option_ == HWW_OPT_MT2DMLL_JCP || option_ == XWW_OPT_MT2DMLL_JCP || option_ == HWW_OPT_SSCTL2D ) 
                  && hww_pass_2DSelection(tree, analysis_, njets, option_) && (cuts_passed & (1ll<<HWW_PASS_PRESEL) ) == (1ll<<HWW_PASS_PRESEL) ) {
     
-
-                if(njets<2) {   
+                if(njets<2) {    
                     sample->fillResults(njets, tree->type_, weight, weight_err);
                     sample->fill2DMVAShape(min(sample->getXMax()-0.0001, (double)tree->mt_), min(sample->getYMax()-0.0001,(double)tree->dilep_.M()), njets, tree->type_, weight); 
                 
@@ -563,7 +461,7 @@ void SmurfLooper::loop(SmurfSample *sample)
                     fillAlternateMet(sample, tree, min(sample->getXMax()-0.0001, (double)mt_metup_) , min(sample->getYMax()-0.0001,(double)mll_metup_),     type, weight, njets); 
                     if(jetbin_up<2 || (jetbin_up==2 && hww_pass_2DSelection(tree, analysis_, njets+1, option_)))  // when jetbin_up ==2, should pass VBF selection  
                             fillAlternateJES(sample, tree, min(sample->getXMax()-0.0001, (double)tree->mt_), min(sample->getYMax()-0.0001,(double)tree->dilep_.M()), type, weight, jetbin_up, jetbin_down ); 
-                } else {
+                } else{ 
                     sample->fillResults(njets, tree->type_, weight, weight_err);
                     sample->fill2DMVAShape( min(sample->getVBFXMax()-0.0001, (double)tree->mt_), 
                                             min(sample->getVBFYMax()-0.0001, (double)tree->dilep_.M()), njets, tree->type_, weight); 
@@ -585,144 +483,46 @@ void SmurfLooper::loop(SmurfSample *sample)
             
                 }
             }
+           
 
-            // full mva-based higgs selection
-            const Cuts_t hww_pass_all_mva = (1ll<<HWW_PASS_PRESEL) | (1ll<<HWW_PASS_MVASEL);
-            if ((cuts_passed & hww_pass_all_mva) == hww_pass_all_mva) {
 
-                // bdt
-                if (option_ == HWW_OPT_SMURFMVASEL) {
+            // ----------------------------------------------------------------------------------------
+            //      Plots
+            // ----------------------------------------------------------------------------------------
 
-                    float mva = 0.0;
-                    float mva_lepres_up = 0.0;
-                    float mva_lepres_down = 0.0;
-                    float mva_metres_smeared = 0.0;
-                    float mva_jetres_up = 0.0;
-                    float mva_jetres_down = 0.0;
-                
-                    // this is for the 42X post-LP 
-                    if ( njets == 0) {
-                        mva                 = bdt_0j_;
-                        mva_lepres_up       = bdt_0j_lepres_up_;
-                        mva_lepres_down     = bdt_0j_lepres_down_;
-                        mva_metres_smeared  = bdt_0j_metres_smeared_;
-                    }
-                    if ( njets == 1) {
-                        mva                 = bdt_1j_;
-                        mva_lepres_up       = bdt_1j_lepres_up_;
-                        mva_lepres_down     = bdt_1j_lepres_down_;
-                        mva_metres_smeared  = bdt_1j_metres_smeared_;
-
-                    }
-                    if ( njets == 2) {
-                        mva                 = bdt_2j_;
-                        mva_lepres_up       = bdt_2j_lepres_up_;
-                        mva_lepres_down     = bdt_2j_lepres_down_;
-                        mva_metres_smeared  = bdt_2j_metres_smeared_;
-                        mva_jetres_up  = bdt_2j_jetres_up_;
-                        mva_jetres_down  = bdt_2j_jetres_down_;
-                    }
-
-                    // this is for reproducing the LP results
-                    //  mva = bdt_;
-
-                    sample->fillResults(njets, tree->type_, weight, weight_err);    
-                    sample->fillMVAShape(mva, njets, tree->type_, weight);
-
-                    fillAlternateQCD(sample, tree, mva, 0.0, type, weight, njets);
-                    fillAlternateFR(sample, tree, mva, 0.0, type, weight, njets);
-                    fillAlternateLepEff(sample, tree, mva, 0.0, type, weight, njets);
-                    fillAlternateLepRes(sample, tree, mva_lepres_up, mva_lepres_down, 0.0, 0.0, type, weight, njets);
-                    fillAlternateMet(sample, tree, mva_metres_smeared, 0.0, type, weight, njets);
-                    if ( njets < 2 ) 
-                        fillAlternateJES(sample, tree, mva, 0.0, type, weight, jetbin_up, jetbin_down );
-                    if ( njets == 2 ) {
-                        fillAlternateJESVBF(sample, tree, mva_jetres_up, mva_jetres_down, 0.0, 0.0, type, weight, njets);
-                    }
-                }
-
-                // for the matrix element
-                if (option_ == HWW_OPT_SMURFMESEL) {
-
-                    float lr = LR_[getMEProc(int(analysis_), option_)];
-                    sample->fillResults(njets, tree->type_, weight, weight_err);    
-                    sample->fillMVAShape(lr, njets, tree->type_, weight);
-
-                    fillAlternateQCD(sample, tree, lr, 0.0, type, weight, njets);
-                    fillAlternateFR(sample, tree, lr, 0.0, type, weight, njets);
-                    fillAlternateLepEff(sample, tree, lr, 0.0, type, weight, njets);
-                    fillAlternateJES(sample, tree, lr, 0.0, type, weight, jetbin_up, jetbin_down );
-
-                }
-            }
-
-            //
-            // plots
-            //
-
-            bool canPlot = false;
+            bool doPlot = false;
             if ((option_ == WW_OPT_SMURFXSECSEL || option_ == HWW_OPT_SMURFPRESEL || option_ == HWW_OPT_SSCTL || option_ == HWW_OPT_TOPTAG ) 
-                    && ((cuts_passed & hww_pass_preselection) == hww_pass_preselection))    canPlot = true;
+                    && ((cuts_passed & hww_pass_preselection) == hww_pass_preselection))    doPlot = true;
             if (option_ == HWW_OPT_SMURFCUTSEL
-                    && (cuts_passed & hww_pass_all_cut) == hww_pass_all_cut)                canPlot = true; 
-            if (option_ == HWW_OPT_SMURFMVASEL 
-                    && (cuts_passed & hww_pass_all_mva) == hww_pass_all_mva)                canPlot = true;
-            if (option_ == HWW_OPT_SMURFMESEL
-                    && (cuts_passed & hww_pass_all_mva) == hww_pass_all_mva)                canPlot = true;
+                    && (cuts_passed & hww_pass_all_cut) == hww_pass_all_cut)                doPlot = true; 
             if ( (option_ == HWW_OPT_SSCTL2D || option_ == HWW_OPT_MT2DMLL ) 
                     && hww_pass_2DSelection(tree, analysis_, njets, option_) 
-                    && (cuts_passed & (1ll<<HWW_PASS_PRESEL) ) == (1ll<<HWW_PASS_PRESEL) )  canPlot = true;
+                    && (cuts_passed & (1ll<<HWW_PASS_PRESEL) ) == (1ll<<HWW_PASS_PRESEL) )  doPlot = true;
 
-            if (canPlot) {
+            if (doPlot) {
 
                 // values
                 float metValue = min(tree->pmet_, tree->pTrackMet_);
                 if ( njets == 2 ) metValue = tree->met_;
-/*
-                float mva = 0.0;
-                if (njets == 0) mva = bdt_0j_;
-                if (njets == 1) mva = bdt_1j_;
-                if (njets == 2) mva = bdt_2j_;
-                float lr = LR_[getMEProc(int(analysis_), option_)];
-*/
+
                 // fill plots 
                 //if( tree->dilep_.M() > 25. && tree->dilep_.M() < 50. && tree->mt_>120 && tree->mt_<140) { 
-                // ==> fill for only interesting kinematic range 
-                    
-                    FillHist(h1_ww_mll[njets],     type, tree->dilep_.M(),      weight);
-                    FillHist(h1_ww_pt1[njets],     type, tree->lep1_.Pt(),      weight);
-                    FillHist(h1_ww_pt2[njets],     type, tree->lep2_.Pt(),      weight);
-                    FillHist(h1_ww_eta1[njets],    type, TMath::Abs(tree->lep1_.Eta()),      weight);
-                    FillHist(h1_ww_eta2[njets],    type, TMath::Abs(tree->lep2_.Eta()),      weight);
-                    FillHist(h1_ww_met[njets],     type, metValue,              weight);
-                    FillHist(h1_ww_ptll[njets],    type, tree->dilep_.Pt(),     weight);
-                    FillHist(h1_ww_mt[njets],      type, tree->mt_,             weight);
-                    FillHist(h1_ww_dphi[njets],    type, tree->dPhi_,           weight);
-                    FillHist(h1_ww_nvtx[njets],    type, tree->nvtx_,           weight);
-/*
-                    // bdt debug plots
-                    if (mva >= -0.4) {
-                        FillHist(h1_hww_bdthi_mll[njets],     type, tree->dilep_.M(),     weight);
-                        FillHist(h1_hww_bdthi_pt1[njets],     type, tree->lep1_.Pt(),     weight);
-                        FillHist(h1_hww_bdthi_pt2[njets],     type, tree->lep2_.Pt(),     weight);
-                        FillHist(h1_hww_bdthi_dphi[njets],    type, tree->dPhi_,    weight);
-                        FillHist(h1_hww_bdthi_mt[njets],     type, tree->mt_,     weight);
-                    } else {
-                        FillHist(h1_hww_bdtlo_mll[njets],     type, tree->dilep_.M(),     weight);
-                        FillHist(h1_hww_bdtlo_pt1[njets],     type, tree->lep1_.Pt(),     weight);
-                        FillHist(h1_hww_bdtlo_pt2[njets],     type, tree->lep2_.Pt(),     weight);
-                        FillHist(h1_hww_bdtlo_dphi[njets],    type, tree->dPhi_,    weight);
-                        FillHist(h1_hww_bdtlo_mt[njets],      type, tree->mt_,     weight);
-                        FillHist(h1_hww_bdtlo_met[njets],     type, metValue,     weight);
-                        FillHist(h1_ww_bdt[njets],            type, mva, weight);
-                    }
+                // --->  fill for only interesting kinematic range 
 
-                    if (njets == 2) {
-                        LorentzVector jj = tree->jet1_ + tree->jet2_;
-                        FillHist(h1_ww_detajj,  type, fabs(tree->jet1_.Eta() - tree->jet2_.Eta()), weight);
-                        FillHist(h1_ww_mjj, type, jj.M(), weight);
-                    } 
-*/
+                FillHist(h1_ww_mll[njets],     type, tree->dilep_.M(),      weight);
+                FillHist(h1_ww_pt1[njets],     type, tree->lep1_.Pt(),      weight);
+                FillHist(h1_ww_pt2[njets],     type, tree->lep2_.Pt(),      weight);
+                FillHist(h1_ww_eta1[njets],    type, TMath::Abs(tree->lep1_.Eta()),      weight);
+                FillHist(h1_ww_eta2[njets],    type, TMath::Abs(tree->lep2_.Eta()),      weight);
+                FillHist(h1_ww_met[njets],     type, metValue,              weight);
+                FillHist(h1_ww_ptll[njets],    type, tree->dilep_.Pt(),     weight);
+                float ptWWx = tree->dilep_.Px() + tree->met_*TMath::Cos(tree->metPhi_);
+                float ptWWy = tree->dilep_.Py() + tree->met_*TMath::Sin(tree->metPhi_);
+                FillHist(h1_ww_ptWW[njets],    type, TMath::Sqrt(ptWWx*ptWWx + ptWWy*ptWWy),     weight);
+                FillHist(h1_ww_mt[njets],      type, tree->mt_,             weight);
+                FillHist(h1_ww_dphi[njets],    type, tree->dPhi_,           weight);
+                FillHist(h1_ww_nvtx[njets],    type, tree->nvtx_,           weight);
+
                 //} //if( tree->dilep_.M() > 25. && tree->dilep_.M() < 50. && tree->mt_>120 && tree->mt_<140)  
 
             }
@@ -754,7 +554,7 @@ Cuts_t SmurfLooper::testCuts(SmurfTree *tree, DataType dataType, const unsigned 
     // apply the addtional cuts to the SF events for all types
     // also apply it to the OF type of the ZLLDATA
     // apply DYMVA everywhere for the 0/1 Jets and met for the 2-jet
-    if ( tree->type_ == 0 || tree->type_ == 3 || (dataType == ZLLDATA && tree->dstype_ == SmurfTree::data)) {
+    if ( tree->type_ == 0 || tree->type_ == 3 ) { // || (dataType == ZLLDATA && tree->dstype_ == SmurfTree::data)) { // FIXME : erase
       if ( tree->njets_ > 1) {
         if ( ! hww_dy_selection(tree) ) passDY = false;
         if ( ! hww_sfmet_selection(tree) )   passMET = false;
@@ -776,27 +576,25 @@ Cuts_t SmurfLooper::testCuts(SmurfTree *tree, DataType dataType, const unsigned 
             if (hww_pass_wwSSPassFailSelection(tree, option_) && passDY && passMET )  cuts_passed |= (1ll<<HWW_PASS_PRESEL);
         }
         if ( dataType == WJETSMCLOOSE   && hww_pass_wwSSPassFailSelection(tree, option_)    && passDY && passMET )      cuts_passed |= (1ll<<HWW_PASS_PRESEL);
-        if ( dataType == ZLLLOOSEMET    && hww_pass_wwSSSelection(tree, option_)            && passDY && passMETSB )    cuts_passed |= (1ll<<HWW_PASS_PRESEL);
-        if ( dataType == ZLLDATA        && hww_pass_wwSSSelection(tree, option_)            && passDY && passMETSB )    cuts_passed |= (1ll<<HWW_PASS_PRESEL);
+        //if ( dataType == ZLLLOOSEMET    && hww_pass_wwSSSelection(tree, option_)            && passDY && passMETSB )    cuts_passed |= (1ll<<HWW_PASS_PRESEL);
+        //if ( dataType == ZLLDATA        && hww_pass_wwSSSelection(tree, option_)            && passDY && passMETSB )    cuts_passed |= (1ll<<HWW_PASS_PRESEL);
         if ( dataType == WGAMMA         && hww_pass_wgammaSSSelection(tree, option_)        && passDY && passMET )      cuts_passed |= (1ll<<HWW_PASS_PRESEL);
         if ( dataType != WJETSDATA      && dataType != WJETSELEDATA     && dataType != WJETSMUDATA  &&
-                dataType != WJETSMCLOOSE   && dataType != ZLLLOOSEMET      && dataType != ZLLDATA      && dataType != WGAMMA  &&
+                dataType != WJETSMCLOOSE   /*&& dataType != ZLLLOOSEMET      && dataType != ZLLDATA*/      && dataType != WGAMMA  &&
                 hww_pass_wwSSSelection(tree, option_) && passDY && passMET )  cuts_passed |= (1ll<<HWW_PASS_PRESEL);
     } else {
         if ( dataType == WJETSELEDATA || dataType == WJETSMUDATA || dataType == WJETSDATA) {
             if (hww_pass_wwPassFailSelection(tree, option_) && passDY && passMET )  cuts_passed |= (1ll<<HWW_PASS_PRESEL);
         }
         if ( dataType == WJETSMCLOOSE && hww_pass_wwPassFailSelection(tree, option_) && passDY && passMET ) cuts_passed |= (1ll<<HWW_PASS_PRESEL); 
-        if ( dataType == ZLLLOOSEMET && hww_pass_wwSelection(tree, option_) && passDY && passMETSB )  cuts_passed |= (1ll<<HWW_PASS_PRESEL);
-        if ( dataType == ZLLDATA && hww_pass_wwSelection(tree, option_) && passDY && passMETSB )  cuts_passed |= (1ll<<HWW_PASS_PRESEL);
+        //if ( dataType == ZLLLOOSEMET && hww_pass_wwSelection(tree, option_) && passDY && passMETSB )  cuts_passed |= (1ll<<HWW_PASS_PRESEL);
+        //if ( dataType == ZLLDATA && hww_pass_wwSelection(tree, option_) && passDY && passMETSB )  cuts_passed |= (1ll<<HWW_PASS_PRESEL);
         if ( dataType == WGAMMA && hww_pass_wgammaSelection(tree, option_) && passDY && passMET )  cuts_passed |= (1ll<<HWW_PASS_PRESEL);
-        if ( dataType != WJETSDATA && dataType != WJETSELEDATA && dataType != WJETSMUDATA &&dataType != WJETSMCLOOSE && dataType != ZLLLOOSEMET 
-                && dataType != ZLLDATA && dataType != WGAMMA  && hww_pass_wwSelection(tree, option_) && passDY && passMET )  cuts_passed |= (1ll<<HWW_PASS_PRESEL);
+        if ( dataType != WJETSDATA && dataType != WJETSELEDATA && dataType != WJETSMUDATA &&dataType != WJETSMCLOOSE /*&& dataType != ZLLLOOSEMET 
+                && dataType != ZLLDATA*/ && dataType != WGAMMA  && hww_pass_wwSelection(tree, option_) && passDY && passMET )  cuts_passed |= (1ll<<HWW_PASS_PRESEL);
     }
 
-
     if (hww_pass_cutSelection(tree, analysis_, jetbin))             cuts_passed |= (1ll<<HWW_PASS_CUTSEL);
-    if (hww_pass_mvaSelection(tree, analysis_, jetbin ))             cuts_passed |= (1ll<<HWW_PASS_MVASEL);
 
     return cuts_passed;
 }
@@ -823,8 +621,8 @@ void SmurfLooper::loadWeightHistograms()
     if ( analysis_ <= 500 && analysis_ > 400) ana = 500;
     if ( analysis_ <= 600 && analysis_ > 500) ana = 600;
 
-    //const char *HiggsPtKFactorFileName = "/smurf/data/Winter11_4700ipb/auxiliar/ggHWW_KFactors_PowhegToHQT_WithAdditionalMassPoints.root";
-    const char *HiggsPtKFactorFileName = "/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/aux/ggHWW_KFactors_PowhegToHQT_WithAdditionalMassPoints.root";
+    const char *HiggsPtKFactorFileName = "/smurf/data/Winter11_4700ipb/auxiliar/ggHWW_KFactors_PowhegToHQT_WithAdditionalMassPoints.root"; // TAS
+    //const char *HiggsPtKFactorFileName = "/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/aux/ggHWW_KFactors_PowhegToHQT_WithAdditionalMassPoints.root"; // UAF
 
     TFile *fHiggsPtKFactorFile = TFile::Open(HiggsPtKFactorFileName, "READ");
     std::string kfactorHistName;
@@ -860,13 +658,13 @@ void SmurfLooper::loadWeightHistograms()
     // 
     // Lepton efficiencies
     //
-    leptonSF_ = new LeptonScaleLookup("/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/aux/summary_Moriond_V1.root");
-    //leptonSF_ = new LeptonScaleLookup("/smurf/dlevans/Efficiencies/V00-02-09/summary_Moriond_V1.root");
+    leptonSF_ = new LeptonScaleLookup("/smurf/dlevans/Efficiencies/V00-02-09/summary_Moriond_V1.root"); // TAS
+    //leptonSF_ = new LeptonScaleLookup("/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/aux/summary_Moriond_V1.root"); // UAF
     
     // lepton efficiency uncertainties
     TFile *fLeptonEffError = 0;
-    fLeptonEffError = TFile::Open("/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/aux/systematics_Moriond_V1.root");
-    //fLeptonEffError = TFile::Open("/smurf/dlevans/Efficiencies/V00-02-09/systematics_Moriond_V1.root");
+    fLeptonEffError = TFile::Open("/smurf/dlevans/Efficiencies/V00-02-09/systematics_Moriond_V1.root"); // TAS
+    //fLeptonEffError = TFile::Open("/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/aux/systematics_Moriond_V1.root"); // UAF
     
     fhDMuonEffError_ = (TH2D*)(fLeptonEffError->Get("h2_nm1_syst_muon_selection")); 
     assert(fhDMuonEffError_);
@@ -887,8 +685,8 @@ void SmurfLooper::loadWeightHistograms()
     TFile *fLeptonFRFileE = 0;
 
     // load electron fake rate histograms
-    fLeptonFRFileE = TFile::Open("/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/aux/summary_fakes_Moriond2012.root");
-    //fLeptonFRFileE = TFile::Open("/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/summary_fakes_Moriond2012.root");
+    fLeptonFRFileE = TFile::Open("/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/summary_fakes_Moriond2012.root"); // TAS
+    //fLeptonFRFileE = TFile::Open("/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/aux/summary_fakes_Moriond2012.root"); // UAF
     fhDFREl_ = (TH2D*)(fLeptonFRFileE->Get("ElectronFakeRate_V4_ptThreshold35_PtEta")); 
     assert(fhDFREl_);
     fhDFREl_->SetDirectory(0);
@@ -901,8 +699,8 @@ void SmurfLooper::loadWeightHistograms()
     delete fLeptonFRFileE;
 
     // load muon fake rate histograms
-    fLeptonFRFileM = TFile::Open("/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/aux/summary_fakes_Moriond2012.root");
-    //fLeptonFRFileM = TFile::Open("/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/summary_fakes_Moriond2012.root");
+    fLeptonFRFileM = TFile::Open("/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/summary_fakes_Moriond2012.root"); // TAS
+    //fLeptonFRFileM = TFile::Open("/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/aux/summary_fakes_Moriond2012.root"); // UAF
     fhDFRMu_ = (TH2D*)(fLeptonFRFileM->Get("MuonFakeRate_M2_ptThreshold30_PtEta"));  
     assert(fhDFRMu_);
     fhDFRMu_->SetDirectory(0);
@@ -915,8 +713,8 @@ void SmurfLooper::loadWeightHistograms()
     delete fLeptonFRFileM; 
 
     // photon -> electron conversion ratio 
-    TFile *fRatioPhotonElectron = TFile::Open("/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/aux/ratio_photon_electron.root");
-    //TFile *fRatioPhotonElectron = TFile::Open("/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/ratio_photon_electron.root");
+    TFile *fRatioPhotonElectron = TFile::Open("/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/ratio_photon_electron.root"); // TAS
+    //TFile *fRatioPhotonElectron = TFile::Open("/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/aux/ratio_photon_electron.root"); // UAF
     fhDRatioPhotonElectron_ = (TH1D*)(fRatioPhotonElectron->Get("hDRatioPhotonElectron"));
     assert(fhDRatioPhotonElectron_);
     fhDRatioPhotonElectron_->SetDirectory(0);
@@ -952,98 +750,6 @@ void SmurfLooper::setLumiScale(float eeLumi, float mmLumi)
     std::cout << "[SmurfLooper::setLumiScale] re-setting lumi to " << eeLumi << ", " << mmLumi << std::endl;
     eeLumi_ = eeLumi;
     mmLumi_ = mmLumi;
-}
-
-int SmurfLooper::getMEProc(const int mH, Option option)
-{
-    int iProc = 0; 
-    switch (mH)
-    {
-        case 110:
-            iProc = 5;
-            break;
-        case 115:
-            iProc = 6;
-            break;
-        case 120:
-            iProc = 7;
-            break;
-        case 125:
-            iProc = 8;
-            break;
-        case 130:
-            iProc = 9;
-            break;
-        case 135:
-            iProc = 10;
-            break;
-        case 140:
-            iProc = 11;
-            break;
-        case 145:
-            iProc = 12;
-            break;
-        case 150:
-            iProc = 13;
-            break;
-        case 155:
-            iProc = 14;
-            break;
-        case 160:
-            iProc = 15;
-            break;
-        case 170:
-            iProc = 16;
-            break;
-        case 180:
-            iProc = 17;
-            break;
-        case 190:
-            iProc = 18;
-            break;
-        case 200:
-            iProc = 19;
-            break;
-        case 250:
-            iProc = 20;
-            break;
-        case 300:
-            iProc = 21;
-            break;
-        case 350:
-            iProc = 22;
-            break;
-        case 400:
-            iProc = 23;
-            break;
-        case 450:
-            iProc = 24;
-            break;
-        case 500:
-            iProc = 25;
-            break;
-        case 550:
-            iProc = 26;
-            break;
-        case 600:
-            iProc = 27;
-            break;
-        case 700:
-            iProc = 28;
-            break;
-        case 800:
-            iProc = 29;
-            break;
-        case 900:
-            iProc = 30;
-            break;
-        case 1000:
-            iProc = 31;
-            break;
-        default:
-            break;
-    }
-    return iProc;
 }
 
 float SmurfLooper::getScaleQCD(float mr, float mf, SmurfTree *tree) {
@@ -1095,12 +801,12 @@ void SmurfLooper::fillAlternateQCD(SmurfSample *sample, SmurfTree *tree,
         float newWeightDown = (weight / HiggsPtKFactor) * getScaleQCD(2.0, 0.5, tree); 
 
         // fill the alternate shapes
-    if ((1ll<<option_) & HWW_MT2DMLL ) {
+        if ((1ll<<option_) & HWW_MT2DMLL ) {
             sample->fillShapeVariation2D(QCDSCALEVAR, true, varx, vary, jetbin, type, newWeightUp);
             sample->fillShapeVariation2D(QCDSCALEVAR, false, varx, vary, jetbin, type, newWeightDown);
         } else {
-            sample->fillShapeVariation1D(QCDSCALEVAR, true, varx, jetbin, type, newWeightUp);
-            sample->fillShapeVariation1D(QCDSCALEVAR, false, varx, jetbin, type, newWeightDown);     
+            //sample->fillShapeVariation1D(QCDSCALEVAR, true, varx, jetbin, type, newWeightUp);
+            //sample->fillShapeVariation1D(QCDSCALEVAR, false, varx, jetbin, type, newWeightDown);     
         }
 
     }
@@ -1116,11 +822,10 @@ void SmurfLooper::fillAlternateMet(SmurfSample *sample, SmurfTree *tree,
         // note - this is ultimately going to be a mirror of the 
         // central and the up histograms, so the down histogram is reduntant 
         // and not filled.
-        //sample->fillShapeVariation1D(METVAR, false, var, jetbin, type, weight);
        if ((1ll<<option_)  & HWW_MT2DMLL ) {
             sample->fillShapeVariation2D(METVAR, true, varx, vary, jetbin, type, weight);
         } else {
-            sample->fillShapeVariation1D(METVAR, true, varx, jetbin, type, weight);
+            //sample->fillShapeVariation1D(METVAR, true, varx, jetbin, type, weight);
         }
     }
 }
@@ -1138,8 +843,8 @@ void SmurfLooper::fillAlternateLepRes(SmurfSample *sample, SmurfTree *tree,
             sample->fillShapeVariation2D(LEPRESVAR, true, var_upx, var_upy, jetbin, type, weight);
             sample->fillShapeVariation2D(LEPRESVAR, false, var_downx, var_downy, jetbin, type, weight);
         } else {
-            sample->fillShapeVariation1D(LEPRESVAR, true, var_upx, jetbin, type, weight);
-            sample->fillShapeVariation1D(LEPRESVAR, false, var_downx, jetbin, type, weight);
+            //sample->fillShapeVariation1D(LEPRESVAR, true, var_upx, jetbin, type, weight);
+            //sample->fillShapeVariation1D(LEPRESVAR, false, var_downx, jetbin, type, weight);
         }
     }
 
@@ -1196,8 +901,8 @@ void SmurfLooper::fillAlternateLepEff(SmurfSample *sample, SmurfTree *tree,
             sample->fillShapeVariation2D(LEPEFFVAR, true, varx, vary, jetbin, type, newWeightUp);
             sample->fillShapeVariation2D(LEPEFFVAR, false, varx, vary, jetbin, type, newWeightDown);
         } else {
-            sample->fillShapeVariation1D(LEPEFFVAR, true, varx, jetbin, type, newWeightUp);
-            sample->fillShapeVariation1D(LEPEFFVAR, false, varx, jetbin, type, newWeightDown);
+            //sample->fillShapeVariation1D(LEPEFFVAR, true, varx, jetbin, type, newWeightUp);
+            //sample->fillShapeVariation1D(LEPEFFVAR, false, varx, jetbin, type, newWeightDown);
         }
 
     }
@@ -1250,10 +955,10 @@ void SmurfLooper::fillAlternateFR(SmurfSample *sample, SmurfTree *tree,
             sample->fillShapeVariation2D(WJETSMUSHAPEVAR, true,  varx, vary, jetbin, type, weight*up_weight/central_weight);
             sample->fillShapeVariation2D(WJETSMUSHAPEVAR, false, varx, vary, jetbin, type, weight*up_weight/central_weight);
         } else {
-            sample->fillShapeVariation1D(WJETSELESHAPEVAR, true,  varx, jetbin, type, weight*up_weight/central_weight);
-            sample->fillShapeVariation1D(WJETSELESHAPEVAR, false, varx, jetbin, type, weight*up_weight/central_weight);
-            sample->fillShapeVariation1D(WJETSMUSHAPEVAR, true,  varx, jetbin, type, weight*up_weight/central_weight);
-            sample->fillShapeVariation1D(WJETSMUSHAPEVAR, false, varx, jetbin, type, weight*up_weight/central_weight);
+            //sample->fillShapeVariation1D(WJETSELESHAPEVAR, true,  varx, jetbin, type, weight*up_weight/central_weight);
+            //sample->fillShapeVariation1D(WJETSELESHAPEVAR, false, varx, jetbin, type, weight*up_weight/central_weight);
+            //sample->fillShapeVariation1D(WJETSMUSHAPEVAR, true,  varx, jetbin, type, weight*up_weight/central_weight);
+            //sample->fillShapeVariation1D(WJETSMUSHAPEVAR, false, varx, jetbin, type, weight*up_weight/central_weight);
         } 
 
     }
@@ -1271,8 +976,8 @@ void SmurfLooper::fillAlternateJES(SmurfSample *sample, SmurfTree *tree,
             if ( jetbin_up == 0 || jetbin_up == 1 || jetbin_up == 2)      sample->fillShapeVariation2D(JETRESVAR, true, varx, vary, jetbin_up, type, weight);
             if ( jetbin_down == 0 || jetbin_down == 1 || jetbin_down == 2)  sample->fillShapeVariation2D(JETRESVAR, false, varx, vary, jetbin_down, type, weight);
         } else {
-            if ( jetbin_up == 0 || jetbin_up == 1)      sample->fillShapeVariation1D(JETRESVAR, true, varx, jetbin_up, type, weight);
-            if ( jetbin_down == 0 || jetbin_down == 1)  sample->fillShapeVariation1D(JETRESVAR, false, varx, jetbin_down, type, weight);
+            //if ( jetbin_up == 0 || jetbin_up == 1)      sample->fillShapeVariation1D(JETRESVAR, true, varx, jetbin_up, type, weight);
+            //if ( jetbin_down == 0 || jetbin_down == 1)  sample->fillShapeVariation1D(JETRESVAR, false, varx, jetbin_down, type, weight);
         }
     }
 }
@@ -1290,8 +995,8 @@ void SmurfLooper::fillAlternateJESVBF(SmurfSample *sample, SmurfTree *tree,
             sample->fillShapeVariation2D(JETRESVAR, true, var_upx, var_upy, jetbin, type, weight);
             sample->fillShapeVariation2D(JETRESVAR, false, var_downx, var_downy, jetbin, type, weight);
         } else {
-            sample->fillShapeVariation1D(JETRESVAR, true, var_upx, jetbin, type, weight);
-            sample->fillShapeVariation1D(JETRESVAR, false, var_downx, jetbin, type, weight);
+            //sample->fillShapeVariation1D(JETRESVAR, true, var_upx, jetbin, type, weight);
+            //sample->fillShapeVariation1D(JETRESVAR, false, var_downx, jetbin, type, weight);
         }
     }
 

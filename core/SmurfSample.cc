@@ -16,12 +16,6 @@ SmurfSample::~SmurfSample()
 //            if (h1k_shape_[j][i]) delete h1k_shape_[j][i];
         }
     }
-
-    //if (arrayXBinning_ != 0)    delete arrayXBinning_;
-    //if (arrayYBinning_ != 0)    delete arrayYBinning_;
-    //if (arrayYBinningVBF_ != 0) delete arrayYBinningVBF_;
-    //if (arrayYBinningVBF_ != 0) delete arrayYBinningVBF_;
-
 }
 
 SmurfSample::SmurfSample(Option option, DataType dataType, Color_t colour, std::string name, float analysis)
@@ -32,16 +26,6 @@ SmurfSample::SmurfSample(Option option, DataType dataType, Color_t colour, std::
     colour_ = colour;
     chain_ = new TChain("tree");
 
-    if (option == HWW_OPT_SMURFMVASEL) {
-        nBinsShape_ = 20;
-        minRangeShape_ = -1.0;
-        maxRangeShape_ = 1.0;
-    } else if (option == HWW_OPT_SMURFMESEL) {
-        nBinsShape_ = 20;
-        minRangeShape_ = 0.0;
-        maxRangeShape_ = 1.0;
-    } 
-    
     // expanded non-uniform Binning
     arrayXBinning_ = 0;
     arrayYBinning_ = 0;
@@ -51,7 +35,7 @@ SmurfSample::SmurfSample(Option option, DataType dataType, Color_t colour, std::
     //
     // 2D shape analysis
     //
-    if (option == HWW_OPT_MT2DMLL || option == HWW_OPT_SSCTL2D) {
+    if (option == HWW_OPT_MT2DMLL || option == HWW_OPT_SSCTL2D || option == HWW_OPT_MT2DMLL_JCP || option == XWW_OPT_MT2DMLL_JCP ) {
         float lep1ptCut(20.), lep2ptCut(10.), mllCut(9999.), dPhiCut(9999.), mtLowCut(0.), mtHighCut(9999.),  mllLooseCut(9999.);
         evaluate_hww_cuts(analysis, lep1ptCut, lep2ptCut, mllCut, dPhiCut, mtLowCut, mtHighCut, mllLooseCut);
         
@@ -100,7 +84,7 @@ SmurfSample::SmurfSample(Option option, DataType dataType, Color_t colour, std::
         }
     }
 
-
+/*
     // 
     // 2D shape analysis for the JCP studies
     // 
@@ -128,35 +112,12 @@ SmurfSample::SmurfSample(Option option, DataType dataType, Color_t colour, std::
     }
 
     gROOT->cd();
-
-    //          
-    // 1D shape results
-    //
-
-    if (option == HWW_OPT_SMURFMVASEL || option == HWW_OPT_SMURFMESEL) {
-        for (unsigned int j = 0; j < kJetBins; ++j) {
-            for (unsigned int i = 0; i < kLeptonTypes; ++i) {
-
-                // normal shape histogram
-                h1_shape_[j][i] = new TH1F(Form("%s_histo_shape_%s_%s", getName().c_str(), jetbin_names[j], types[i]), 
-                        "h1_shape", nBinsShape_, minRangeShape_, maxRangeShape_);
-                h1_shape_[j][i]->Sumw2();
-
-                // now create the keys version
-                h1k_shape_[j][i] = new TH1Keys(Form("%s_histokeys_shape_%s_%s", getName().c_str(), jetbin_names[j], types[i]), 
-                        "h1k_shape", nBinsShape_, minRangeShape_, maxRangeShape_);
-                h1k_shape_[j][i]->Sumw2();
-                h1k_shape_[j][i]->SetDirectory(0);
-
-            }
-        }
-
+*/
     // 
     // 2D shape results
     //
 
-    //} else if ( option == HWW_MT2DMLL ) {
-    } else if ( option == HWW_OPT_MT2DMLL || option == HWW_OPT_SSCTL2D) {
+    if ( option == HWW_OPT_MT2DMLL || option == HWW_OPT_SSCTL2D || option ==HWW_OPT_MT2DMLL_JCP || option == XWW_OPT_MT2DMLL_JCP ) {
         for (unsigned int j = 0; j < kJetBins; ++j) {
             for (unsigned int i = 0; i < kLeptonTypes; ++i) {
                 // 2d shape histogram 
@@ -171,7 +132,8 @@ SmurfSample::SmurfSample(Option option, DataType dataType, Color_t colour, std::
                 h2_shape_[j][i]->Sumw2();
             }
         }
-    
+    }
+ /*   
     // 
     // JCP shape results
     //
@@ -194,70 +156,7 @@ SmurfSample::SmurfSample(Option option, DataType dataType, Color_t colour, std::
         }
     
     }
-
-    //
-    // cut results
-    //
-
-    for (unsigned int i = 0; i < kLeptonTypes; ++i) {
-
-        // record yields
-        h1_results_cutsel_[i]    = new TH1F(Form("%s_h1_results_%s", getName().c_str(), types[i]), "h1_results", 3, -0.5, 2.5);
-
-        // now keep track of the weights directly
-        // this is needed for gamma uncertainty
-        h1_sumw_cutsel_[i]    = new TH1F(Form("%s_h1_sumw_%s", getName().c_str(), types[i]), "h1_sumw", 3, -0.5, 2.5);
-
-        h1_results_cutsel_[i]->Sumw2();
-        h1_sumw_cutsel_[i]->Sumw2();
-
-    }
-
-}
-
-SmurfSample::SmurfSample(Option option, DataType dataType, Color_t colour, std::string name)
-{
-
-    dataType_ = dataType;
-    name_ = name;
-    colour_ = colour;
-    chain_ = new TChain("tree");
-
-    if (option == HWW_OPT_SMURFMVASEL) {
-        nBinsShape_ = 20;
-        minRangeShape_ = -1.0;
-        maxRangeShape_ = 1.0;
-    } else if (option == HWW_OPT_SMURFMESEL) {
-        nBinsShape_ = 20;
-        minRangeShape_ = 0.0;
-        maxRangeShape_ = 1.0;
-    } 
-
-    gROOT->cd();
-
-    //          
-    // 1D shape results
-    //
-
-    if (option == HWW_OPT_SMURFMVASEL || option == HWW_OPT_SMURFMESEL) {
-        for (unsigned int j = 0; j < kJetBins; ++j) {
-            for (unsigned int i = 0; i < kLeptonTypes; ++i) {
-
-                // normal shape histogram
-                h1_shape_[j][i] = new TH1F(Form("%s_histo_shape_%s_%s", getName().c_str(), jetbin_names[j], types[i]), 
-                        "h1_shape", nBinsShape_, minRangeShape_, maxRangeShape_);
-                h1_shape_[j][i]->Sumw2();
-
-                // now create the keys version
-                h1k_shape_[j][i] = new TH1Keys(Form("%s_histokeys_shape_%s_%s", getName().c_str(), jetbin_names[j], types[i]), 
-                        "h1k_shape", nBinsShape_, minRangeShape_, maxRangeShape_);
-                h1k_shape_[j][i]->Sumw2();
-                h1k_shape_[j][i]->SetDirectory(0);
-
-            }
-        }
-    }
-
+*/
     //
     // cut results
     //
@@ -373,106 +272,6 @@ void SmurfSample::getResults(unsigned int binMin, unsigned int binMax,
     else
         yield = h1_results_cutsel_[type]->IntegralAndError(binMin, binMax, err);
 
-}
-
-
-void SmurfSample::fillMVAShape(double val, unsigned int jetbin, unsigned int type, double weight) 
-{
-
-    // fill the normal shape
-    h1_shape_[jetbin][type]->Fill(val, weight);
-    h1_shape_[jetbin][6]->Fill(val, weight);
-    if (type == 0 || type == 3) {
-        h1_shape_[jetbin][4]->Fill(val, weight);
-    }
-    if (type == 1 || type == 2) {
-        h1_shape_[jetbin][5]->Fill(val, weight);
-    }
-
-    // fill the smoothed shape
-    h1k_shape_[jetbin][type]->Fill(val, weight);
-    h1k_shape_[jetbin][6]->Fill(val, weight);
-    if (type == 0 || type == 3) {
-        h1k_shape_[jetbin][4]->Fill(val, weight);
-    }
-    if (type == 1 || type == 2) {
-        h1k_shape_[jetbin][5]->Fill(val, weight);
-    }
-
-}
-
-TH1F *SmurfSample::getKeysMVAShape(unsigned int jetbin, unsigned int type)
-{
-
-    TH1F *temp = 0;
-
-    // same flavor
-    if ((type & ((1<<0)|(1<<3))) == ((1<<0)|(1<<3))) {
-        temp = (TH1F*)h1k_shape_[jetbin][0]->GetHisto()->Clone("temptemp");
-        temp->Add(h1k_shape_[jetbin][3]->GetHisto());
-        temp->SetName(Form("histo_%s", getName().c_str()));
-    }
-    // opposite flavor
-    else if ((type & ((1<<1)|(1<<2))) == ((1<<1)|(1<<2))) {
-        temp = (TH1F*)(h1k_shape_[jetbin][1]->GetHisto())->Clone("temptemp");
-        temp->Add(h1k_shape_[jetbin][2]->GetHisto());
-        temp->SetName(Form("histo_%s", getName().c_str()));
-    }
-    // ee
-    else if ((type & (1<<0)) == (1<<0)) {
-        temp = (TH1F*)(h1k_shape_[jetbin][0]->GetHisto())->Clone("temptemp");
-        temp->SetName(Form("histo_%s", getName().c_str()));
-    }
-    // mm
-    else if ((type & (1<<3)) == (1<<3)) {
-        temp = (TH1F*)(h1k_shape_[jetbin][3]->GetHisto())->Clone("temptemp");
-        temp->SetName(Form("histo_%s", getName().c_str()));
-
-    }
-    // undefined
-    else {
-        std::cout << "[SmurfSample::getMVAShape] Undefined flavor combination" << std::endl;
-        return temp;
-    }
-
-    return temp;
-
-}
-
-TH1F *SmurfSample::getMVAShape(unsigned int jetbin, unsigned int type)
-{
-
-    TH1F *temp = 0;
-
-    // same flavor
-    if ((type & ((1<<0)|(1<<3))) == ((1<<0)|(1<<3))) {
-        temp = (TH1F*)h1_shape_[jetbin][0]->Clone();
-        temp->Add(h1_shape_[jetbin][3]);
-        temp->SetName(Form("histo_%s", getName().c_str()));
-    }
-    // opposite flavor
-    else if ((type & ((1<<1)|(1<<2))) == ((1<<1)|(1<<2))) {
-        temp = (TH1F*)h1_shape_[jetbin][1]->Clone();
-        temp->Add(h1_shape_[jetbin][2]);
-        temp->SetName(Form("histo_%s", getName().c_str()));
-    }
-    // ee
-    else if ((type & (1<<0)) == (1<<0)) {
-        temp = (TH1F*)h1_shape_[jetbin][0]->Clone();
-        temp->SetName(Form("histo_%s", getName().c_str()));
-    }
-    // mm
-    else if ((type & (1<<3)) == (1<<3)) {
-        temp = (TH1F*)h1_shape_[jetbin][3]->Clone();
-        temp->SetName(Form("histo_%s", getName().c_str()));
-    }
-    // undefined
-    else {
-        std::cout << "[SmurfSample::getMVAShape] Undefined flavor combination" << std::endl;
-        return temp;
-    }
-
-    return temp;
 }
 
 //
@@ -629,8 +428,8 @@ double SmurfSample::LepEffError(double pt, double eta, TH2D *&fhDEffMu, TH2D *&f
     return error; 
 }
 
-
-void SmurfSample::addShapeVariation1D(MVAShapeSyst syst, std::string name, bool normaliseToCentral)
+/*
+void SmurfSample::addShapeVariation1D(ShapeSyst syst, std::string name, bool normaliseToCentral)
 {
 
     // flag this shape as enabled for this sample
@@ -687,8 +486,9 @@ void SmurfSample::addShapeVariation1D(MVAShapeSyst syst, std::string name, bool 
     }
 
 }
+*/
 
-void SmurfSample::addShapeVariation2D(MVAShapeSyst syst, std::string name, bool normaliseToCentral)
+void SmurfSample::addShapeVariation2D(ShapeSyst syst, std::string name, bool normaliseToCentral)
 {
 
     // flag this shape as enabled for this sample
@@ -746,8 +546,8 @@ void SmurfSample::addShapeVariation2D(MVAShapeSyst syst, std::string name, bool 
     
 }
 
-
-void SmurfSample::fillShapeVariation1D(MVAShapeSyst syst, bool up, double val, unsigned int jetbin, unsigned int type, double weight)
+/*
+void SmurfSample::fillShapeVariation1D(ShapeSyst syst, bool up, double val, unsigned int jetbin, unsigned int type, double weight)
 {
 
     TH1F **h1_shape;
@@ -798,7 +598,7 @@ void SmurfSample::fillShapeVariation1D(MVAShapeSyst syst, bool up, double val, u
 
 }
 
-TH1F *SmurfSample::getShapeVariation1D(MVAShapeSyst syst, bool up, unsigned int jetbin, unsigned int type)
+TH1F *SmurfSample::getShapeVariation1D(ShapeSyst syst, bool up, unsigned int jetbin, unsigned int type)
 {
 
     TH1F *temp = 0;
@@ -895,8 +695,8 @@ TH1F *SmurfSample::getShapeVariation1D(MVAShapeSyst syst, bool up, unsigned int 
     return temp;
 
 }
-
-void SmurfSample::fillShapeVariation2D(MVAShapeSyst syst, bool up, double valx, double valy, unsigned int jetbin, unsigned int type, double weight)
+*/
+void SmurfSample::fillShapeVariation2D(ShapeSyst syst, bool up, double valx, double valy, unsigned int jetbin, unsigned int type, double weight)
 {
 
     TH2F **h2_shape;
@@ -947,7 +747,7 @@ void SmurfSample::fillShapeVariation2D(MVAShapeSyst syst, bool up, double valx, 
 
 }
 
-TH2F *SmurfSample::getShapeVariation2D(MVAShapeSyst syst, bool up, unsigned int jetbin, unsigned int type)
+TH2F *SmurfSample::getShapeVariation2D(ShapeSyst syst, bool up, unsigned int jetbin, unsigned int type)
 {
 
     TH2F *temp = 0;
@@ -1044,7 +844,7 @@ TH2F *SmurfSample::getShapeVariation2D(MVAShapeSyst syst, bool up, unsigned int 
 }
 
 
-std::set<MVAShapeSyst> SmurfSample::getAvailableShapeSystematics()
+std::set<ShapeSyst> SmurfSample::getAvailableShapeSystematics()
 {
     return alternateShapesVector_;
 }
@@ -1052,13 +852,13 @@ std::set<MVAShapeSyst> SmurfSample::getAvailableShapeSystematics()
 ShapeVar_t SmurfSample::getAvailableShapeSystematicsMask()
 {
     ShapeVar_t alternateShapesMask = 0;
-    std::set<MVAShapeSyst>::const_iterator var;
+    std::set<ShapeSyst>::const_iterator var;
     for (var = alternateShapesVector_.begin(); var != alternateShapesVector_.end(); ++var) {
         alternateShapesMask |= (1ll<<(*var));
     }
     return alternateShapesMask;
 }
-
+/*
 void SmurfSample::initAlternateShape1D(TH1F *histUp[kJetBins][kLeptonTypes], 
         TH1F *histDown[kJetBins][kLeptonTypes], 
         const char *name, const char *title, int nbins, float min, float max)
@@ -1076,7 +876,7 @@ void SmurfSample::initAlternateShape1D(TH1F *histUp[kJetBins][kLeptonTypes],
     }
 
 }
-
+*/
 
 void SmurfSample::initAlternateShape2D(TH2F *histUp[kJetBins][kLeptonTypes],
         TH2F *histDown[kJetBins][kLeptonTypes],

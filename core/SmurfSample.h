@@ -34,7 +34,6 @@ class SmurfSample {
 
         SmurfSample();
         SmurfSample(Option option, DataType dataType, Color_t colour, std::string name, float analysis);
-        SmurfSample(Option option, DataType dataType, Color_t colour, std::string name);
         ~SmurfSample();
 
         // Add a smurf tree to the chain
@@ -53,23 +52,23 @@ class SmurfSample {
         double getNWeights(unsigned int binMin, unsigned int binMax, unsigned int type);
 
         // Add and get mva shape for this sample
-        void fillMVAShape(double val, unsigned int jetbin, unsigned int type, double weight);
-        TH1F *getMVAShape(unsigned int jetbin, unsigned int type);
-        TH1F *getKeysMVAShape(unsigned int jetbin, unsigned int type);
-        void fillShapeVariation1D(MVAShapeSyst syst, bool up, double val, unsigned int jetbin, unsigned int type, double weight);
-        TH1F *getShapeVariation1D(MVAShapeSyst syst, bool up, unsigned int jetbin, unsigned int type);
-        void addShapeVariation1D(MVAShapeSyst syst, std::string name, bool normaliseToCentral);
+        //void fillMVAShape(double val, unsigned int jetbin, unsigned int type, double weight);
+        //TH1F *getMVAShape(unsigned int jetbin, unsigned int type);
+        //TH1F *getKeysMVAShape(unsigned int jetbin, unsigned int type);
+        //void fillShapeVariation1D(ShapeSyst syst, bool up, double val, unsigned int jetbin, unsigned int type, double weight);
+        //TH1F *getShapeVariation1D(ShapeSyst syst, bool up, unsigned int jetbin, unsigned int type);
+        //void addShapeVariation1D(ShapeSyst syst, std::string name, bool normaliseToCentral);
 
         // Add and get 2D shape variations
         void get2DResults(unsigned int binMin, unsigned int binMax, unsigned int type, double &yield, double &err);
         void fill2DMVAShape(double x, double y, unsigned int jetbin, unsigned int type, double weight);
         TH2F *get2DMVAShape(unsigned int jetbin, unsigned int type);
-        void fillShapeVariation2D(MVAShapeSyst syst, bool up, double x, double y, unsigned int jetbin, unsigned int type, double weight);
-        TH2F *getShapeVariation2D(MVAShapeSyst syst, bool up, unsigned int jetbin, unsigned int type);
-        void addShapeVariation2D(MVAShapeSyst syst, std::string name, bool normaliseToCentral);
+        void fillShapeVariation2D(ShapeSyst syst, bool up, double x, double y, unsigned int jetbin, unsigned int type, double weight);
+        TH2F *getShapeVariation2D(ShapeSyst syst, bool up, unsigned int jetbin, unsigned int type);
+        void addShapeVariation2D(ShapeSyst syst, std::string name, bool normaliseToCentral);
 
         // Get available valid shape variations associated with this sample
-        std::set<MVAShapeSyst> getAvailableShapeSystematics();
+        std::set<ShapeSyst> getAvailableShapeSystematics();
         ShapeVar_t getAvailableShapeSystematicsMask();
 
         // apply fakerate
@@ -133,7 +132,7 @@ class SmurfSample {
         bool normalise_qcdscale_;
         bool normalise_jetres_;
         bool normalise_lepeff_;
-
+/*
         TH1F    *h1_shape_[kJetBins][kLeptonTypes];           // central shape
         TH1Keys *h1k_shape_[kJetBins][kLeptonTypes];          // smoothed central shape
 
@@ -160,7 +159,7 @@ class SmurfSample {
         // met resolution
         TH1F *h1_shape_met_up_[kJetBins][kLeptonTypes];
         TH1F *h1_shape_met_down_[kJetBins][kLeptonTypes];
-        
+ */       
         //
         // 2D shape analysis
         //
@@ -206,7 +205,7 @@ class SmurfSample {
         TH2F *h2_shape_met_down_[kJetBins][kLeptonTypes];
 		
         // which alternate shapes are used
-        std::set<MVAShapeSyst> alternateShapesVector_;
+        std::set<ShapeSyst> alternateShapesVector_;
 
         //
         // Utility functions
@@ -214,9 +213,9 @@ class SmurfSample {
 
         void fillWeighted(TH1F *hist, TH1F *sum, unsigned int bin, double weight, double weight_err);
         void getWeighted(TH1F *hist, TH1F *sum, unsigned int binMin, unsigned int binMax, double &yield, double &err);
-        void initAlternateShape1D(TH1F *histUp[kJetBins][kLeptonTypes], 
-                TH1F *histDown[kJetBins][kLeptonTypes], 
-                const char *name, const char *title, int nbins, float min, float max);
+        //void initAlternateShape1D(TH1F *histUp[kJetBins][kLeptonTypes], 
+        //        TH1F *histDown[kJetBins][kLeptonTypes], 
+        //        const char *name, const char *title, int nbins, float min, float max);
         void initAlternateShape2D(TH2F *histUp[kJetBins][kLeptonTypes],
                 TH2F *histDown[kJetBins][kLeptonTypes],
                 const char *name, const char *title, int nbinsx, double *binsx,

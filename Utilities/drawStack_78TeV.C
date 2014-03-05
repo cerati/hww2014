@@ -70,46 +70,24 @@ enum DataType {
 };
 
 enum Option {
-
-    //
-    // HZZ
-    //
-
-    HZZ_OPT_SMURF=1,
-    HZZ_OPT_SMURFPRESEL=2,
-    HZZ_OPT_EPS=3,
-    HZZ_OPT_SMURF42X=4,
-    HZZ_OPT_SMURF42XPRESEL=5,
-    HZZ_OPT_EPS42X=6,
-    HZZ_OPT_EPS_LP=7,
-    HZZ_OPT_EPS_POSTEPS=8,
-    HZZ_OPT_2011A = 9,
-
-    // run MVA or ME analyses
-    HZZ_OPT_EPS_MVASEL=10,
-    HZZ_OPT_EPS_MESEL=11,
-    HZZ_OPT_EPS_MTSEL=12,
-    HZZ_OPT_2011A_MTSEL = 13,
-    HZZ_OPT_2011A_MESEL = 14,
-
-
-    //
-    // HWW 
-    //
-
-    HWW_OPT_SMURFPRESEL=16,
-    HWW_OPT_SMURFCUTSEL=17,
-    HWW_OPT_SMURFMVASEL=18,
-    HWW_OPT_SMURFMESEL=19,
-    WW_OPT_SMURFXSECSEL=20,
-    HWW_OPT_MT2DMLL=21,
-    HWW_OPT_MT2DMLL_JCP=22,
-    XWW_OPT_MT2DMLL_JCP=23,
-    HWW_OPT_SSCTL=24,
-    HWW_OPT_SSCTL2D=25,
     
-    HWW_OPT_TOPTAG=26,
+    // HWW
+    WW_OPT_SMURFXSECSEL = 0,
 
+    // HWW analysis
+    HWW_OPT_SMURFPRESEL = 1,
+    HWW_OPT_SMURFCUTSEL = 2,
+    HWW_OPT_MT2DMLL     = 3,
+    
+    // HWW control region 
+    HWW_OPT_SSCTL       = 4,
+    HWW_OPT_SSCTL2D     = 5,
+    HWW_OPT_TOPTAG      = 6,
+    
+    // XWW  
+    HWW_OPT_MT2DMLL_JCP = 7,
+    XWW_OPT_MT2DMLL_JCP = 8,
+    
 };
 
 float GetBackgroundEstimationSystematic_8TeV(Option option, DataType dataType, unsigned int jetbin, std::string flavor)

@@ -68,7 +68,7 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
     SmurfSample *sample_dyll = new SmurfSample(option, ZLL, kBlue, "DYLL", analysis);
     // NOTE. this zjets is a historial nameing..
     // this corresponds to the WZ/ZZ where both leptons are from the same Z
-    SmurfSample *sample_zjets = new SmurfSample(option, ZJETS, kBlue, "Zjets", analysis);
+    //SmurfSample *sample_zjets       = new SmurfSample(option, ZJETS, kBlue, "Zjets", analysis);
     SmurfSample *sample_wjets       = new SmurfSample(option, WJETSDATA,    kCyan, "Wjets",     analysis);
     SmurfSample *sample_wjetsEle    = new SmurfSample(option, WJETSELEDATA, kCyan, "WjetsE",    analysis);
     SmurfSample *sample_wjetsMu     = new SmurfSample(option, WJETSMUDATA,  kCyan, "WjetsM",    analysis);
@@ -78,26 +78,26 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
     SmurfSample *sample_ztt         = new SmurfSample(option, ZTT,          kBlue+2, "Ztt",         analysis);
 
     // Below are needed for the central shape
-    SmurfSample *sample_dyll_loosemet = new SmurfSample(option, ZLLLOOSEMET, kBlue, "DYLLLooseMET", analysis);
+    //SmurfSample *sample_dyll_loosemet = new SmurfSample(option, ZLLLOOSEMET, kBlue, "DYLLLooseMET", analysis);
 
     // Below are needed for the shape variation studies
     SmurfSample *sample_top_var         = new SmurfSample(option, TOPALTER,     kMagenta,   "TopVar", analysis);
     SmurfSample *sample_wwmcnlo         = new SmurfSample(option, WWMCNLO,      kBlue+2,    "WWMCNLO", analysis);
     SmurfSample *sample_wwmcnlo_up      = new SmurfSample(option, WWMCNLOUP,    kBlue+2,    "WWMCNLOUp", analysis);
     SmurfSample *sample_wwmcnlo_down    = new SmurfSample(option, WWMCNLODOWN,  kBlue+2,    "WWMCNLODown", analysis);
-    SmurfSample *sample_wjets_mc        = new SmurfSample(option, WJETS,        kCyan,      "WjetsMC", analysis);
-    SmurfSample *sample_wjets_mc_loose  = new SmurfSample(option, WJETSMCLOOSE, kCyan,      "WjetsMCLoose", analysis);    
-    SmurfSample *sample_dyll_data       = new SmurfSample(option, ZLLDATA,      kBlue,      "DYLLDATA", analysis);
+    //SmurfSample *sample_wjets_mc        = new SmurfSample(option, WJETS,        kCyan,      "WjetsMC", analysis);
+    //SmurfSample *sample_wjets_mc_loose  = new SmurfSample(option, WJETSMCLOOSE, kCyan,      "WjetsMCLoose", analysis);    
+    //SmurfSample *sample_dyll_data       = new SmurfSample(option, ZLLDATA,      kBlue,      "DYLLDATA", analysis);
     SmurfSample *sample_gghww_ref       = new SmurfSample(option, GGHWWREF,     kCyan,      "ggHRef", analysis);
     SmurfSample *sample_gghww_jhu       = new SmurfSample(option, GGHWWJHU,     kCyan,      "ggHJHU", analysis);
 
 
     bool skimwithmva = true;
 
-
     // Below is the setup for running the smurf ntuples at the ww-preselection skim
     if ( skimwithmva) {
-        char *dataDir = "/smurf/jaehyeok/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets_19p5ifb_new/WW/";
+        char *dataDir = "/smurf/jaehyeok/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets_19p5ifb_new/WW/"; // TAS
+        //char *dataDir  = "/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/WW/"; // UAF
 
         // set up the mva histogram ranges
         unsigned int n = 20;
@@ -168,8 +168,8 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
         // Drell-Yan
         for (int njet=0; njet < 2; njet++) {
             sample_dyll->add(Form("%s/mva/%i/dyll_%ij.root", dataDir, int(analysis), njet));
-            sample_dyll_loosemet->add(Form("%s/mva/%i/dyll_%ij.root", dataDir, int(analysis), njet));
-            sample_zjets->add(Form("%s/mva/%i/dyll_%ij.root", dataDir, int(analysis), njet));
+            //sample_dyll_loosemet->add(Form("%s/mva/%i/dyll_%ij.root", dataDir, int(analysis), njet));
+            //ample_zjets->add(Form("%s/mva/%i/dyll_%ij.root", dataDir, int(analysis), njet));
         }
 
         // Top 
@@ -256,19 +256,19 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
         // for Shape variations
         // wjets
         for (int njet=0; njet < 2; njet++) {
-            sample_wjets_mc->add(Form("%s/mva/%i/wjets_%ij.root", dataDir, int(analysis), njet));
-            sample_wjets_mc_loose->add(Form("%s/mva/%i/wjets_PassFail_%ij.root", dataDir, int(analysis), njet));
+            //sample_wjets_mc->add(Form("%s/mva/%i/wjets_%ij.root", dataDir, int(analysis), njet));
+            //sample_wjets_mc_loose->add(Form("%s/mva/%i/wjets_PassFail_%ij.root", dataDir, int(analysis), njet));
             sample_top_var->add(Form("%s/mva/%i/ttbar_%ij.root", dataDir, int(analysis), njet));
             sample_top_var->add(Form("%s/mva/%i/tw_%ij.root", dataDir, int(analysis), njet));
             sample_wwmcnlo->add(Form("%s/mva/%i/wwmcnlo_%ij.root", dataDir, int(analysis), njet));
             sample_wwmcnlo_up->add(Form("%s/mva/%i/wwmcnloup_%ij.root", dataDir, int(analysis), njet));
             sample_wwmcnlo_down->add(Form("%s/mva/%i/wwmcnlodown_%ij.root", dataDir, int(analysis), njet));
-            sample_dyll_data->add(Form("%s/mva/%i/data_%ij.root", dataDir, int(analysis), njet));
-            sample_dyll_data->add(Form("%s/mva/%i/wz_%ij.root", dataDir, int(analysis), njet));
-            sample_dyll_data->add(Form("%s/mva/%i/zz_%ij.root", dataDir, int(analysis), njet));
+            //sample_dyll_data->add(Form("%s/mva/%i/data_%ij.root", dataDir, int(analysis), njet));
+            //sample_dyll_data->add(Form("%s/mva/%i/wz_%ij.root", dataDir, int(analysis), njet));
+            //sample_dyll_data->add(Form("%s/mva/%i/zz_%ij.root", dataDir, int(analysis), njet));
 
             sample_gghww_ref->add(Form("%s/mva/%i/hww%i_%ij.root", dataDir, int(analysis), int(analysis), njet));
-            sample_gghww_jhu->add(Form("%s/mva/%i/xww0p%i_%ij.root", dataDir, int(analysis), int(analysis), njet));
+            sample_gghww_jhu->add(Form("%s/mva/%i/xww2p%i_%ij.root", dataDir, int(analysis), int(analysis), njet));
         }
     } 
 
@@ -286,8 +286,8 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
     looper->loop(sample_vv);
     looper->loop(sample_top);
     looper->loop(sample_dyll);
-    looper->loop(sample_dyll_loosemet);
-    looper->loop(sample_zjets);
+    //looper->loop(sample_dyll_loosemet);
+    //looper->loop(sample_zjets);
     looper->loop(sample_wjetsEle);
     looper->loop(sample_wjetsMu);
     looper->loop(sample_wgammanorm);
@@ -296,8 +296,8 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
     looper->loop(sample_ztt);
 
     // for shape syst.
-    looper->loop(sample_wjets_mc_loose);
-    looper->loop(sample_wjets_mc);
+    //looper->loop(sample_wjets_mc_loose);
+    //looper->loop(sample_wjets_mc);
     looper->loop(sample_top_var);
     looper->loop(sample_wwmcnlo);
     looper->loop(sample_wwmcnlo_up);
@@ -335,9 +335,9 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
     //
     // for shape variations
     // 
-    samplesToTabulate.push_back(sample_dyll_loosemet);
-    samplesToTabulate.push_back(sample_wjets_mc); 
-    samplesToTabulate.push_back(sample_wjets_mc_loose);
+    //samplesToTabulate.push_back(sample_dyll_loosemet);
+    //samplesToTabulate.push_back(sample_wjets_mc); 
+    //samplesToTabulate.push_back(sample_wjets_mc_loose);
     samplesToTabulate.push_back(sample_top_var);
     samplesToTabulate.push_back(sample_wwmcnlo);
     samplesToTabulate.push_back(sample_wwmcnlo_up);
@@ -355,11 +355,6 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
 
     ShapeVar_t mva_option = (1ll<<STATVAR) | (1ll<<TOPSHAPEVAR) | (1ll<<WWSHAPEVAR) | (1ll<<DYSHAPEVAR)
         | (1ll<<LEPEFFVAR) | (1ll<<METVAR) | (1ll<<LEPRESVAR) | (1ll<<JETRESVAR) | (1ll<<WJETSELESHAPEVAR) | (1ll<<WJETSMUSHAPEVAR);
-
-    //  removed 
-    // extra shape systematics for the spin 2 signal
-    //if ( option == XWW_OPT_MT2DMLL_JCP ) 
-    //     mva_option = mva_option | (1ll<<QCDSCALEVAR); 
 
     for (int jetbin = 0; jetbin < 2; ++jetbin) { 
         printCard(samplesToTabulate, option, jetbin, analysis, cardDir, ((1<<1)|(1<<2)), mva_option, runEra);
@@ -392,7 +387,7 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
     delete sample_top;
     delete sample_dyll;
     delete sample_ztt;
-    delete sample_zjets;
+    //delete sample_zjets;
     delete sample_wjets;
     delete sample_wjetsEle;
     delete sample_wjetsMu;
@@ -400,14 +395,14 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
     delete sample_wgammanorm;
     delete sample_wg3l;
 
-    delete sample_dyll_loosemet;
+    //delete sample_dyll_loosemet;
     delete sample_top_var;
     delete sample_wwmcnlo;
     delete sample_wwmcnlo_up;
     delete sample_wwmcnlo_down;
-    delete sample_wjets_mc;
-    delete sample_wjets_mc_loose;
-    delete sample_dyll_data;
+    //delete sample_wjets_mc;
+    //delete sample_wjets_mc_loose;
+    //delete sample_dyll_data;
     delete sample_gghww_ref;
     delete sample_gghww_jhu;
 

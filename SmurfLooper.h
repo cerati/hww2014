@@ -69,7 +69,6 @@ class SmurfLooper {
 
         // utilities
         void loadWeightHistograms();
-	    int getMEProc(const int mH, Option option);
 
         // for debug purpose  
         FILE *debugtext_;

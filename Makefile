@@ -10,7 +10,6 @@ ifeq ($(shell root-config --platform),macosx)
 endif
 
 SOURCES = SmurfLooper.cc SmurfTable.cc SmurfTableWWXSec.cc SmurfScaleFactors.cc core/SmurfSample.cc core/TH1Keys.cc core/SmurfPlotUtilities.cc core/Selections.cc
-#SOURCES = SmurfLooperTest.cc SmurfTable.cc SmurfTableWWXSec.cc SmurfScaleFactors.cc core/SmurfSample.cc core/TH1Keys.cc core/SmurfPlotUtilities.cc core/Selections.cc
 OBJECTS = $(SOURCES:.cc=.o) LinkDef_out.o
 LIB = libSmurfLooper.so
 
@@ -21,8 +20,6 @@ LIBS = $(LIB)
 
 LinkDef_out.cxx: LinkDef.h SmurfLooper.h SmurfScaleFactors.h SmurfTable.h SmurfTableWWXSec.h core/SmurfSample.h core/TH1Keys.h core/SmurfPlotUtilities.h
 	rootcint -f $@ -c $(INCLUDE)  SmurfLooper.h SmurfScaleFactors.h SmurfTable.h SmurfTableWWXSec.h core/SmurfSample.h core/TH1Keys.h core/SmurfPlotUtilities.h $<
-#LinkDef_out.cxx: LinkDef.h SmurfLooperTest.h SmurfScaleFactors.h SmurfTable.h SmurfTableWWXSec.h core/SmurfSample.h core/TH1Keys.h core/SmurfPlotUtilities.h
-#	rootcint -f $@ -c $(INCLUDE) SmurfLooperTest.h SmurfScaleFactors.h SmurfTable.h SmurfTableWWXSec.h core/SmurfSample.h core/TH1Keys.h core/SmurfPlotUtilities.h $<
 
 # General rule for making object files
 %.d:	%.cc
@@ -49,6 +46,7 @@ clean:
 	rm -f *.o \
 	rm -f *.so \
 	rm -f *.cxx \
+	rm -f LinkDef_out.h \
 	rm -f core/*.o \
 	rm -f core/*.d 
 

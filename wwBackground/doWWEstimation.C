@@ -53,15 +53,17 @@ void doWWEstimation(RunEra runEra = RUN2011AB){
 
 
     // 
-    // run Drell-Yan estimation for masses considered above
+    // run WW estimation for masses considered above
     //
-
-    //for ( int i = 0; i < nHiggs ; i++) {
-    for ( int i = 0; i < 1 ; i++) {
-        //doMassPoint(mHiggs[i], HWW_OPT_SMURFCUTSEL, runEra, mHiggs, WWBkgScaleFactorCutBased, WWBkgScaleFactorKappaCutBased);
-        doMassPoint(mHiggs[i], HWW_OPT_SMURFMVASEL, runEra, mHiggs, WWBkgScaleFactorMVA, WWBkgScaleFactorKappaMVA);
+ 
+    for ( int i = 0; i < nHiggs ; i++) {
+        doMassPoint(mHiggs[i], HWW_OPT_SMURFCUTSEL, runEra, mHiggs, WWBkgScaleFactorCutBased, WWBkgScaleFactorKappaCutBased);
+        //doMassPoint(mHiggs[i], HWW_OPT_SMURFMVASEL, runEra, mHiggs, WWBkgScaleFactorMVA, WWBkgScaleFactorKappaMVA);
     }
 
+    for ( int i = 0; i < 1 ; i++) {
+        doMassPoint(mHiggs[i], HWW_OPT_MT2DMLL, runEra, mHiggs, WWBkgScaleFactorMVA, WWBkgScaleFactorKappaMVA);
+    }
 
     //
     // write the data/MC scale factors into the code
@@ -107,10 +109,13 @@ void doWWEstimation(RunEra runEra = RUN2011AB){
         fputs("    {", wwsftext);
         for (int i = 0; i < nHiggs-1; i++) 
             fputs(Form("%.5f,",  WWBkgScaleFactorMVA[njet][i]), wwsftext);
+            //fputs(Form("%.5f,",  WWBkgScaleFactorMVA[njet][0]), wwsftext);
         if ( njet == 0 )
             fputs(Form("%.5f},\n",  WWBkgScaleFactorMVA[njet][nHiggs-1]), wwsftext);
+            //fputs(Form("%.5f},\n",  WWBkgScaleFactorMVA[njet][0]), wwsftext);
         if ( njet == 1 )
             fputs(Form("%.5f} };\n",  WWBkgScaleFactorMVA[njet][nHiggs-1]), wwsftext);
+            //fputs(Form("%.5f} };\n",  WWBkgScaleFactorMVA[njet][0]), wwsftext);
     }
 
     fputs("  Int_t massIndex = -1;\n", wwsftext);
@@ -200,21 +205,22 @@ void doMassPoint(float analysis, Option option, RunEra runEra, int mHiggs[15],
     //
     int ana = (int)analysis;
 
-    SmurfSample *sample_data = new SmurfSample(option, DATA, kBlack, "Data");
-    SmurfSample *sample_ww = new SmurfSample(option, WW , kBlue, "WW");
-    SmurfSample *sample_top = new SmurfSample(option, TOP, kMagenta, "Top");
-    SmurfSample *sample_wjets = new SmurfSample(option, WJETSDATA, kRed, "Wjets");;
-    SmurfSample *sample_vv = new SmurfSample(option, VV, kRed, "VV");;
-    SmurfSample *sample_dyll = new SmurfSample(option, ZLL, kBlue, "DYLL");
-    SmurfSample *sample_ztt = new SmurfSample(option, ZTT, kBlue+2, "ZTT");
-    SmurfSample *sample_wgamma = new SmurfSample(option, WGAMMA, kCyan, "Wgamma");
+    SmurfSample *sample_data = new SmurfSample(option, DATA, kBlack, "Data",analysis);
+    SmurfSample *sample_ww = new SmurfSample(option, WW , kBlue, "WW",analysis);
+    SmurfSample *sample_top = new SmurfSample(option, TOP, kMagenta, "Top",analysis);
+    SmurfSample *sample_wjets = new SmurfSample(option, WJETSDATA, kRed, "Wjets",analysis);;
+    SmurfSample *sample_vv = new SmurfSample(option, VV, kRed, "VV",analysis);;
+    SmurfSample *sample_dyll = new SmurfSample(option, ZLL, kBlue, "DYLL",analysis);
+    SmurfSample *sample_ztt = new SmurfSample(option, ZTT, kBlue+2, "ZTT",analysis);
+    SmurfSample *sample_wgamma = new SmurfSample(option, WGAMMA, kCyan, "Wgamma",analysis);
 
     // examples of using the skimed files 
     bool skimData = true;
 
 
     if ( skimData) {
-        char *dataDir = "/smurf/jaehyeok/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets_19p5ifb_new/WW/";
+        char *dataDir = "/smurf/jaehyeok/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets_19p5ifb_new/WW/"; // TAS
+        //char *dataDir  = "/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/WW/"; // UAF
 
         for (int jetbin = 0; jetbin < 2; jetbin++) {
             sample_data->add(Form("%s/%ij/data.root", dataDir, jetbin));    
@@ -227,13 +233,13 @@ void doMassPoint(float analysis, Option option, RunEra runEra, int mHiggs[15],
 
             sample_vv->add(Form("%s/%ij/wz.root", dataDir, jetbin));
             sample_vv->add(Form("%s/%ij/zz.root", dataDir, jetbin));
-            sample_vv->add(Form("%s/%ij/www.root", dataDir, jetbin));
 
             sample_dyll->add(Form("%s/%ij/dyll.root", dataDir, jetbin));
 
             sample_wgamma->add(Form("%s/%ij/wgamma.root", dataDir, jetbin));
             sample_wgamma->add(Form("%s/%ij/zgamma.root", dataDir, jetbin));
             sample_wgamma->add(Form("%s/%ij/wglll.root", dataDir, jetbin));
+            sample_wgamma->add(Form("%s/%ij/www.root", dataDir, jetbin));
 
             sample_wjets->add(Form("%s/%ij/data_PassFail.root", dataDir, jetbin));
             sample_wjets->add(Form("%s/%ij/qqww_PassFail.root", dataDir, jetbin));
@@ -247,6 +253,8 @@ void doMassPoint(float analysis, Option option, RunEra runEra, int mHiggs[15],
             sample_wjets->add(Form("%s/%ij/www_PassFail.root", dataDir, jetbin));
             sample_wjets->add(Form("%s/%ij/wglll_PassFail.root", dataDir, jetbin));
             sample_wjets->add(Form("%s/%ij/dyll_PassFail.root", dataDir, jetbin));
+            
+            sample_ztt->add(Form("%s/%ij/data_ztt.root", dataDir, jetbin));
         }
     } else {
 
@@ -300,7 +308,7 @@ void doMassPoint(float analysis, Option option, RunEra runEra, int mHiggs[15],
 
     char *analysisname;
     if ( option == HWW_OPT_SMURFCUTSEL ) analysisname = "cutbased";
-    if ( option == HWW_OPT_SMURFMVASEL ) analysisname = "mva";
+    if ( option == HWW_OPT_MT2DMLL )    analysisname  = "2d";
 
     const std::string outFile = Form("wwhistos_ww_%i_%s.root", int(analysis), analysisname);
     saveHist(outFile.c_str());  

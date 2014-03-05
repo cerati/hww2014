@@ -226,10 +226,15 @@ void SmurfWWLooper::loop(SmurfSample *sample)
             // 
 
             double mllcrcut = 100.;
+            
+            if ( option_ == HWW_OPT_MT2DMLL ) 
+                //mllcrcut = max(100., double(mllLooseCut));
+                mllcrcut = -999.;
+/*
             if ( option_ == HWW_OPT_SMURFMVASEL ) 
                 //mllcrcut = max(100., double(mllLooseCut));
                 mllcrcut = -999.;
-
+*/
             if ( tree->dilep_.mass() > mllcrcut ) {
                 FillHist(h1_mll_bkg[njets], type, tree->dilep_.mass(), weight);
             }
@@ -238,12 +243,17 @@ void SmurfWWLooper::loop(SmurfSample *sample)
                 FillHist(h1_mll_sig[njets], type, tree->dilep_.mass(), weight);
                 sample->fillResults(njets, tree->type_, weight, weight_err);
             }
-
+            
+            if ( option_ == HWW_OPT_MT2DMLL && hww_pass_2DSelection(tree, analysis_, njets) ) {
+                FillHist(h1_mll_sig[njets], type, tree->dilep_.mass(), weight);
+                sample->fillResults(njets, tree->type_, weight, weight_err);
+            }
+/*
             if ( option_ == HWW_OPT_SMURFMVASEL && hww_pass_mvaSelection(tree, analysis_, njets) ) {
                 FillHist(h1_mll_sig[njets], type, tree->dilep_.mass(), weight);
                 sample->fillResults(njets, tree->type_, weight, weight_err);
             }
-
+*/
         } // end loop on events in file
         nf++;
         delete tree;
@@ -278,7 +288,8 @@ void SmurfWWLooper::loadWeightHistograms()
     TFile *fLeptonFRFileE = 0;
 
     // load electron fake rate histograms
-    fLeptonFRFileE = TFile::Open("/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/summary_fakes_Moriond2012.root");
+    //fLeptonFRFileE = TFile::Open("/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/summary_fakes_Moriond2012.root");
+    fLeptonFRFileE = TFile::Open("/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/aux/summary_fakes_Moriond2012.root");
     fhDFREl_ = (TH2D*)(fLeptonFRFileE->Get("ElectronFakeRate_V4_ptThreshold35_PtEta"));
     assert(fhDFREl_);
     fhDFREl_->SetDirectory(0);
@@ -286,7 +297,8 @@ void SmurfWWLooper::loadWeightHistograms()
     delete fLeptonFRFileE;
 
     // load muon fake rate histograms
-    fLeptonFRFileM = TFile::Open("/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/summary_fakes_Moriond2012.root");
+    //fLeptonFRFileM = TFile::Open("/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/summary_fakes_Moriond2012.root");
+    fLeptonFRFileM = TFile::Open("/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/aux/summary_fakes_Moriond2012.root");
     fhDFRMu_ = (TH2D*)(fLeptonFRFileM->Get("MuonFakeRate_M2_ptThreshold30_PtEta"));
     assert(fhDFRMu_);
     fhDFRMu_->SetDirectory(0);

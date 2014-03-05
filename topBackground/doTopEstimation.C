@@ -7,7 +7,7 @@
 #include "TROOT.h"
 
 // main function
-void doTopEstimate(RunEra runEra = RUN2012)
+void doTopEstimation(RunEra runEra = RUN2012)
 {
 
     //
@@ -94,14 +94,14 @@ void doTopEstimate(RunEra runEra = RUN2012)
     // 
 
     // Top scale factor in the WW level
-
+/*
     fputs("Double_t TopBkgScaleFactorKappa(Int_t jetBin) {\n", topsftext);
     fputs("  assert(jetBin >=0 && jetBin <= 2);\n", topsftext);
     fputs(Form("  Double_t TopBkgScaleFactorKappa[3] = { %.5f, %.5f, %.5f   };\n", 
                 TopBkgScaleFactorKappa[0], TopBkgScaleFactorKappa[1], TopBkgScaleFactorKappa[2]), topsftext);
     fputs("  return TopBkgScaleFactorKappa[jetBin];\n", topsftext);
     fputs("}\n", topsftext);
-
+*/
     fputs("Double_t TopBkgScaleFactor(Int_t jetBin) {\n", topsftext);
     fputs("  assert(jetBin >=0 && jetBin <= 2);\n", topsftext);
     fputs(Form("  Double_t TopBkgScaleFactor[3] = { %.5f, %.5f, %.5f   };\n", 
@@ -165,19 +165,19 @@ void doMassPoint(const float analysis, Option option, RunEra runEra, double TopB
     // Loop files and get the histograms
     //
 
-    SmurfSample *sample_data = new SmurfSample(option, DATA, kBlack, "Data");
-    SmurfSample *sample_ttbar = new SmurfSample(option, TT, kMagenta, "TT");
-    SmurfSample *sample_tw = new SmurfSample(option, TW, kMagenta, "TW");
+    SmurfSample *sample_data    = new SmurfSample(option, DATA,      kBlack,    "Data",   analysis);
+    SmurfSample *sample_ttbar   = new SmurfSample(option, TT,        kMagenta,  "TT",     analysis);
+    SmurfSample *sample_tw      = new SmurfSample(option, TW,        kMagenta,  "TW",     analysis);
 
     // other non-top backgrounds
-    SmurfSample *sample_qqww = new SmurfSample(option, QQWW, kYellow+2, "qqWW");
-    SmurfSample *sample_ggww = new SmurfSample(option, GGWW, kYellow+2, "ggWW");
-    SmurfSample *sample_wz = new SmurfSample(option, WZ, kGreen, "WZ");
-    SmurfSample *sample_zz = new SmurfSample(option, ZZ, kGreen, "ZZ");
-    SmurfSample *sample_dyll = new SmurfSample(option, ZLL, kBlue, "DYLL");
-    SmurfSample *sample_wjets = new SmurfSample(option, WJETSDATA, kCyan, "Wjets");
-    SmurfSample *sample_wgamma = new SmurfSample(option, WGAMMA, kCyan+2, "Wgamma");
-    SmurfSample *sample_ztt = new SmurfSample(option, ZTT, kBlue+2, "Ztt");
+    SmurfSample *sample_qqww    = new SmurfSample(option, QQWW,      kYellow+2, "qqWW",   analysis);
+    SmurfSample *sample_ggww    = new SmurfSample(option, GGWW,      kYellow+2, "ggWW",   analysis);
+    SmurfSample *sample_wz      = new SmurfSample(option, WZ,        kGreen,    "WZ",     analysis);
+    SmurfSample *sample_zz      = new SmurfSample(option, ZZ,        kGreen,    "ZZ",     analysis);
+    SmurfSample *sample_dyll    = new SmurfSample(option, ZLL,       kBlue,     "DYLL",   analysis);
+    SmurfSample *sample_wjets   = new SmurfSample(option, WJETSDATA, kCyan,     "Wjets",  analysis);
+    SmurfSample *sample_wgamma  = new SmurfSample(option, WGAMMA,    kCyan+2,   "Wgamma", analysis);
+    SmurfSample *sample_ztt     = new SmurfSample(option, ZTT,       kBlue+2,   "Ztt",    analysis);
 
     std::vector<SmurfSample*> samples;
     samples.push_back(sample_data);
@@ -220,6 +220,7 @@ void doMassPoint(const float analysis, Option option, RunEra runEra, double TopB
         sample_wgamma->add(Form("%s/zgamma.root", dataDir));
         sample_wgamma->add(Form("%s/wgamma.root", dataDir));
         sample_wgamma->add(Form("%s/wglll.root", dataDir));
+        sample_wgamma->add(Form("%s/www.root", dataDir));
         sample_wjets->add(Form("%s/data.root", dataDir));
         sample_wjets->add(Form("%s/qqww.root", dataDir));
         sample_wjets->add(Form("%s/ggww.root", dataDir));
@@ -232,7 +233,8 @@ void doMassPoint(const float analysis, Option option, RunEra runEra, double TopB
     // Yanyan's skims
     if ( skimData ) {
 
-        char *dataDir = "/smurf/jaehyeok/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets_19p5ifb_new/WW/";
+        char *dataDir = "/smurf/jaehyeok/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets_19p5ifb_new/WW/"; // TAS
+        //char *dataDir  = "/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/WW/"; // UAF
 
         for ( int njet = 0; njet < 3; njet++) {
             sample_data->add(Form("%s/%ij/data.root", dataDir, njet));
@@ -259,6 +261,8 @@ void doMassPoint(const float analysis, Option option, RunEra runEra, double TopB
             sample_wjets->add(Form("%s/%ij/dyll_PassFail.root", dataDir, njet));
             sample_wjets->add(Form("%s/%ij/www_PassFail.root", dataDir, njet));
             sample_wjets->add(Form("%s/%ij/zgamma_PassFail.root", dataDir, njet));
+            
+            sample_ztt->add(Form("%s/%ij/data_ztt.root", dataDir, njet));
         }
     }
 

@@ -27,10 +27,11 @@ void doAllHWW(RunEra runEra = RUN2012)
     // configuration  
     //
 
-    bool runSSCTL   = 0;
-    bool runTOPTAG  = 0;
     bool runWWXsec  = 0;
     bool runWW      = 0;
+    bool runSSCTL   = 0;
+    bool runTOPTAG  = 0; 
+    
     bool run110 = 0;
     bool run115 = 0;
     bool run120 = 0;
@@ -38,9 +39,7 @@ void doAllHWW(RunEra runEra = RUN2012)
     bool run130 = 0;
     bool run135 = 0;
     bool run140 = 0;
-    //    bool run145 = 0; // do not turn on
     bool run150 = 0;
-    //    bool run155 = 0; // do not turn on
     bool run160 = 0;
     bool run170 = 0;
     bool run180 = 0;
@@ -49,81 +48,45 @@ void doAllHWW(RunEra runEra = RUN2012)
     bool run250 = 0;
     bool run300 = 0;  
     bool run350 = 0;
-    bool run400 = 1;
+    bool run400 = 0;
     bool run450 = 0;
     bool run500 = 0;
     bool run550 = 0;
     bool run600 = 0;
-
-    bool doCUT = 1; 
-    bool doBDT = 0; 
 
     //
     // now run it
     //
     //runEra = RUN2012HCP;
     runEra = RUN2012Moriond;
-    if ( runSSCTL)      {
-        makePlots_ = false;
-        doMassPoint(0.0, HWW_OPT_SSCTL, runEra);
-    }
-    if ( runTOPTAG )    doMassPoint(0.0, HWW_OPT_TOPTAG, runEra);
+    
     if ( runWWXsec )    doMassPoint(0.0, WW_OPT_SMURFXSECSEL, runEra);
     if ( runWW )        doMassPoint(0.0, HWW_OPT_SMURFPRESEL, runEra);
+    if ( runSSCTL)      doMassPoint(0.0, HWW_OPT_SSCTL, runEra);
+    if ( runTOPTAG )    doMassPoint(0.0, HWW_OPT_TOPTAG, runEra);
 
     //-- cut based ---------------------------------------------------  
-    if (doCUT) {
-        if ( run110)    doMassPoint(110.0, HWW_OPT_SMURFCUTSEL, runEra);
-        if ( run115)    doMassPoint(115.0, HWW_OPT_SMURFCUTSEL, runEra);
-        if ( run120)    doMassPoint(120.0, HWW_OPT_SMURFCUTSEL, runEra);
-        if ( run125)    doMassPoint(125.0, HWW_OPT_SMURFCUTSEL, runEra);
-        if ( run130)    doMassPoint(130.0, HWW_OPT_SMURFCUTSEL, runEra);
-        if ( run135)    doMassPoint(135.0, HWW_OPT_SMURFCUTSEL, runEra);
-        if ( run140)    doMassPoint(140.0, HWW_OPT_SMURFCUTSEL, runEra);
-        //      if ( run145)    doMassPoint(145.0, HWW_OPT_SMURFCUTSEL, runEra);
-        if ( run150)    doMassPoint(150.0, HWW_OPT_SMURFCUTSEL, runEra);
-        //      if ( run155)    doMassPoint(155.0, HWW_OPT_SMURFCUTSEL, runEra);
-        if ( run160)    doMassPoint(160.0, HWW_OPT_SMURFCUTSEL, runEra);
-        if ( run170)    doMassPoint(170.0, HWW_OPT_SMURFCUTSEL, runEra);
-        if ( run180)    doMassPoint(180.0, HWW_OPT_SMURFCUTSEL, runEra);
-        if ( run190)    doMassPoint(190.0, HWW_OPT_SMURFCUTSEL, runEra);
-        if ( run200)    doMassPoint(200.0, HWW_OPT_SMURFCUTSEL, runEra);
-        if ( run250)    doMassPoint(250.0, HWW_OPT_SMURFCUTSEL, runEra);
-        if ( run300)    doMassPoint(300.0, HWW_OPT_SMURFCUTSEL, runEra);
-        if ( run350)    doMassPoint(350.0, HWW_OPT_SMURFCUTSEL, runEra);
-        if ( run400)    doMassPoint(400.0, HWW_OPT_SMURFCUTSEL, runEra);
-        if ( run450)    doMassPoint(450.0, HWW_OPT_SMURFCUTSEL, runEra);
-        if ( run500)    doMassPoint(500.0, HWW_OPT_SMURFCUTSEL, runEra);
-        if ( run550)    doMassPoint(550.0, HWW_OPT_SMURFCUTSEL, runEra);
-        if ( run600)    doMassPoint(600.0, HWW_OPT_SMURFCUTSEL, runEra);
-    }
-
-    //-- BDT --------------------------------------------------- 
-    if (doBDT) {
-        if ( run110)    doMassPoint(110.0, HWW_OPT_SMURFMVASEL, runEra);
-        if ( run115)    doMassPoint(115.0, HWW_OPT_SMURFMVASEL, runEra);
-        if ( run120)    doMassPoint(120.0, HWW_OPT_SMURFMVASEL, runEra);
-        if ( run125)    doMassPoint(125.0, HWW_OPT_SMURFMVASEL, runEra);
-        if ( run130)    doMassPoint(130.0, HWW_OPT_SMURFMVASEL, runEra);
-        if ( run135)    doMassPoint(135.0, HWW_OPT_SMURFMVASEL, runEra);
-        if ( run140)    doMassPoint(140.0, HWW_OPT_SMURFMVASEL, runEra);
-        //      if ( run145)    doMassPoint(145.0, HWW_OPT_SMURFMVASEL, runEra);
-        if ( run150)    doMassPoint(150.0, HWW_OPT_SMURFMVASEL, runEra);
-        //      if ( run155)    doMassPoint(155.0, HWW_OPT_SMURFMVASEL, runEra);
-        if ( run160)    doMassPoint(160.0, HWW_OPT_SMURFMVASEL, runEra);
-        if ( run170)    doMassPoint(170.0, HWW_OPT_SMURFMVASEL, runEra);
-        if ( run180)    doMassPoint(180.0, HWW_OPT_SMURFMVASEL, runEra);
-        if ( run190)    doMassPoint(190.0, HWW_OPT_SMURFMVASEL, runEra);
-        if ( run200)    doMassPoint(200.0, HWW_OPT_SMURFMVASEL, runEra);
-        if ( run250)    doMassPoint(250.0, HWW_OPT_SMURFMVASEL, runEra);
-        if ( run300)    doMassPoint(300.0, HWW_OPT_SMURFMVASEL, runEra);
-        if ( run350)    doMassPoint(350.0, HWW_OPT_SMURFMVASEL, runEra);
-        if ( run400)    doMassPoint(400.0, HWW_OPT_SMURFMVASEL, runEra);
-        if ( run450)    doMassPoint(450.0, HWW_OPT_SMURFMVASEL, runEra);
-        if ( run500)    doMassPoint(500.0, HWW_OPT_SMURFMVASEL, runEra);
-        if ( run550)    doMassPoint(550.0, HWW_OPT_SMURFMVASEL, runEra);
-        if ( run600)    doMassPoint(600.0, HWW_OPT_SMURFMVASEL, runEra);
-    }
+    if ( run110)    doMassPoint(110.0, HWW_OPT_SMURFCUTSEL, runEra);
+    if ( run115)    doMassPoint(115.0, HWW_OPT_SMURFCUTSEL, runEra);
+    if ( run120)    doMassPoint(120.0, HWW_OPT_SMURFCUTSEL, runEra);
+    if ( run125)    doMassPoint(125.0, HWW_OPT_SMURFCUTSEL, runEra);
+    if ( run130)    doMassPoint(130.0, HWW_OPT_SMURFCUTSEL, runEra);
+    if ( run135)    doMassPoint(135.0, HWW_OPT_SMURFCUTSEL, runEra);
+    if ( run140)    doMassPoint(140.0, HWW_OPT_SMURFCUTSEL, runEra);
+    if ( run150)    doMassPoint(150.0, HWW_OPT_SMURFCUTSEL, runEra);
+    if ( run160)    doMassPoint(160.0, HWW_OPT_SMURFCUTSEL, runEra);
+    if ( run170)    doMassPoint(170.0, HWW_OPT_SMURFCUTSEL, runEra);
+    if ( run180)    doMassPoint(180.0, HWW_OPT_SMURFCUTSEL, runEra);
+    if ( run190)    doMassPoint(190.0, HWW_OPT_SMURFCUTSEL, runEra);
+    if ( run200)    doMassPoint(200.0, HWW_OPT_SMURFCUTSEL, runEra);
+    if ( run250)    doMassPoint(250.0, HWW_OPT_SMURFCUTSEL, runEra);
+    if ( run300)    doMassPoint(300.0, HWW_OPT_SMURFCUTSEL, runEra);
+    if ( run350)    doMassPoint(350.0, HWW_OPT_SMURFCUTSEL, runEra);
+    if ( run400)    doMassPoint(400.0, HWW_OPT_SMURFCUTSEL, runEra);
+    if ( run450)    doMassPoint(450.0, HWW_OPT_SMURFCUTSEL, runEra);
+    if ( run500)    doMassPoint(500.0, HWW_OPT_SMURFCUTSEL, runEra);
+    if ( run550)    doMassPoint(550.0, HWW_OPT_SMURFCUTSEL, runEra);
+    if ( run600)    doMassPoint(600.0, HWW_OPT_SMURFCUTSEL, runEra);
 
 }
 
@@ -146,52 +109,53 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
     // set up samples
     //
     int ana = (int)analysis;
-    SmurfSample *sample_data = new SmurfSample(option, DATA, kBlack, "Data");
-    // higgs samples
-    SmurfSample *sample_gghww = new SmurfSample(option, GGHWW, kCyan, "ggH");
-    SmurfSample *sample_qqhww = new SmurfSample(option, QQHWW, kCyan, "qqH");
-    SmurfSample *sample_zhww = new SmurfSample(option, ZHWW, kCyan, "ZH");
-    SmurfSample *sample_whww = new SmurfSample(option, WHWW, kCyan, "WH");
-    // backgrounds
-    SmurfSample *sample_qqww = new SmurfSample(option, QQWW, kYellow+2, "qqWW");
-    SmurfSample *sample_ggww = new SmurfSample(option, GGWW, kYellow+2, "ggWW");
 
-    SmurfSample *sample_vv = new SmurfSample(option, VV, kGreen, "VV");
-    SmurfSample *sample_top = new SmurfSample(option, TOP, kMagenta, "Top");
+    SmurfSample *sample_data = new SmurfSample(option, DATA, kBlack, "Data", analysis);
+    // higgs samples
+    SmurfSample *sample_gghww = new SmurfSample(option, GGHWW, kCyan, "ggH", analysis);
+    SmurfSample *sample_qqhww = new SmurfSample(option, QQHWW, kCyan, "qqH", analysis);
+    SmurfSample *sample_zhww = new SmurfSample(option, ZHWW, kCyan, "ZH", analysis);
+    SmurfSample *sample_whww = new SmurfSample(option, WHWW, kCyan, "WH", analysis);
+    // backgrounds
+    SmurfSample *sample_qqww = new SmurfSample(option, QQWW, kYellow+2, "qqWW", analysis);
+    SmurfSample *sample_ggww = new SmurfSample(option, GGWW, kYellow+2, "ggWW", analysis);
+
+    SmurfSample *sample_vv = new SmurfSample(option, VV, kGreen, "VV", analysis);
+    SmurfSample *sample_top = new SmurfSample(option, TOP, kMagenta, "Top", analysis);
     // note this considers only the Drell Yan part
-    SmurfSample *sample_dyll = new SmurfSample(option, ZLL, kBlue, "DYLL");
+    SmurfSample *sample_dyll = new SmurfSample(option, ZLL, kBlue, "DYLL", analysis);
     // NOTE. this zjets is a historial nameing..
     // this corresponds to the WZ/ZZ where both leptons are from the same Z
-    SmurfSample *sample_zjets       = new SmurfSample(option, ZJETS, kBlue, "Zjets");
     SmurfSample *sample_wjetsEle    = new SmurfSample(option, WJETSELEDATA, kCyan, "WjetsE",    analysis);
     SmurfSample *sample_wjetsMu     = new SmurfSample(option, WJETSMUDATA,  kCyan, "WjetsM",    analysis);
-    SmurfSample *sample_wgamma      = new SmurfSample(option, WGAMMA, kCyan, "Wgamma");
+    SmurfSample *sample_wgamma      = new SmurfSample(option, WGAMMA, kCyan, "Wgamma", analysis);
     SmurfSample *sample_wgammanorm  = new SmurfSample(option, WGAMMANORM,   kCyan, "Wgammanorm",    analysis);
     SmurfSample *sample_wg3l        = new SmurfSample(option, WG3L,         kCyan, "Wg3l",          analysis);
-    SmurfSample *sample_ztt         = new SmurfSample(option, ZTT, kBlue+2, "Ztt");
+    SmurfSample *sample_ztt         = new SmurfSample(option, ZTT, kBlue+2, "Ztt", analysis);
 
     // Below are needed for the central shape
-    SmurfSample *sample_dyll_loosemet   = new SmurfSample(option, ZLLLOOSEMET, kBlue, "DYLLLooseMET");
+    //SmurfSample *sample_dyll_loosemet   = new SmurfSample(option, ZLLLOOSEMET, kBlue, "DYLLLooseMET", analysis);
 
     // Below are needed for the shape variation studies
-    SmurfSample *sample_top_var         = new SmurfSample(option, TOPALTER, kMagenta, "TopVar");
-    SmurfSample *sample_wwmcnlo         = new SmurfSample(option, WWMCNLO, kBlue+2, "WWMCNLO");
-    SmurfSample *sample_wwmcnlo_up      = new SmurfSample(option, WWMCNLOUP, kBlue+2, "WWMCNLOUp");
-    SmurfSample *sample_wwmcnlo_down    = new SmurfSample(option, WWMCNLODOWN, kBlue+2, "WWMCNLODown");
-    SmurfSample *sample_wjets_mc        = new SmurfSample(option, WJETS, kCyan, "WjetsMC");
-    SmurfSample *sample_wjets_mc_loose  = new SmurfSample(option, WJETSMCLOOSE, kCyan, "WjetsMCLoose");    
-    SmurfSample *sample_dyll_data       = new SmurfSample(option, ZLLDATA, kBlue, "DYLLDATA");
+    SmurfSample *sample_top_var         = new SmurfSample(option, TOPALTER, kMagenta, "TopVar", analysis);
+    SmurfSample *sample_wwmcnlo         = new SmurfSample(option, WWMCNLO, kBlue+2, "WWMCNLO", analysis);
+    SmurfSample *sample_wwmcnlo_up      = new SmurfSample(option, WWMCNLOUP, kBlue+2, "WWMCNLOUp", analysis);
+    SmurfSample *sample_wwmcnlo_down    = new SmurfSample(option, WWMCNLODOWN, kBlue+2, "WWMCNLODown", analysis);
+    //SmurfSample *sample_wjets_mc        = new SmurfSample(option, WJETS, kCyan, "WjetsMC", analysis);
+    //SmurfSample *sample_wjets_mc_loose  = new SmurfSample(option, WJETSMCLOOSE, kCyan, "WjetsMCLoose", analysis);    
+    //SmurfSample *sample_dyll_data       = new SmurfSample(option, ZLLDATA, kBlue, "DYLLDATA", analysis);
 
     bool skimdata       = true;
     bool skimdatass     = false; 
-    bool skimwithmva    = false;
+    //bool skimwithmva    = false;
     bool rawdata        = false;
 
     // Below is the setup for running the file without mva
     if ( rawdata ) {
 
         // examples of using the unskimed files 
-        char *dataDir = "/smurf/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets/";
+        char *dataDir = "/smurf/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets/"; // TAS 
+        //char *dataDir  = "/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/"; // UAF
 
         if ( analysis > 0) {
             // higgs
@@ -204,7 +168,7 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
         sample_qqww->add(Form("%s/qqww.root", dataDir));
         sample_ggww->add(Form("%s/ggww.root", dataDir));
         sample_dyll->add(Form("%s/dyll.root", dataDir));
-        sample_zjets->add(Form("%s/dyll.root", dataDir));
+        //sample_zjets->add(Form("%s/dyll.root", dataDir));
 
         sample_top->add(Form("%s/ttbar_powheg.root", dataDir));
         sample_top->add(Form("%s/tw.root", dataDir));
@@ -250,7 +214,8 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
     if ( skimdata ) {
 
         // examples of using the unskimed files 
-        char *dataDir = "/smurf/jaehyeok/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets_19p5ifb_new/WW/";
+        char *dataDir = "/smurf/jaehyeok/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets_19p5ifb_new/WW/"; // TAS
+        //char *dataDir  = "/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/WW/"; // UAF
         for ( int jetbin = 0; jetbin < 3 ; jetbin++) {
 
             sample_data->add(Form("%s/%ij/data.root", dataDir, jetbin));
@@ -274,10 +239,10 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
             sample_qqww->add(Form("%s/%ij/qqww.root", dataDir, jetbin));
             sample_ggww->add(Form("%s/%ij/ggww.root", dataDir, jetbin));
             sample_dyll->add(Form("%s/%ij/dyll.root", dataDir, jetbin));
-            sample_dyll_loosemet->add(Form("%s/%ij/dyll.root", dataDir, jetbin));
-            sample_zjets->add(Form("%s/%ij/dyll.root", dataDir, jetbin));
-            sample_zjets->add(Form("%s/%ij/wz.root", dataDir, jetbin));
-            sample_zjets->add(Form("%s/%ij/zz.root", dataDir, jetbin));
+            //sample_dyll_loosemet->add(Form("%s/%ij/dyll.root", dataDir, jetbin));
+            //sample_zjets->add(Form("%s/%ij/dyll.root", dataDir, jetbin));
+            //sample_zjets->add(Form("%s/%ij/wz.root", dataDir, jetbin));
+            //sample_zjets->add(Form("%s/%ij/zz.root", dataDir, jetbin));
             sample_ztt->add(Form("%s/%ij/data_ztt.root", dataDir, jetbin));
 
             sample_top->add(Form("%s/%ij/ttbar_powheg.root", dataDir, jetbin));
@@ -328,8 +293,8 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
             sample_wwmcnlo_down->add(Form("%s/%ij/wwmcnlodown.root", dataDir, jetbin));
 
             // WJets MC
-            sample_wjets_mc->add(Form("%s/%ij/wjets.root", dataDir, jetbin)); 
-            sample_wjets_mc_loose->add(Form("%s/%ij/wjets_PassFail.root", dataDir,jetbin)); 
+            //sample_wjets_mc->add(Form("%s/%ij/wjets.root", dataDir, jetbin)); 
+            //sample_wjets_mc_loose->add(Form("%s/%ij/wjets_PassFail.root", dataDir,jetbin)); 
            
         }
 
@@ -338,17 +303,18 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
     if ( skimdatass ) {
 
         // examples of using the unskimed files 
-        char *dataDir = "/smurf/jaehyeok/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets_19p5ifb_new/WW/";
+        char *dataDir = "/smurf/jaehyeok/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets_19p5ifb_new/WW/"; // TAS
+        //char *dataDir  = "/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/WW/"; // UAF
         for ( int jetbin = 0; jetbin < 3 ; jetbin++) {
 
             // bkgs
             sample_qqww->add(Form("%s/%ij/qqww_SS.root", dataDir, jetbin));
             sample_ggww->add(Form("%s/%ij/ggww_SS.root", dataDir, jetbin));
             sample_dyll->add(Form("%s/%ij/dyll_SS.root", dataDir, jetbin));
-            sample_dyll_loosemet->add(Form("%s/%ij/dyll_SS.root", dataDir, jetbin));
-            sample_zjets->add(Form("%s/%ij/dyll_SS.root", dataDir, jetbin));
-            sample_zjets->add(Form("%s/%ij/wz_SS.root", dataDir, jetbin));
-            sample_zjets->add(Form("%s/%ij/zz_SS.root", dataDir, jetbin));
+            //sample_dyll_loosemet->add(Form("%s/%ij/dyll_SS.root", dataDir, jetbin));
+            //sample_zjets->add(Form("%s/%ij/dyll_SS.root", dataDir, jetbin));
+            //sample_zjets->add(Form("%s/%ij/wz_SS.root", dataDir, jetbin));
+            //sample_zjets->add(Form("%s/%ij/zz_SS.root", dataDir, jetbin));
 
             sample_top->add(Form("%s/%ij/ttbar_powheg_SS.root", dataDir, jetbin));
             sample_top->add(Form("%s/%ij/tw_SS.root", dataDir, jetbin));
@@ -394,7 +360,7 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
         }
 
     }
-
+/*
     // Below is the setup for running the smurf ntuples at the ww-preselection skim
     if ( skimwithmva) {
         char *dataDir = "/smurf/jaehyeok/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets_19p5ifb_new/WW/";
@@ -467,14 +433,14 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
         // Drell-Yan
         for (int njet=0; njet < 2; njet++) {
             sample_dyll->add(Form("%s/mva/%i/dyll_%ij.root", dataDir, int(analysis), njet));
-            sample_dyll_loosemet->add(Form("%s/mva/%i/dyll_%ij.root", dataDir, int(analysis), njet));
-            sample_zjets->add(Form("%s/mva/%i/dyll_%ij.root", dataDir, int(analysis), njet));
+            //sample_dyll_loosemet->add(Form("%s/mva/%i/dyll_%ij.root", dataDir, int(analysis), njet));
+            //sample_zjets->add(Form("%s/mva/%i/dyll_%ij.root", dataDir, int(analysis), njet));
             //sample_zjets->add(Form("%s/mva/%i/wz_%ij.root", dataDir, int(analysis), njet));
             //sample_zjets->add(Form("%s/mva/%i/zz_%ij.root", dataDir, int(analysis), njet));
         }
         sample_dyll->add(Form("%s/mva/%i/dyll_%ij.root", dataDir, 125, 2));
-        sample_dyll_loosemet->add(Form("%s/mva/%i/dyll_%ij.root", dataDir, 125, 2));
-        sample_zjets->add(Form("%s/mva/%i/dyll_%ij.root", dataDir, 125, 2));
+        //sample_dyll_loosemet->add(Form("%s/mva/%i/dyll_%ij.root", dataDir, 125, 2));
+        //sample_zjets->add(Form("%s/mva/%i/dyll_%ij.root", dataDir, 125, 2));
         //sample_zjets->add(Form("%s/mva/%i/wz_%ij.root", dataDir, 125, 2));
         //sample_zjets->add(Form("%s/mva/%i/zz_%ij.root", dataDir, 125, 2));
 
@@ -571,29 +537,29 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
 
         // for Shape variations
         for (int njet=0; njet < 2; njet++) {
-            sample_wjets_mc->add(Form("%s/mva/%i/wjets_%ij.root", dataDir, int(analysis), njet));
-            sample_wjets_mc_loose->add(Form("%s/mva/%i/wjets_PassFail_%ij.root", dataDir, int(analysis), njet));
+            //sample_wjets_mc->add(Form("%s/mva/%i/wjets_%ij.root", dataDir, int(analysis), njet));
+            //sample_wjets_mc_loose->add(Form("%s/mva/%i/wjets_PassFail_%ij.root", dataDir, int(analysis), njet));
             sample_top_var->add(Form("%s/mva/%i/ttbar_%ij.root", dataDir, int(analysis), njet));
             sample_top_var->add(Form("%s/mva/%i/tw_%ij.root", dataDir, int(analysis), njet));
             sample_wwmcnlo->add(Form("%s/mva/%i/wwmcnlo_%ij.root", dataDir, int(analysis), njet));
             sample_wwmcnlo_up->add(Form("%s/mva/%i/wwmcnloup_%ij.root", dataDir, int(analysis), njet));
             sample_wwmcnlo_down->add(Form("%s/mva/%i/wwmcnlodown_%ij.root", dataDir, int(analysis), njet));
-            sample_dyll_data->add(Form("%s/mva/%i/data_%ij.root", dataDir, int(analysis), njet));
-            sample_dyll_data->add(Form("%s/mva/%i/wz_%ij.root", dataDir, int(analysis), njet));
-            sample_dyll_data->add(Form("%s/mva/%i/zz_%ij.root", dataDir, int(analysis), njet));
+            //sample_dyll_data->add(Form("%s/mva/%i/data_%ij.root", dataDir, int(analysis), njet));
+            //sample_dyll_data->add(Form("%s/mva/%i/wz_%ij.root", dataDir, int(analysis), njet));
+            //sample_dyll_data->add(Form("%s/mva/%i/zz_%ij.root", dataDir, int(analysis), njet));
         }
-        sample_wjets_mc->add(Form("%s/mva/%i/wjets_%ij.root", dataDir, 125, 2));
-        sample_wjets_mc_loose->add(Form("%s/mva/%i/wjets_PassFail_%ij.root", dataDir, 125, 2));
+        //sample_wjets_mc->add(Form("%s/mva/%i/wjets_%ij.root", dataDir, 125, 2));
+        //sample_wjets_mc_loose->add(Form("%s/mva/%i/wjets_PassFail_%ij.root", dataDir, 125, 2));
         sample_top_var->add(Form("%s/mva/%i/ttbar_%ij.root", dataDir, 125, 2));
         sample_top_var->add(Form("%s/mva/%i/tw_%ij.root", dataDir, 125, 2));
         sample_wwmcnlo->add(Form("%s/mva/%i/wwmcnlo_%ij.root", dataDir, 125, 2));
         sample_wwmcnlo_up->add(Form("%s/mva/%i/wwmcnloup_%ij.root", dataDir, 125, 2));
         sample_wwmcnlo_down->add(Form("%s/mva/%i/wwmcnlodown_%ij.root", dataDir, 125, 2));
-        sample_dyll_data->add(Form("%s/mva/%i/data_%ij.root", dataDir, 125, 2));
-        sample_dyll_data->add(Form("%s/mva/%i/wz_%ij.root", dataDir, 125, 2));
-        sample_dyll_data->add(Form("%s/mva/%i/zz_%ij.root", dataDir, 125, 2));
+        //sample_dyll_data->add(Form("%s/mva/%i/data_%ij.root", dataDir, 125, 2));
+        //sample_dyll_data->add(Form("%s/mva/%i/wz_%ij.root", dataDir, 125, 2));
+        //sample_dyll_data->add(Form("%s/mva/%i/zz_%ij.root", dataDir, 125, 2));
     } 
-
+*/
     //
     // do the looping
     //
@@ -610,8 +576,8 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
     looper->loop(sample_vv);
     looper->loop(sample_top);
     looper->loop(sample_dyll);
-    looper->loop(sample_dyll_loosemet);
-    looper->loop(sample_zjets);
+    //looper->loop(sample_dyll_loosemet);
+    //looper->loop(sample_zjets);
     looper->loop(sample_wjetsEle);
     looper->loop(sample_wjetsMu);
     looper->loop(sample_wgamma);
@@ -620,13 +586,13 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
     looper->loop(sample_ztt);
 
     // for shape syst.
-    looper->loop(sample_wjets_mc_loose);
-    looper->loop(sample_wjets_mc);
+    //looper->loop(sample_wjets_mc_loose);
+    //looper->loop(sample_wjets_mc);
     looper->loop(sample_top_var);
     looper->loop(sample_wwmcnlo);
     looper->loop(sample_wwmcnlo_up);
     looper->loop(sample_wwmcnlo_down);
-    looper->loop(sample_dyll_data);
+    //looper->loop(sample_dyll_data);
 
     //
     // make tables
@@ -648,7 +614,7 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
     samplesToTabulate.push_back(sample_vv);
     samplesToTabulate.push_back(sample_top);
     samplesToTabulate.push_back(sample_dyll);
-    samplesToTabulate.push_back(sample_zjets);
+    //samplesToTabulate.push_back(sample_zjets);
     samplesToTabulate.push_back(sample_wjetsEle);
     samplesToTabulate.push_back(sample_wjetsMu);
     samplesToTabulate.push_back(sample_wgammanorm);
@@ -659,48 +625,35 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
     //
     // for shape variations
     // 
-    samplesToTabulate.push_back(sample_dyll_loosemet);
-    samplesToTabulate.push_back(sample_wjets_mc); 
-    samplesToTabulate.push_back(sample_wjets_mc_loose);
+    //samplesToTabulate.push_back(sample_dyll_loosemet);
+    //samplesToTabulate.push_back(sample_wjets_mc); 
+    //samplesToTabulate.push_back(sample_wjets_mc_loose);
     samplesToTabulate.push_back(sample_wgamma);
     samplesToTabulate.push_back(sample_top_var);
     samplesToTabulate.push_back(sample_wwmcnlo);
     samplesToTabulate.push_back(sample_wwmcnlo_up);
     samplesToTabulate.push_back(sample_wwmcnlo_down);
-    samplesToTabulate.push_back(sample_dyll_data);
+    //samplesToTabulate.push_back(sample_dyll_data);
 
     //  
     // make cards
     //
 
-    if (option == HWW_OPT_SMURFMVASEL || option == HWW_OPT_SMURFCUTSEL || option == HWW_OPT_SMURFMESEL ) {
-        printf("\n\n[doAllHWW::doMassPoint] Writing cards\n");
+    printf("\n\n[doAllHWW::doMassPoint] Writing cards\n");
 
-        //const std::string cardDir = "../cards/test_19p5ifb_Final/";
-        const std::string cardDir = "../cards/test/";
+    //const std::string cardDir = "../cards/test_19p5ifb_Final/";
+    const std::string cardDir = "../cards/test/";
 
-        // full list of shape variations for BDT analysis 
-        ShapeVar_t mva_option = (1ll<<STATVAR) | (1ll<<TOPSHAPEVAR) | (1ll<<WWSHAPEVAR) | (1ll<<DYSHAPEVAR)
-            | (1ll<<LEPEFFVAR) | (1ll<<METVAR) | (1ll<<LEPRESVAR) | (1ll<<JETRESVAR) | (1ll<<WJETSELESHAPEVAR) | (1ll<<WJETSMUSHAPEVAR);
+    ShapeVar_t mva_option = 0;
 
-        // the ME analysis does not need the MET smearing
-        if (option == HWW_OPT_SMURFMESEL) {
-            mva_option = (1ll<<STATVAR) | (1ll<<TOPSHAPEVAR) | (1ll<<WWSHAPEVAR) | (1ll<<WJETSELESHAPEVAR) | (1ll<<WJETSMUSHAPEVAR) | (1ll<<DYSHAPEVAR)
-                | (1ll<<LEPEFFVAR) | (1ll<<JETRESVAR);
-        }
-
-        for (int jetbin = 0; jetbin < 3; ++jetbin) {
-            // same flavor
-            printCard(samplesToTabulate, option, jetbin, analysis, cardDir, ((1<<0)|(1<<3)), mva_option, runEra);
-            // opposite flavor
-            printCard(samplesToTabulate, option, jetbin, analysis, cardDir, ((1<<1)|(1<<2)), mva_option, runEra);
-            if ( option == HWW_OPT_SMURFMESEL || option == HWW_OPT_SMURFMVASEL) {
-                printShapeHistograms(samplesToTabulate, option, jetbin, analysis, cardDir,((1<<0)|(1<<3)), runEra);
-                printShapeHistograms(samplesToTabulate, option, jetbin, analysis, cardDir, ((1<<1)|(1<<2)), runEra);
-            }
-        }
-
+    for (int jetbin = 0; jetbin < 3; ++jetbin) {
+        // same flavor
+        printCard(samplesToTabulate, option, jetbin, analysis, cardDir, ((1<<0)|(1<<3)), mva_option, runEra);
+        // opposite flavor
+        printCard(samplesToTabulate, option, jetbin, analysis, cardDir, ((1<<1)|(1<<2)), mva_option, runEra);
     }
+
+   
 
     //
     // save histograms  
@@ -726,9 +679,8 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
         gROOT->ProcessLine("setTDRStyle()");
         gROOT->ForceStyle();
 
-        //const char *dir = "../hwwplots";
-        const char *dir = "/afs/cern.ch/user/j/jaehyeok/www/hwwplots_test";
-        gSystem->mkdir(dir, true);
+        const char *plotDir = "../hwwplots";
+        gSystem->mkdir(plotDir, true);
         TFile *f = new TFile(Form("histos_hww_analysis%i_%i.root", option, int(analysis)), "READ");
         gROOT->cd();
 
@@ -755,24 +707,24 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
                 //
 
                 TCanvas *c_pt1 = makeHWWAnalysisStack(option, analysis, samplesToTabulate, ZLL,
-                        f, i, j, dir, "ww_pt1", "p_{T} (leading lepton) [GeV/c]", lumi);
+                        f, i, j, plotDir, "ww_pt1", "p_{T} (leading lepton) [GeV/c]", lumi);
                 TCanvas *c_pt2 = makeHWWAnalysisStack(option, analysis, samplesToTabulate, ZLL,
-                        f, i, j, dir, "ww_pt2", "p_{T} (trailing lepton) [GeV/c]", lumi);
+                        f, i, j, plotDir, "ww_pt2", "p_{T} (trailing lepton) [GeV/c]", lumi);
                 TCanvas *c_met = makeHWWAnalysisStack(option, analysis, samplesToTabulate, ZLL,
-                        f, i, j, dir, "ww_met", "MET [GeV]", lumi);
+                        f, i, j, plotDir, "ww_met", "MET [GeV]", lumi);
                 TCanvas *c_mt = makeHWWAnalysisStack(option, analysis, samplesToTabulate, ZLL,
-                        f, i, j, dir, "ww_mt", "MT [GeV]", lumi);
+                        f, i, j, plotDir, "ww_mt", "MT [GeV]", lumi);
                 TCanvas *c_mll = makeHWWAnalysisStack(option, analysis, samplesToTabulate, ZLL,
-                        f, i, j, dir, "ww_mll", "M_{l, l} [GeV/c^{2}]", lumi);
+                        f, i, j, plotDir, "ww_mll", "M_{l, l} [GeV/c^{2}]", lumi);
                 TCanvas *c_dphi = makeHWWAnalysisStack(option, analysis, samplesToTabulate, ZLL,
-                        f, i, j, dir, "ww_dphi", "#Delta#phi (dilepton)", lumi);
+                        f, i, j, plotDir, "ww_dphi", "#Delta#phi (dilepton)", lumi);
 
-                c_pt1->SaveAs(Form("%s/individual/hww_analysis%i_%i_ALL_%s_%s_pt1.pdf", dir, option, int(analysis), types[i], jetbin_names[j]));
-                c_pt2->SaveAs(Form("%s/individual/hww_analysis%i_%i_ALL_%s_%s_pt2.pdf", dir, option, int(analysis), types[i], jetbin_names[j]));
-                c_dphi->SaveAs(Form("%s/individual/hww_analysis%i_%i_ALL_%s_%s_dphi.pdf", dir, option, int(analysis), types[i], jetbin_names[j]));
-                c_mll->SaveAs(Form("%s/individual/hww_analysis%i_%i_ALL_%s_%s_mll.pdf", dir, option, int(analysis), types[i], jetbin_names[j]));
-                c_mt->SaveAs(Form("%s/individual/hww_analysis%i_%i_ALL_%s_%s_mt.pdf", dir, option, int(analysis), types[i], jetbin_names[j]));
-                c_met->SaveAs(Form("%s/individual/hww_analysis%i_%i_ALL_%s_%s_met.pdf", dir, option, int(analysis), types[i], jetbin_names[j]));
+                c_pt1->SaveAs(Form("%s/individual/hww_analysis%i_%i_ALL_%s_%s_pt1.pdf", plotDir, option, int(analysis), types[i], jetbin_names[j]));
+                c_pt2->SaveAs(Form("%s/individual/hww_analysis%i_%i_ALL_%s_%s_pt2.pdf", plotDir, option, int(analysis), types[i], jetbin_names[j]));
+                c_dphi->SaveAs(Form("%s/individual/hww_analysis%i_%i_ALL_%s_%s_dphi.pdf", plotDir, option, int(analysis), types[i], jetbin_names[j]));
+                c_mll->SaveAs(Form("%s/individual/hww_analysis%i_%i_ALL_%s_%s_mll.pdf", plotDir, option, int(analysis), types[i], jetbin_names[j]));
+                c_mt->SaveAs(Form("%s/individual/hww_analysis%i_%i_ALL_%s_%s_mt.pdf", plotDir, option, int(analysis), types[i], jetbin_names[j]));
+                c_met->SaveAs(Form("%s/individual/hww_analysis%i_%i_ALL_%s_%s_met.pdf", plotDir, option, int(analysis), types[i], jetbin_names[j]));
 /*
                 c_pt1->SaveAs(Form("../hwwplots/hww_analysis%i_%i_ALL_%s_%s_pt1.png", option, int(analysis), types[i], jetbin_names[j]));
                 c_pt2->SaveAs(Form("../hwwplots/hww_analysis%i_%i_ALL_%s_%s_pt2.png", option, int(analysis), types[i], jetbin_names[j]));
@@ -811,9 +763,9 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
                 c1_big->cd(6);
                 (TPad*)c_met->GetListOfPrimitives()->FindObject("p_main")->Draw();
 
-                c1_big->SaveAs(Form("%s/hww_analysis%i_%i_ALL_%s_%s.eps", dir, option, int(analysis), types[i], jetbin_names[j]));
-                c1_big->SaveAs(Form("%s/hww_analysis%i_%i_ALL_%s_%s.png", dir, option, int(analysis), types[i], jetbin_names[j]));
-                c1_big->SaveAs(Form("%s/hww_analysis%i_%i_ALL_%s_%s.pdf", dir, option, int(analysis), types[i], jetbin_names[j]));
+                c1_big->SaveAs(Form("%s/hww_analysis%i_%i_ALL_%s_%s.eps", plotDir, option, int(analysis), types[i], jetbin_names[j]));
+                c1_big->SaveAs(Form("%s/hww_analysis%i_%i_ALL_%s_%s.png", plotDir, option, int(analysis), types[i], jetbin_names[j]));
+                c1_big->SaveAs(Form("%s/hww_analysis%i_%i_ALL_%s_%s.pdf", plotDir, option, int(analysis), types[i], jetbin_names[j]));
 
                 delete c_pt1; delete c_pt2; delete c_mll; 
                 delete c_mt; delete c_met; delete c_dphi; 
@@ -1027,21 +979,21 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
     delete sample_top;
     delete sample_dyll;
     delete sample_ztt;
-    delete sample_zjets;
+    //delete sample_zjets;
     delete sample_wjetsEle;
     delete sample_wjetsMu;
     delete sample_wgamma;
     delete sample_wgammanorm;
     delete sample_wg3l;
 
-    delete sample_dyll_loosemet;
+    //delete sample_dyll_loosemet;
     delete sample_top_var;
     delete sample_wwmcnlo;
     delete sample_wwmcnlo_up;
     delete sample_wwmcnlo_down;
-    delete sample_wjets_mc;
-    delete sample_wjets_mc_loose;
-    delete sample_dyll_data;
+    //delete sample_wjets_mc;
+    //delete sample_wjets_mc_loose;
+    //delete sample_dyll_data;
 
 }
 

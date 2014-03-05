@@ -3,8 +3,8 @@
 export ANA=$1;
 
 if [ ! $# -eq 1 ]; then
-        echo "USAGE: ./print1jet.sh ANA
-	ANA - analysis type, choose from cut, mva and wwxsec"
+        echo "USAGE: ./print1jet.sh [ANA]
+	[ANA] - analysis type, choose from cut, mva and wwxsec"
     exit 1
 fi
 
@@ -13,7 +13,7 @@ export LATEXTABLE=false
 
 
 
-echo "| selection | *R* | N(in)-raw |*N(in) (OF/VZ subt)*| * N(out)-data* | N(out) MC | N(out) data/MC|"
+echo "| selection | *Rout/in* | N(in)-raw |*N(in) (OF/VZ subt)*| * N(out)-data* | N(out) MC | N(out) data/MC|"
 
 for MASS in 0 115 120 125 130 135 140 145 150 160 170 180 190 200 250 300; do
 #for MASS in 0 125; do
