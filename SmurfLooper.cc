@@ -1,11 +1,11 @@
 
 #include "SmurfLooper.h"
 
-#include "../../../../Smurf/Core/SmurfTree.h"
-#include "../../../../Smurf/Core/LeptonScaleLookup.h"
-#include "../../NtupleMacros/Tools/goodrun.h"
-#include "../../../../Smurf/Analysis/HWWlvlv/OtherBkgScaleFactors_8TeV.h"
-#include "../../../../Smurf/Analysis/HWWlvlv/factors.h"
+#include "../Smurf/Core/SmurfTree.h"
+#include "../Smurf/Core/LeptonScaleLookup.h"
+#include "../Tools/goodrun.h"
+#include "../Smurf/Analysis/HWWlvlv/OtherBkgScaleFactors_8TeV.h"
+#include "../Smurf/Analysis/HWWlvlv/factors.h"
 
 #include "core/Selections.h"
 

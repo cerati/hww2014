@@ -1,13 +1,9 @@
 #include "SmurfScaleFactors.h"
 #include "TString.h"
-#include "../../../../Smurf/Analysis/HWWlvlv/TopBkgScaleFactors_8TeV.h"
-#include "../../../../Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h"
-#include "../../../../Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h"
-#include "../../../../Smurf/Analysis/HWWlvlv/TopVBFBkgScaleFactors_8TeV.h"
-//#include "/smurf/ceballos/test/files/TopBkgScaleFactors_8TeV_PostHCP.h"
-//#include "/smurf/ceballos/test/files/DYBkgScaleFactors_8TeV_PostHCP.h"
-//#include "/smurf/ceballos/test/files/WWBkgScaleFactors_8TeV_PostHCP.h"
-//#include "/smurf/ceballos/test/files/TopVBFBkgScaleFactors_8TeV_PostHCP.h"
+#include "../Smurf/Analysis/HWWlvlv/TopBkgScaleFactors_8TeV.h"
+#include "../Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h"
+#include "../Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h"
+#include "../Smurf/Analysis/HWWlvlv/TopVBFBkgScaleFactors_8TeV.h"
 
 #include <cstdlib>
 #include <algorithm>

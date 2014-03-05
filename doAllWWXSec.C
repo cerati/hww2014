@@ -27,8 +27,8 @@ void doAllWWXSec(RunEra runEra = RUN2012)
     gSystem->Load("libEG.so");
     gSystem->Load("libMathCore.so");
 
-    gROOT->ProcessLine(".L ../../../../Smurf/Core/SmurfTree.h+");
-    gROOT->ProcessLine(".L ../../../../Smurf/Core/LeptonScaleLookup.cc+");
+    gROOT->ProcessLine(".L ../Smurf/Core/SmurfTree.h+");
+    gROOT->ProcessLine(".L ../Smurf/Core/LeptonScaleLookup.cc+");
     gROOT->ProcessLine(".L libSmurfLooper.so");
 
     //

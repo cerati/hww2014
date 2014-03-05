@@ -1,13 +1,13 @@
 #include "SmurfWWLooper.h"
 
-#include "../../../../../Smurf/Core/SmurfTree.h"
-#include "../../../NtupleMacros/Tools/goodrun.h"
+#include "../../Smurf/Core/SmurfTree.h"
+#include "../../Tools/goodrun.h"
 #include "../core/Selections.h"
 #include "../core/SmurfPlotUtilities.h"
 #include "../core/SmurfSample.h"
 #include "../core/Enums.h"
 #include "../SmurfScaleFactors.h"
-#include "../../../../../Smurf/Analysis/HWWlvlv/OtherBkgScaleFactors_8TeV.h"
+#include "../../Smurf/Analysis/HWWlvlv/OtherBkgScaleFactors_8TeV.h"
 
 #include "TChainElement.h"
 #include "TFile.h"

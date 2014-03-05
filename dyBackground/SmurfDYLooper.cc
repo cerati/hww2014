@@ -1,6 +1,6 @@
 #include "SmurfDYLooper.h"
-#include "../../../../../Smurf/Core/SmurfTree.h"
-#include "../../../NtupleMacros/Tools/goodrun.h"
+#include "../../Smurf/Core/SmurfTree.h"
+#include "../../Tools/goodrun.h"
 #include "../core/Selections.h"
 #include "../core/SmurfPlotUtilities.h"
 #include "../core/SmurfSample.h"

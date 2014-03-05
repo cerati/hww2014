@@ -12,9 +12,9 @@
 #include "TLegend.h"
 #include "TLatex.h"
 #include "THStack.h"
-#include "../../../../Smurf/Analysis/HWWlvlv/PSUESystematics_8TeV.h"
-#include "../../../../Smurf/Analysis/HWWlvlv/HiggsQCDScaleSystematics_8TeV.h"
-#include "../../../../Smurf/Analysis/HWWlvlv/PDFgHHSystematics_8TeV.h"
+#include "../Smurf/Analysis/HWWlvlv/PSUESystematics_8TeV.h"
+#include "../Smurf/Analysis/HWWlvlv/HiggsQCDScaleSystematics_8TeV.h"
+#include "../Smurf/Analysis/HWWlvlv/PDFgHHSystematics_8TeV.h"
 
 //
 // This function unrolls an n by m 2D histogram to an 1D (n x m bins) histogram
@@ -58,8 +58,8 @@ void print2DShapeHistograms(std::vector<SmurfSample*> samples, Option option,
 
     // -- WW PDF shape variation -------------------------
     TFile *weightPDFShapeFILE=0;   
-    if(analysis < 300.) weightPDFShapeFILE = TFile::Open("/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/aux/PDFUncertainty_LowMass.root"); 
-    else weightPDFShapeFILE = TFile::Open("/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/aux/PDFUncertainty_HighMass.root");  // TAS
+    if(analysis < 300.) weightPDFShapeFILE = TFile::Open("/smurf/dlevans/PDFUncertainties/V00-00-01/PDFUncertainty_LowMass.root");
+    else weightPDFShapeFILE = TFile::Open("/smurf/dlevans/PDFUncertainties/V00-00-01/PDFUncertainty_HighMass.root"); // TAS
     //if(analysis < 300.) weightPDFShapeFILE = TFile::Open("/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/aux/PDFUncertainty_LowMass.root"); 
     //else weightPDFShapeFILE = TFile::Open("/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/aux/PDFUncertainty_HighMass.root"); // UAF 
     TH2D *weightPDFShapeUp; 
@@ -1005,7 +1005,7 @@ void printCard(std::vector<SmurfSample*> samples, Option option, unsigned int je
     double zSF[3] = {0.0, 0.0, 0.0};
     double zSFErr[3] = {0.0, 0.0, 0.0};
     if(option != HWW_OPT_SSCTL2D) getZScaleFactor(zSF, zSFErr, option, analysis, flavor.c_str());
-    
+/*    
     // calculate the relative uncertainty of DYll + VV 
     double yield_DYll_Zjets = yield[i_Zjets] + yield[i_DYll];
     double staterr_DYll_Zjets = sqrt( pow(err[i_Zjets],2) + pow(err[i_DYll],2));
@@ -1014,10 +1014,21 @@ void printCard(std::vector<SmurfSample*> samples, Option option, unsigned int je
     systerr_DYll_Zjets = sqrt( pow(yield[i_DYll]*zSFErr[jetbin],2) + pow(yield[i_Zjets]*0.1,2));
     if ( analysis > 0 && fcode == ((1<<0)|(1<<3)) && analysis <= 300) {
         //yield_DYll_Zjets = yield[i_Zjets] + zSF[jetbin];
-        if(option != HWW_OPT_SSCTL2D) yield_DYll_Zjets = yield[i_Zjets] + zSF[jetbin];
-        staterr_DYll_Zjets = sqrt( pow(err[i_Zjets],2) );
-        systerr_DYll_Zjets = sqrt( pow(zSF[jetbin]*zSFErr[jetbin],2) + pow(yield[i_Zjets]*0.1,2));
+        if(option != HWW_OPT_SSCTL2D) yield_DYll_Zjets = yield[i_Zjets] + zSF[jetbin];  
+        staterr_DYll_Zjets = sqrt( pow(err[i_Zjets],2) );  
+        systerr_DYll_Zjets = sqrt( pow(zSF[jetbin]*zSFErr[jetbin],2) + pow(yield[i_Zjets]*0.1,2)); 
     } 
+*/
+    // calculate the relative uncertainty of DYll
+    double yield_DYll_Zjets =  yield[i_DYll];
+    double staterr_DYll_Zjets = 0.;
+    double systerr_DYll_Zjets = sqrt( pow(yield[i_DYll]*zSFErr[jetbin],2));
+    if ( analysis > 0 && fcode == ((1<<0)|(1<<3)) && analysis <= 300) {
+        if(option != HWW_OPT_SSCTL2D) yield_DYll_Zjets = zSF[jetbin];  
+        systerr_DYll_Zjets = sqrt( pow(zSF[jetbin]*zSFErr[jetbin],2));    
+    } 
+
+
 
     // for VBF analysis with mass > 300, take the value from the 300 selections
     if ( analysis > 300 && fcode == ((1<<0)|(1<<3)) && jetbin == 2 ) {
@@ -1092,7 +1103,6 @@ void printCard(std::vector<SmurfSample*> samples, Option option, unsigned int je
     fprintf(fcard, "rate                             %4.3f %4.3f %4.3f %4.3f %4.3f %4.3f %4.3f %4.3f %4.3f %4.3f %4.3f %4.3f %4.3f %4.3f\n",
             yield[i_ZH], yield[i_WH], yield[i_qqH], yield_gghww, yield[i_qqWW], yield[i_ggWW], yield[i_VV],
             yield[i_Top], yield_DYll_Zjets, yield[i_WjetsE], yield[i_WgammaNorm], yield[i_Wg3l], yield[i_DYtt], yield[i_WjetsM]);   
-
 
     if ( analysis <= 200 ) 
         fprintf(fcard, "lumi%s                    lnN %4.3f %4.3f %4.3f %4.3f   -     -   %4.3f   -     -     -   %4.3f %4.3f %4.3f  -\n",

@@ -1,5 +1,5 @@
 #include "Selections.h"
-#include "../../../../../Smurf/Core/SmurfTree.h"
+#include "../../Smurf/Core/SmurfTree.h"
 
 #include "TMath.h"
 #include <iostream> 

@@ -1,8 +1,8 @@
 #include "SmurfTopLooper.h"
 
-#include "../../../../../Smurf/Core/SmurfTree.h"
-#include "../../../../../Smurf/Analysis/HWWlvlv/OtherBkgScaleFactors_8TeV.h"
-#include "../../../NtupleMacros/Tools/goodrun.h"
+#include "../../Smurf/Core/SmurfTree.h"
+#include "../../Smurf/Analysis/HWWlvlv/OtherBkgScaleFactors_8TeV.h"
+#include "../../Tools/goodrun.h"
 #include "../core/Selections.h"
 #include "../core/SmurfPlotUtilities.h"
 #include "../core/SmurfSample.h"

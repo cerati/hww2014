@@ -2,7 +2,7 @@
 #include "TROOT.h"
 
 #include "SmurfSample.h"
-#include "../../../../../Smurf/Core/SmurfTree.h"
+#include "../../Smurf/Core/SmurfTree.h"
 #include "core/Selections.h"
 
 SmurfSample::SmurfSample()
