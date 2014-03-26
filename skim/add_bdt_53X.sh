@@ -82,8 +82,6 @@ fi
 # define a list of the files to analyze
 rm -f list_samples.txt;
 cat > list_samples.txt <<EOF
-www
-EOF
 data_ztt
 data
 qqww
@@ -122,6 +120,8 @@ zgamma_PassFail
 wglll_PassFail
 ttbar_powheg_PassFail
 ttbar_PassFail
+wgammafo
+zgammafo
 data_SS
 data_ztt_SS
 qqww_SS
@@ -143,9 +143,8 @@ dyll_SS
 wjets_SS
 ttbar_SS
 www_SS
-wgammafo
-zgammafo
 hww125_SS
+EOF
 
 
 # ===========================================
