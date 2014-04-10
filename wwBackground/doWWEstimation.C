@@ -17,9 +17,9 @@ void doWWEstimation(RunEra runEra = RUN2011AB){
     gSystem->Load("libEG.so");
     gSystem->Load("libMathCore.so");
 
-    gROOT->ProcessLine(".L ../../../../../Smurf/Core/SmurfTree.h+");
-    gROOT->ProcessLine(".L ../../../../../Smurf/Core/LeptonScaleLookup.cc+");
-    gROOT->ProcessLine(".L ../../../../NtupleMacros/Tools/goodrun.cc+");
+    gROOT->ProcessLine(".L ../../Smurf/Core/SmurfTree.h+");
+    gROOT->ProcessLine(".L ../../Smurf/Core/LeptonScaleLookup.cc+");
+    gROOT->ProcessLine(".L ../../Tools/goodrun.cc+");
     gROOT->ProcessLine(".L libSmurfWWLooper.so");
 
     // 
@@ -58,12 +58,9 @@ void doWWEstimation(RunEra runEra = RUN2011AB){
  
     for ( int i = 0; i < nHiggs ; i++) {
         doMassPoint(mHiggs[i], HWW_OPT_SMURFCUTSEL, runEra, mHiggs, WWBkgScaleFactorCutBased, WWBkgScaleFactorKappaCutBased);
-        //doMassPoint(mHiggs[i], HWW_OPT_SMURFMVASEL, runEra, mHiggs, WWBkgScaleFactorMVA, WWBkgScaleFactorKappaMVA);
-    }
-
-    for ( int i = 0; i < 1 ; i++) {
         doMassPoint(mHiggs[i], HWW_OPT_MT2DMLL, runEra, mHiggs, WWBkgScaleFactorMVA, WWBkgScaleFactorKappaMVA);
     }
+
 
     //
     // write the data/MC scale factors into the code

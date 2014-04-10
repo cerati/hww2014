@@ -19,9 +19,9 @@ void doTopEstimation(RunEra runEra = RUN2012)
     gSystem->Load("libEG.so");
     gSystem->Load("libMathCore.so");
 
-    gROOT->ProcessLine(".L ../../../../../Smurf/Core/SmurfTree.h+");
-    gROOT->ProcessLine(".L ../../../../../Smurf/Core/LeptonScaleLookup.cc+");
-    gROOT->ProcessLine(".L ../../../../NtupleMacros/Tools/goodrun.cc+");
+    gROOT->ProcessLine(".L ../../Smurf/Core/SmurfTree.h+");
+    gROOT->ProcessLine(".L ../../Smurf/Core/LeptonScaleLookup.cc+");
+    gROOT->ProcessLine(".L ../../Tools/goodrun.cc+");
     gROOT->ProcessLine(".L libSmurfTopLooper.so");
 
 
@@ -94,14 +94,6 @@ void doTopEstimation(RunEra runEra = RUN2012)
     // 
 
     // Top scale factor in the WW level
-/*
-    fputs("Double_t TopBkgScaleFactorKappa(Int_t jetBin) {\n", topsftext);
-    fputs("  assert(jetBin >=0 && jetBin <= 2);\n", topsftext);
-    fputs(Form("  Double_t TopBkgScaleFactorKappa[3] = { %.5f, %.5f, %.5f   };\n", 
-                TopBkgScaleFactorKappa[0], TopBkgScaleFactorKappa[1], TopBkgScaleFactorKappa[2]), topsftext);
-    fputs("  return TopBkgScaleFactorKappa[jetBin];\n", topsftext);
-    fputs("}\n", topsftext);
-*/
     fputs("Double_t TopBkgScaleFactor(Int_t jetBin) {\n", topsftext);
     fputs("  assert(jetBin >=0 && jetBin <= 2);\n", topsftext);
     fputs(Form("  Double_t TopBkgScaleFactor[3] = { %.5f, %.5f, %.5f   };\n", 
