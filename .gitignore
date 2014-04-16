@@ -1,0 +1,6 @@
+LinkDef_out.cxx
+LinkDef_out.h
+*.d
+*.o
+*.so
+*~
