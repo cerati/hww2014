@@ -25,9 +25,9 @@ void doTopEstimation(RunEra runEra = RUN2012)
     gROOT->ProcessLine(".L libSmurfTopLooper.so");
 
 
-    // Option option = WW_OPT_SMURFXSECSEL;
+    Option option = WW_OPT_SMURFXSECSEL;
     // Option option = HWW_OPT_SMURFPRESEL;
-    Option option = HWW_OPT_SMURFCUTSEL;
+    // Option option = HWW_OPT_SMURFCUTSEL;
 
     // 
     // initialize the scale factor and errors
@@ -204,7 +204,7 @@ void doMassPoint(const float analysis, Option option, RunEra runEra, double TopB
         sample_data->add(Form("%s/data.root", dataDir));
         sample_ttbar->add(Form("%s/ttbar_powheg.root", dataDir));
         sample_tw->add(Form("%s/tw.root", dataDir));
-        sample_qqww->add(Form("%s/qqww.root", dataDir));
+        sample_qqww->add(Form("%s/qqww_powheg.root", dataDir));
         sample_ggww->add(Form("%s/ggww.root", dataDir));
         sample_dyll->add(Form("%s/dyll.root", dataDir));
         sample_wz->add(Form("%s/wz.root", dataDir));
@@ -214,7 +214,7 @@ void doMassPoint(const float analysis, Option option, RunEra runEra, double TopB
         sample_wgamma->add(Form("%s/wglll.root", dataDir));
         sample_wgamma->add(Form("%s/www.root", dataDir));
         sample_wjets->add(Form("%s/data.root", dataDir));
-        sample_wjets->add(Form("%s/qqww.root", dataDir));
+        sample_wjets->add(Form("%s/qqww_powheg.root", dataDir));
         sample_wjets->add(Form("%s/ggww.root", dataDir));
         sample_wjets->add(Form("%s/ttbar_powheg.root", dataDir));
         sample_wjets->add(Form("%s/tw.root", dataDir));
@@ -225,14 +225,14 @@ void doMassPoint(const float analysis, Option option, RunEra runEra, double TopB
     // Yanyan's skims
     if ( skimData ) {
 
-        char *dataDir = "/smurf/jaehyeok/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets_19p5ifb_new/WW/"; // TAS
+        char *dataDir = "/smurf/cerati/skims/Run2012_Summer12_SmurfV9_53X-wwxsecfull8tev/WW/"; // TAS
         //char *dataDir  = "/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/WW/"; // UAF
 
         for ( int njet = 0; njet < 3; njet++) {
             sample_data->add(Form("%s/%ij/data.root", dataDir, njet));
             sample_ttbar->add(Form("%s/%ij/ttbar_powheg.root", dataDir, njet));
             sample_tw->add(Form("%s/%ij/tw.root", dataDir, njet));
-            sample_qqww->add(Form("%s/%ij/qqww.root", dataDir, njet));
+            sample_qqww->add(Form("%s/%ij/qqww_powheg.root", dataDir, njet));
             sample_ggww->add(Form("%s/%ij/ggww.root", dataDir, njet));
             sample_wz->add(Form("%s/%ij/wz.root", dataDir, njet));
             sample_zz->add(Form("%s/%ij/zz.root", dataDir, njet));
@@ -242,7 +242,7 @@ void doMassPoint(const float analysis, Option option, RunEra runEra, double TopB
             sample_wgamma->add(Form("%s/%ij/wglll.root", dataDir, njet));
             sample_wgamma->add(Form("%s/%ij/www.root", dataDir, njet));
             sample_wjets->add(Form("%s/%ij/data_PassFail.root", dataDir, njet));
-            sample_wjets->add(Form("%s/%ij/qqww_PassFail.root", dataDir, njet));
+            sample_wjets->add(Form("%s/%ij/qqww_powheg_PassFail.root", dataDir, njet));
             sample_wjets->add(Form("%s/%ij/ggww_PassFail.root", dataDir, njet));
             sample_wjets->add(Form("%s/%ij/ttbar_powheg_PassFail.root", dataDir, njet));
             sample_wjets->add(Form("%s/%ij/tw_PassFail.root", dataDir, njet));

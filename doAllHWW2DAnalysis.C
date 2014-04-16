@@ -145,7 +145,7 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
     bool skimwithmvass  = false;
 
     if ( skimwithmva) {
-        char *dataDir = "/smurf/jaehyeok/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets_19p5ifb_new/WW/"; // TAS 
+        char *dataDir = "/smurf/cerati/skims/Run2012_Summer12_SmurfV9_53X-wwxsecfull8tev/WW/"; // TAS 
         //char *dataDir = "/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/WW/"; // UAF
 
         if ( analysis > 0. ) {
@@ -366,7 +366,7 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
     // SS with skim + weights 
     //  
     if ( skimwithmvass) {
-        char *dataDir = "/smurf/jaehyeok/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets_19p5ifb/WW/"; // TAS
+        char *dataDir = "/smurf/cerati/skims/Run2012_Summer12_SmurfV9_53X-wwxsecfull8tev/WW/"; // TAS 
         //char *dataDir  = "/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/WW/"; // UAF
 
         if ( analysis > 0. ) {

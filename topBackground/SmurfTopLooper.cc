@@ -248,9 +248,9 @@ void SmurfTopLooper::loop(SmurfSample *sample)
 	    // input by hand the scale factors
 		  if ( option_ == WW_OPT_SMURFXSECSEL ) {
 			  if ( njets == 0 ) 
-				  weight = weight * 3.93;
+				  weight = weight * 5.1;//gc 3.93;
 			  if ( njets == 1 ) 
-				  weight = weight * 3.59;
+				  weight = weight * 3.9;//gc 3.59;
 			  if ( njets == 2 ) 
 				  weight = weight * 1.63;
 		  } else 

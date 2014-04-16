@@ -1,5 +1,6 @@
 #
 # script to skim smurf ntuples and add varibles
+# ./skim_all.sh /smurf/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets/ /smurf/cerati/skims/Run2012_Summer12_SmurfV9_53X-wwxsecfull8tev/
 # 
 
 INPUTDIR=$1

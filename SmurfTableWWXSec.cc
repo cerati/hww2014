@@ -61,7 +61,10 @@ float GetBackgroundEstimationSystematic(Option option ,DataType dataType, unsign
     double met          = 0.020;
     double pu           = 0.023;
     double trigger      = 0.015;
-    double jetVeto      = 0.047;
+    //double jetVeto      = 0.047;
+    double jetVeto      = sqrt(0.042*0.042+0.026*0.026+0.035*0.035);//gc where 4.2% from QCDscale_WW, 2.6% from QCDscale_WW1in, 3.5% from UEPS
+    if (jetbin==1)  jetVeto      = sqrt(0.076*0.076+0.086*0.086+0.035*0.035);//gc where 7.6% from QCDscale_WW1in, 8.6% from QCDscale_WW2in, 3.5% from UEPS
+    if (jetbin==2)  jetVeto      = 0.2;//gc fimxe
     double perElectron  = 0.020;
     double perMuon      = 0.015;
     double lepton = 2 * perMuon;
@@ -157,6 +160,7 @@ float GetBackgroundEstimationSystematic(Option option ,DataType dataType, unsign
     //
 
     else if (dataType == QQWW) {
+        //pdf 2.3%, scale 1.5% //gc
         return sqrt(mcSystNoLumi2 + 0.015*0.015 + 0.023*0.023);
     }
 
@@ -234,8 +238,9 @@ void SetYieldsAndUncertainties(Option option, double yield[][kNDataTypes], doubl
         nwght[fTOTAL][dataType] = nwght[fEE][dataType] + nwght[fEM][dataType] + nwght[fME][dataType] + nwght[fMM][dataType];
 
         // total up backgrounds
-        if (dataType != GGWW && dataType != QQWW && dataType != DATA &&
-                dataType != GGHWW && dataType != QQHWW && dataType != ZHWW && dataType != WHWW) {
+        if (dataType != GGWW && dataType != QQWW && dataType != DATA
+           //&& dataType != GGHWW && dataType != QQHWW && dataType != ZHWW && dataType != WHWW //gc higgs is background
+           ) {
 
             yield[fEE][0] += yield[fEE][dataType];
             yield[fEM][0] += yield[fEM][dataType];
@@ -319,14 +324,17 @@ void Tabulate(Option option, std::vector<SmurfSample*> samples, std::string file
     fprintf(fout_pas, "\\section{Yields}\n");
     fprintf(fout_pas, "\\subsection{Zero jet bin}\n\n");
     PrintWWYieldTable(option, 0, ((1<<fMM)|(1<<fME)|(1<<fEM)|(1<<fEE)), samples, fout_pas);    
+    PrintWWYieldTable(option, 0, ((1<<fOF)|(1<<fSF)), samples, fout_pas);//gc
     PrintWWYieldTable(option, 0, (1<<fTOTAL), samples, fout_pas);    
     fprintf(fout_pas, "\\clearpage\n");
     fprintf(fout_pas, "\\subsection{One jet bin}\n\n");
     PrintWWYieldTable(option, 1, ((1<<fMM)|(1<<fME)|(1<<fEM)|(1<<fEE)), samples, fout_pas);    
+    PrintWWYieldTable(option, 1, ((1<<fOF)|(1<<fSF)), samples, fout_pas);//gc
     PrintWWYieldTable(option, 1, (1<<fTOTAL), samples, fout_pas);                              
     fprintf(fout_pas, "\\clearpage\n");
     fprintf(fout_pas, "\\subsection{Two jet bin}\n\n");
     PrintWWYieldTable(option, 2, ((1<<fMM)|(1<<fME)|(1<<fEM)|(1<<fEE)), samples, fout_pas);    
+    PrintWWYieldTable(option, 2, ((1<<fOF)|(1<<fSF)), samples, fout_pas);//gc
     PrintWWYieldTable(option, 2, (1<<fTOTAL), samples, fout_pas);                              
     fprintf(fout_pas, "\\clearpage\n");
 
@@ -1286,7 +1294,7 @@ void PrintWWYieldTable(Option option, unsigned int jetbin, unsigned int flavors,
     }
     fprintf(fout, "\\\\ \n");
 
-/*
+    //gc add higgs
     fprintf(fout, "$qqHWW$\t");
     for (unsigned int flav = 0; flav < kLeptonTypes; ++flav) {
         if (((1<<flav) & flavors) != (1<<flav)) continue;
@@ -1301,7 +1309,7 @@ void PrintWWYieldTable(Option option, unsigned int jetbin, unsigned int flavors,
             yield[flav][GGHWW], sqrt(stat2[flav][GGHWW]), sqrt(syst2[flav][GGHWW]));
     }
     fprintf(fout, "\\\\ \n");
-*/
+    //gc add higgs
 
     fprintf(fout, "$t\\bar{t} + tW$\t");
     for (unsigned int flav = 0; flav < kLeptonTypes; ++flav) {
@@ -1353,9 +1361,9 @@ void PrintWWYieldTable(Option option, unsigned int jetbin, unsigned int flavors,
     for (unsigned int flav = 0; flav < kLeptonTypes; ++flav) {
         if (((1<<flav) & flavors) != (1<<flav)) continue;
         fprintf(fout, "& $%4.2f \\pm %4.2f \\pm %4.2f $\t",
-        yield[flav][ZLL] + yield[flav][ZJETS],
-        sqrt(stat2[flav][ZLL] + stat2[flav][ZJETS]),
-        sqrt(syst2[flav][ZLL] + syst2[flav][ZJETS]));
+	yield[flav][ZLL] + yield[flav][ZJETS] + yield[flav][ZTT],
+        sqrt(stat2[flav][ZLL] + stat2[flav][ZJETS] + stat2[flav][ZTT]),
+        sqrt(syst2[flav][ZLL] + syst2[flav][ZJETS] + syst2[flav][ZTT]));
     }
     fprintf(fout, "\\\\ \n");
     fprintf(fout, "$W\\gamma*/W+\\gamma$\t");

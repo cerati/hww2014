@@ -164,7 +164,7 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
             sample_whww->add(Form("%s/hww%i.root", dataDir, int(analysis)));
         }
         // bkgs
-        sample_qqww->add(Form("%s/qqww.root", dataDir));
+        sample_qqww->add(Form("%s/qqww_powheg.root", dataDir));
         sample_ggww->add(Form("%s/ggww.root", dataDir));
         sample_dyll->add(Form("%s/dyll.root", dataDir));
         //sample_zjets->add(Form("%s/dyll.root", dataDir));
@@ -182,7 +182,7 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
         sample_wg3l->add(Form("%s/wglll.root", dataDir));
 
         sample_wjetsEle->add(Form("%s/data.root", dataDir));
-        sample_wjetsEle->add(Form("%s/qqww.root", dataDir));
+        sample_wjetsEle->add(Form("%s/qqww_powheg.root", dataDir));
         sample_wjetsEle->add(Form("%s/ggww.root", dataDir));
         sample_wjetsEle->add(Form("%s/ttbar.root", dataDir));
         sample_wjetsEle->add(Form("%s/tw.root", dataDir));
@@ -194,7 +194,7 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
         sample_wjetsEle->add(Form("%s/dyll.root", dataDir));
 
         sample_wjetsMu->add(Form("%s/data.root", dataDir));
-        sample_wjetsMu->add(Form("%s/qqww.root", dataDir));
+        sample_wjetsMu->add(Form("%s/qqww_powheg.root", dataDir));
         sample_wjetsMu->add(Form("%s/ggww.root", dataDir));
         sample_wjetsMu->add(Form("%s/ttbar.root", dataDir));
         sample_wjetsMu->add(Form("%s/tw.root", dataDir));
@@ -213,7 +213,7 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
     if ( skimdata ) {
 
         // examples of using the unskimed files 
-        char *dataDir = "/smurf/jaehyeok/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets_19p5ifb_new/WW/"; // TAS
+        char *dataDir = "/smurf/cerati/skims/Run2012_Summer12_SmurfV9_53X-wwxsecfull8tev/WW/"; // TAS
         //char *dataDir  = "/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/WW/"; // UAF
         for ( int jetbin = 0; jetbin < 3 ; jetbin++) {
 
@@ -235,7 +235,7 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
             }
 
             // bkgs
-            sample_qqww->add(Form("%s/%ij/qqww.root", dataDir, jetbin));
+            sample_qqww->add(Form("%s/%ij/qqww_powheg.root", dataDir, jetbin));
             sample_ggww->add(Form("%s/%ij/ggww.root", dataDir, jetbin));
             sample_dyll->add(Form("%s/%ij/dyll.root", dataDir, jetbin));
             //sample_dyll_loosemet->add(Form("%s/%ij/dyll.root", dataDir, jetbin));
@@ -261,7 +261,7 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
             // sample_wjets->add(Form("%s/%ij/wjets_data.root", dataDir, jetbin));    
             // use directly the unmerged files
             sample_wjetsEle->add(Form("%s/%ij/data_PassFail.root", dataDir, jetbin));
-            sample_wjetsEle->add(Form("%s/%ij/qqww_PassFail.root", dataDir, jetbin));
+            sample_wjetsEle->add(Form("%s/%ij/qqww_powheg_PassFail.root", dataDir, jetbin));
             sample_wjetsEle->add(Form("%s/%ij/ggww_PassFail.root", dataDir, jetbin));
             sample_wjetsEle->add(Form("%s/%ij/ttbar_powheg_PassFail.root", dataDir, jetbin));
             sample_wjetsEle->add(Form("%s/%ij/tw_PassFail.root", dataDir, jetbin));
@@ -273,7 +273,7 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
             sample_wjetsEle->add(Form("%s/%ij/dyll_PassFail.root", dataDir, jetbin));
 
             sample_wjetsMu->add(Form("%s/%ij/data_PassFail.root", dataDir, jetbin));
-            sample_wjetsMu->add(Form("%s/%ij/qqww_PassFail.root", dataDir, jetbin));
+            sample_wjetsMu->add(Form("%s/%ij/qqww_powheg_PassFail.root", dataDir, jetbin));
             sample_wjetsMu->add(Form("%s/%ij/ggww_PassFail.root", dataDir, jetbin));
             sample_wjetsMu->add(Form("%s/%ij/ttbar_powheg_PassFail.root", dataDir, jetbin));
             sample_wjetsMu->add(Form("%s/%ij/tw_PassFail.root", dataDir, jetbin));
@@ -302,12 +302,12 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
     if ( skimdatass ) {
 
         // examples of using the unskimed files 
-        char *dataDir = "/smurf/jaehyeok/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets_19p5ifb_new/WW/"; // TAS
+        char *dataDir = "/smurf/cerati/skims/Run2012_Summer12_SmurfV9_53X-wwxsecfull8tev/WW/"; // TAS
         //char *dataDir  = "/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/WW/"; // UAF
         for ( int jetbin = 0; jetbin < 3 ; jetbin++) {
 
             // bkgs
-            sample_qqww->add(Form("%s/%ij/qqww_SS.root", dataDir, jetbin));
+            sample_qqww->add(Form("%s/%ij/qqww_powheg_SS.root", dataDir, jetbin));
             sample_ggww->add(Form("%s/%ij/ggww_SS.root", dataDir, jetbin));
             sample_dyll->add(Form("%s/%ij/dyll_SS.root", dataDir, jetbin));
             //sample_dyll_loosemet->add(Form("%s/%ij/dyll_SS.root", dataDir, jetbin));
@@ -331,7 +331,7 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
             // sample_wjets->add(Form("%s/%ij/wjets_data.root", dataDir, jetbin));    
             // use directly the unmerged files
             sample_wjetsEle->add(Form("%s/%ij/data_SS.root", dataDir, jetbin));
-            sample_wjetsEle->add(Form("%s/%ij/qqww_SS.root", dataDir, jetbin));
+            sample_wjetsEle->add(Form("%s/%ij/qqww_powheg_SS.root", dataDir, jetbin));
             sample_wjetsEle->add(Form("%s/%ij/ggww_SS.root", dataDir, jetbin));
             sample_wjetsEle->add(Form("%s/%ij/ttbar_powheg_SS.root", dataDir, jetbin));
             sample_wjetsEle->add(Form("%s/%ij/tw_SS.root", dataDir, jetbin));
@@ -343,7 +343,7 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
             sample_wjetsEle->add(Form("%s/%ij/dyll_SS.root", dataDir, jetbin));
 
             sample_wjetsMu->add(Form("%s/%ij/data_SS.root", dataDir, jetbin));
-            sample_wjetsMu->add(Form("%s/%ij/qqww_SS.root", dataDir, jetbin));
+            sample_wjetsMu->add(Form("%s/%ij/qqww_powheg_SS.root", dataDir, jetbin));
             sample_wjetsMu->add(Form("%s/%ij/ggww_SS.root", dataDir, jetbin));
             sample_wjetsMu->add(Form("%s/%ij/ttbar_powheg_SS.root", dataDir, jetbin));
             sample_wjetsMu->add(Form("%s/%ij/tw_SS.root", dataDir, jetbin));
@@ -501,7 +501,7 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
       // Wjets 
       for (int njet=0; njet < 1; njet++) {
         sample_wjetsEle->add(Form("%s/mva/%i/data_PassFail_%ij.root", dataDir, int(analysis), njet));
-        sample_wjetsEle->add(Form("%s/mva/%i/qqww_PassFail_%ij.root", dataDir, int(analysis), njet));
+        sample_wjetsEle->add(Form("%s/mva/%i/qqww_powheg_PassFail_%ij.root", dataDir, int(analysis), njet));
         sample_wjetsEle->add(Form("%s/mva/%i/ggww_PassFail_%ij.root", dataDir, int(analysis), njet));
         sample_wjetsEle->add(Form("%s/mva/%i/ttbar_powheg_PassFail_%ij.root", dataDir, int(analysis), njet));
         sample_wjetsEle->add(Form("%s/mva/%i/tw_PassFail_%ij.root", dataDir, int(analysis), njet));
@@ -513,7 +513,7 @@ void doMassPoint(float analysis, Option option, RunEra runEra)
         sample_wjetsEle->add(Form("%s/mva/%i/dyll_PassFail_%ij.root", dataDir, int(analysis), njet));
 
         sample_wjetsMu->add(Form("%s/mva/%i/data_PassFail_%ij.root", dataDir, int(analysis), njet));
-        sample_wjetsMu->add(Form("%s/mva/%i/qqww_PassFail_%ij.root", dataDir, int(analysis), njet));
+        sample_wjetsMu->add(Form("%s/mva/%i/qqww_powheg_PassFail_%ij.root", dataDir, int(analysis), njet));
         sample_wjetsMu->add(Form("%s/mva/%i/ggww_PassFail_%ij.root", dataDir, int(analysis), njet));
         sample_wjetsMu->add(Form("%s/mva/%i/ttbar_powheg_PassFail_%ij.root", dataDir, int(analysis), njet));
         sample_wjetsMu->add(Form("%s/mva/%i/tw_PassFail_%ij.root", dataDir, int(analysis), njet));

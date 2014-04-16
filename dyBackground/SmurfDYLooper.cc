@@ -187,7 +187,7 @@ void SmurfDYLooper::loop(SmurfSample *sample)
 	  bool passDY = true; // toplogoical cuts based on dphi
 	  bool passMET = true;
 	  
-	  if (  njets > 1 || (option_ ==  WW_OPT_SMURFXSECSEL) ) {
+	  if (  njets > 1 ) {//gc  || (option_ ==  WW_OPT_SMURFXSECSEL)
 	    if ( ! hww_dy_selection(tree) ) passDY = false;
 	    if ( ! hww_sfmet_selection(tree) )   passMET = false;
 	  } else {
@@ -249,7 +249,7 @@ void SmurfDYLooper::loop(SmurfSample *sample)
 	  // for the WW xec measurement
 	  if ( analysis_ == 0  && tree->lep2_.Pt() < 20. && (option_ ==  WW_OPT_SMURFXSECSEL) ) continue;
 
-      if ( option_ == HWW_OPT_SMURFPRESEL ) {
+      if ( option_ == HWW_OPT_SMURFPRESEL || (option_ ==  WW_OPT_SMURFXSECSEL) ) {//gc add SMURFXSECSEL
           if( tree->dilep_.Pt() < 45.) continue;
       }  
 

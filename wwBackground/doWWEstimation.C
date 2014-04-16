@@ -216,7 +216,7 @@ void doMassPoint(float analysis, Option option, RunEra runEra, int mHiggs[15],
 
 
     if ( skimData) {
-        char *dataDir = "/smurf/jaehyeok/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets_19p5ifb_new/WW/"; // TAS
+        char *dataDir = "/smurf/cerati/skims/Run2012_Summer12_SmurfV9_53X-wwxsecfull8tev/WW/"; // TAS
         //char *dataDir  = "/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/WW/"; // UAF
 
         for (int jetbin = 0; jetbin < 2; jetbin++) {

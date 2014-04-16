@@ -78,7 +78,8 @@ bool hww_pass_wwBaseline(SmurfTree *tree, const Option option)
     if ( tree->type_ == 0 || tree->type_ == 3 ) { 
         if ( tree->dilep_.Pt() <=  45)  return false;   
     }
-    if ( option != XWW_OPT_MT2DMLL_JCP && option != HWW_OPT_MT2DMLL_JCP && option != HWW_OPT_MT2DMLL && option !=HWW_OPT_SSCTL2D && option != HWW_OPT_SMURFPRESEL)  
+    if ( option != XWW_OPT_MT2DMLL_JCP && option != HWW_OPT_MT2DMLL_JCP && option != HWW_OPT_MT2DMLL
+	 && option !=HWW_OPT_SSCTL2D && option != HWW_OPT_SMURFPRESEL && option !=WW_OPT_SMURFXSECSEL)//gc add SMURFXSECSEL
         if ( tree->dilep_.Pt() <=  45)  return false;  
     if (tree->dilep_.mass() <= 12.0) return false; 
     if (std::min(tree->pmet_, tree->pTrackMet_) < 20.) return false;

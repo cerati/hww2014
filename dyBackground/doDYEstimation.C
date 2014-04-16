@@ -56,22 +56,22 @@ void doDYEstimation(RunEra runEra = RUN2012)
     // configuration  
     //
     bool runWWXSec = 1; 
-    bool runWWPresel = 1;
-    bool run115 = 1;
-    bool run120 = 1;
-    bool run125 = 1;
-    bool run130 = 1; 
-    bool run135 = 1; 
-    bool run140 = 1; 
-    bool run145 = 1; 
-    bool run150 = 1; 
-    bool run160 = 1; 
-    bool run170 = 1; 
-    bool run180 = 1; 
-    bool run190 = 1; 
-    bool run200 = 1; 
-    bool run250 = 1; 
-    bool run300 = 1;
+    bool runWWPresel = 0;
+    bool run115 = 0;
+    bool run120 = 0;
+    bool run125 = 0;
+    bool run130 = 0; 
+    bool run135 = 0; 
+    bool run140 = 0; 
+    bool run145 = 0; 
+    bool run150 = 0; 
+    bool run160 = 0; 
+    bool run170 = 0; 
+    bool run180 = 0; 
+    bool run190 = 0; 
+    bool run200 = 0; 
+    bool run250 = 0; 
+    bool run300 = 0;
     bool run350 = 0;
     bool run400 = 0;
     bool run450 = 0;
@@ -413,7 +413,7 @@ void doMassPoint(float analysis, Option option, RunEra runEra, int mHiggs[20],
     SmurfSample *sample_vv = new SmurfSample(option, VV, kGreen, "VV", analysis);
 
     // examples of using the unskimed files 
-    char *dataDir = "/smurf/jaehyeok/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets_19p5ifb_new/dyskim/"; // TAS
+    char *dataDir = "/smurf/cerati/skims/Run2012_Summer12_SmurfV9_53X-wwxsecfull8tev/dyskim/"; // TAS
     //char *dataDir = "/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/dyskim/"; // UAF
     sample_data->add(Form("%s/data.root", dataDir));    
     sample_dyll->add(Form("%s/dyll.root", dataDir));

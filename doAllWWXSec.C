@@ -102,7 +102,7 @@ void doAnalysis(const Option option, const RunEra runEra, bool doPlots, float an
     // add the data files
     for ( int jetbin = 0; jetbin <= 2 ; jetbin++) {
 
-        std::string dataPrefix  = Form("/smurf/jaehyeok/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets_19p5ifb_new/WW/%ij/", jetbin); // TAS
+      std::string dataPrefix  = Form("/smurf/cerati/skims/Run2012_Summer12_SmurfV9_53X-wwxsecfull8tev/WW/%ij/", jetbin); // TAS
         //std::string dataPrefix  = Form("/nfs-7/userdata/jaehyeok/smurfntuples/mitf-alljets/WW/%ij/", jetbin); // UAF
         std::string dataSuffix  = ".root";
         if (skimss) {
@@ -113,7 +113,7 @@ void doAnalysis(const Option option, const RunEra runEra, bool doPlots, float an
         // add the files
         //
 
-        if ((analysis > 0. || (option == HWW_OPT_SMURFPRESEL)) && !skimss) {
+	if ((analysis > 0. || (option == HWW_OPT_SMURFPRESEL) || (option == WW_OPT_SMURFXSECSEL)) && !skimss) {//gc add SMURFXSECSEL
             sample_gghww->add(Form("%s/hww%i%s", dataPrefix.c_str(), 125, dataSuffix.c_str()));
             sample_qqhww->add(Form("%s/hww%i%s", dataPrefix.c_str(), 125, dataSuffix.c_str()));
             sample_whww->add(Form("%s/hww%i%s", dataPrefix.c_str(), 125, dataSuffix.c_str()));
@@ -121,7 +121,7 @@ void doAnalysis(const Option option, const RunEra runEra, bool doPlots, float an
         }
 
         sample_data->add(Form("%s/data%s", dataPrefix.c_str(), dataSuffix.c_str()));
-        sample_qqww->add(Form("%s/qqww%s", dataPrefix.c_str(), dataSuffix.c_str()));
+        sample_qqww->add(Form("%s/qqww_powheg%s", dataPrefix.c_str(), dataSuffix.c_str()));
         sample_ggww->add(Form("%s/ggww%s", dataPrefix.c_str(), dataSuffix.c_str()));
         sample_dyll->add(Form("%s/dyll%s", dataPrefix.c_str(), dataSuffix.c_str()));
         sample_top->add(Form("%s/ttbar_powheg%s", dataPrefix.c_str(), dataSuffix.c_str()));
@@ -131,6 +131,7 @@ void doAnalysis(const Option option, const RunEra runEra, bool doPlots, float an
         sample_wgamma->add(Form("%s/wgamma%s", dataPrefix.c_str(), dataSuffix.c_str()));
         sample_wgamma->add(Form("%s/zgamma%s", dataPrefix.c_str(), dataSuffix.c_str()));
         sample_wgamma->add(Form("%s/wglll%s", dataPrefix.c_str(), dataSuffix.c_str()));
+        sample_ztt->add(Form("%s/data_ztt%s", dataPrefix.c_str(), dataSuffix.c_str()));//gc add ztt
 
         // use directly the unmerged files
         std::string dataSuffixFR  = "_PassFail.root";
@@ -138,7 +139,7 @@ void doAnalysis(const Option option, const RunEra runEra, bool doPlots, float an
             dataSuffixFR  = "_SS.root";
         }
         sample_wjetsEle->add(Form("%s/data%s", dataPrefix.c_str(), dataSuffixFR.c_str()));
-        sample_wjetsEle->add(Form("%s/qqww%s", dataPrefix.c_str(), dataSuffixFR.c_str()));
+        sample_wjetsEle->add(Form("%s/qqww_powheg%s", dataPrefix.c_str(), dataSuffixFR.c_str()));
         sample_wjetsEle->add(Form("%s/ggww%s", dataPrefix.c_str(), dataSuffixFR.c_str()));
         sample_wjetsEle->add(Form("%s/ttbar_powheg%s", dataPrefix.c_str(), dataSuffixFR.c_str()));
         sample_wjetsEle->add(Form("%s/tw%s", dataPrefix.c_str(), dataSuffixFR.c_str()));
@@ -150,7 +151,7 @@ void doAnalysis(const Option option, const RunEra runEra, bool doPlots, float an
         sample_wjetsEle->add(Form("%s/dyll%s", dataPrefix.c_str(), dataSuffixFR.c_str()));
 
         sample_wjetsMu->add(Form("%s/data%s", dataPrefix.c_str(), dataSuffixFR.c_str()));
-        sample_wjetsMu->add(Form("%s/qqww%s", dataPrefix.c_str(), dataSuffixFR.c_str()));
+        sample_wjetsMu->add(Form("%s/qqww_powheg%s", dataPrefix.c_str(), dataSuffixFR.c_str()));
         sample_wjetsMu->add(Form("%s/ggww%s", dataPrefix.c_str(), dataSuffixFR.c_str()));
         sample_wjetsMu->add(Form("%s/ttbar_powheg%s", dataPrefix.c_str(), dataSuffixFR.c_str()));
         sample_wjetsMu->add(Form("%s/tw%s", dataPrefix.c_str(), dataSuffixFR.c_str()));
@@ -179,7 +180,7 @@ void doAnalysis(const Option option, const RunEra runEra, bool doPlots, float an
     looper->loop(sample_wgamma);
     looper->loop(sample_ztt);
 
-    if (analysis > 0. || (option == HWW_OPT_SMURFPRESEL)) {
+    if (analysis > 0. || (option == HWW_OPT_SMURFPRESEL) || (option == WW_OPT_SMURFXSECSEL) {//gc add SMURFXSECSEL
         looper->loop(sample_gghww);
         looper->loop(sample_qqhww);
         looper->loop(sample_whww);
@@ -216,6 +217,13 @@ void doAnalysis(const Option option, const RunEra runEra, bool doPlots, float an
     samplesToTabulate.push_back(sample_wjetsMu);
     samplesToTabulate.push_back(sample_wgamma);
     samplesToTabulate.push_back(sample_ztt);
+    //gc
+    if (option == WW_OPT_SMURFXSECSEL)) {
+      samplesToTabulate.push_back(sample_gghww);
+      samplesToTabulate.push_back(sample_qqhww);
+      samplesToTabulate.push_back(sample_whww);
+      samplesToTabulate.push_back(sample_zhww);
+    }
 
     gSystem->mkdir("../wwresults", true);
 
@@ -276,7 +284,7 @@ void doAnalysis(const Option option, const RunEra runEra, bool doPlots, float an
                 
                 const char *dir = "../wwplots/";
                 c_ptWW->SaveAs(Form("%s/hww_analysis%i_%i_ALL_%s_%s_ptWW.pdf", dir, option, int(analysis), types[i], jetbin_names[j]));
-
+		c_met->SaveAs(Form("%s/hww_analysis%i_%i_ALL_%s_%s_met.png", dir, option, int(analysis), types[i], jetbin_names[j]));
 
                 TCanvas *c1_big = new TCanvas("c1_big", "c1_big", 800, 1000);
                 c1_big->Divide(2, 2);

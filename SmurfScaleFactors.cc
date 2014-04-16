@@ -37,12 +37,19 @@ void getTopScaleFactor(double *sf, double *err, Option option, float mass)
   err[2] = TopVBFBkgScaleFactorKappa(0) -1; 
  
   if ( option == WW_OPT_SMURFXSECSEL) {
-    sf[0] = 1.182;
-    err[0] = 0.205;
-    sf[1] = 1.086;
-    err[1] = 0.055;
-    sf[2] = 1.106;
-    err[2] = 0.057;
+    //gc fixme
+    sf[0] = 1.10959;
+    err[0] = 1.13549-1.;
+    sf[1] = 1.08424;
+    err[1] = 1.02863-1.;
+    sf[2] = 1.28938;
+    err[2] = 1.02916-1.;
+    //     sf[0] = 1.182;
+    //     err[0] = 0.205;
+    //     sf[1] = 1.086;
+    //     err[1] = 0.055;
+    //     sf[2] = 1.106;
+    //     err[2] = 0.057;
   }
 
   // Apply the ww level scale factors for the 2-jet bin 
@@ -88,12 +95,13 @@ void getZScaleFactor(double *sf, double *err, Option option, double mass, std::s
 	}
 
 	if ( option == WW_OPT_SMURFXSECSEL && flavor == "sf") {
-		sf[0] = 3.62;
-		err[0] = 17.47/59.46; // only the systematic part 
-		sf[1] = 3.66;
-		err[1] = 11.38/87.38; // only the systematic part 
-		sf[2] = 2.03;
-		err[2] = 24.16/178.71; // only the systematic part 
+	  //gc fixme
+	  //sf[0] = 3.62;
+	  err[0] = 41.2/137.4;//17.47/59.46; // only the systematic part
+	  //sf[1] = 3.66;
+	  err[1] = 19.3/64.2;//11.38/87.38; // only the systematic part
+	  //sf[2] = 2.03;
+	  err[2] = 24.16/178.71; // only the systematic part
 	}
 
 }
