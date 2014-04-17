@@ -180,7 +180,7 @@ void doAnalysis(const Option option, const RunEra runEra, bool doPlots, float an
     looper->loop(sample_wgamma);
     looper->loop(sample_ztt);
 
-    if (analysis > 0. || (option == HWW_OPT_SMURFPRESEL) || (option == WW_OPT_SMURFXSECSEL) {//gc add SMURFXSECSEL
+    if (analysis > 0. || (option == HWW_OPT_SMURFPRESEL) || (option == WW_OPT_SMURFXSECSEL)) {//gc add SMURFXSECSEL
         looper->loop(sample_gghww);
         looper->loop(sample_qqhww);
         looper->loop(sample_whww);
