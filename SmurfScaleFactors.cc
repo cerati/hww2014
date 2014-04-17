@@ -38,6 +38,7 @@ void getTopScaleFactor(double *sf, double *err, Option option, float mass)
  
   if ( option == WW_OPT_SMURFXSECSEL) {
     //gc fixme
+    //these are obtained from data driven estimation, need to make those not hardcoded
     sf[0] = 1.10959;
     err[0] = 1.13549-1.;
     sf[1] = 1.08424;
@@ -96,10 +97,11 @@ void getZScaleFactor(double *sf, double *err, Option option, double mass, std::s
 
 	if ( option == WW_OPT_SMURFXSECSEL && flavor == "sf") {
 	  //gc fixme
-	  //sf[0] = 3.62;
-	  err[0] = 41.2/137.4;//17.47/59.46; // only the systematic part
-	  //sf[1] = 3.66;
-	  err[1] = 19.3/64.2;//11.38/87.38; // only the systematic part
+	  //these are obtained from data driven estimation, need to make those not hardcoded
+	  sf[0] =  5.01;//3.62;
+	  err[0] = 41.7/139.1;//17.47/59.46; // only the systematic part
+	  sf[1] = 3.78;//3.66;
+	  err[1] = 19.2/64.1;//11.38/87.38; // only the systematic part
 	  //sf[2] = 2.03;
 	  err[2] = 24.16/178.71; // only the systematic part
 	}
